@@ -161,4 +161,7 @@ input[type='file']{
     padding-left:8%;
     padding-right:8%;
   }
+  #nav-title{
+    visibility: hidden !important;
+  }
 }
