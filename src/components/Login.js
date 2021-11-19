@@ -21,7 +21,7 @@ function Login({handleLogged }) {
     }
 
     const handleLogin=(e)=>{
-        history.push('/page')
+        history.push('/logday')
     }
     return(
         <React.Fragment>

@@ -1,10 +1,10 @@
 import React,{useState} from "react";
 import Nav from './Nav'
-function LogDay() {
-    const [questions, setQuestions] = useState([['Number of push ups','number'],
+function LogDay(props) {
+/*    const [questions, setQuestions] = useState([['Number of push ups','number'],
                                                         ['Had a long walk today','number'],
                                                         ['One great thing that happened today','text'],
-                                                        ['Today was a','radio']])
+                                                        ['Today was a','radio']])*/
     return(
         <React.Fragment>
             <Nav/>
@@ -15,7 +15,7 @@ function LogDay() {
                         <span className="material-icons">add_circle_outline</span>
                     </div>
                     <div className = 'log-form'>
-                        {(questions).map(item => (
+                        {(props.questions).map(item => (
                             <div className='question' id = {item._id} key={item._id} >
                                 {item[0]}
                                 <input type={item[1]}/>
