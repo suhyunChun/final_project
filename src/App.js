@@ -9,10 +9,10 @@ import ViewData from "./components/pages/ViewData";
 import ProfileForm from "./components/pages/ProfileForm";
 
 function App() {
-    const [questions, setQuestions] = useState([['Number of push ups','number'],
-        ['Had a long walk today','number'],
-        ['One great thing that happened today','text'],
-        ['Today was a','radio']])
+    const [questions, setQuestions] = useState([{text:'Number of push ups',type:'number'},
+            {text:'Had a long walk today',type:'number'},
+            {text:'One great thing that happened today',type:'text'},
+            {text:'Today was a',type:'multiple'}])
       return (
           <div className="App">
             <header className="App-header">
