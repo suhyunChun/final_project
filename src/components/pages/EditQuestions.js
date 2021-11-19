@@ -23,6 +23,9 @@ function EditQuestions(props) {
         updatedQ = updatedQ.concat({text:'', type:'number'})
         setQuestionList(updatedQ)
     }
+    const handleDeletion=(event)=>{
+
+    }
 
     return(
         <React.Fragment>
