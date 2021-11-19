@@ -18,13 +18,19 @@ function EditQuestions(props) {
     const handleSubmit=()=>{
         props.setQuestions(questionList)
     }
+    const handleAddition=()=>{
+        let updatedQ = [...questionList]
+        updatedQ = updatedQ.concat({text:'', type:'number'})
+        setQuestionList(updatedQ)
+    }
+
     return(
         <React.Fragment>
             <Nav/>
             <form>
                 <div id="edit">
                     <h2> Edit Questions</h2>
-                    <span className="material-icons">add_circle_outline</span>
+                    <span className="material-icons" onClick={handleAddition}>add_circle_outline</span>
                     {questionList.map(item => (
                         <div className='edit-question' id = {item._id} key={item._id}>
                             <label htmlFor = 'edit-text'/>
