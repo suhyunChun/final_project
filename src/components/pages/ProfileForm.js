@@ -7,29 +7,31 @@ function ProfileForm(){
             <div id="profile-form" >
                 <form className='profile-content'>
                     <div className="profile-container">
-                        <h1>Edit Profile
-                            <button type="button" className="cancle-btn" >
-                                <span title="Close Modal"> &times;</span>
-                            </button>
-                        </h1>
-                        <div className="photo">
-                            <img
-                                className='profile'
-                                src= 'defaultProfile.png'
-                                alt='profile'/>
-                            <label className = 'newImg'>
-                                <input type="file"  name="image" accept="image/*" id="cloudinary" className = 'newImg'/>
-                                Choose New Image
+                        <h2>Edit Profile</h2>
+                        <div className = 'Profile-photo'>
+                            <h3>Profile photo</h3>
+                            <div className="photo">
+                                <img
+                                    className='profile_picture'
+                                    src= 'defaultProfile.png'
+                                    alt='profile'
+                                />
+                                <label className = 'newImg'>
+                                    <input type="file"  name="image" accept="image/*" id="cloudinary" className = 'newImg'/>
+                                    Choose New Image
 
-                            </label>
-                            <button type="button" className="removeImg" >Remove Image</button>
+                                </label>
+                                <button type="button" className="removeImg" >Remove Image</button>
                         </div>
-                        <label id='name'>Name</label>
+                        </div>
+                        <label id='name'><h3>Name</h3></label>
                         <input type="text" name="name"/>
-                        <label id='email'>Email</label>
+
+                        <label id='email'><h3>Email</h3></label>
                         <input type="text" name="email"/>
-                        <label id='location'>Location</label>
+                        <label id='location'><h3>Address</h3></label>
                         <input type="text" name="location" />
+                        <input type ='text' name ='location-detail'/>
                         <div className="clearfix">
                             <button  type = 'submit' className='save'>
                                 Save

@@ -13,7 +13,7 @@ function App() {
       const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number'},
             {_id : uuidv4(), text:'Had a long walk today',type:'number'},
             {_id : uuidv4(), text:'One great thing that happened today',type:'text'},
-            {_id : uuidv4(), text:'Today was a',type:'multiple'}])
+            {_id : uuidv4(), text:'Today was a',type:'radio'}])
 
       const handleQ=(q)=>{
           setQuestions(q)
