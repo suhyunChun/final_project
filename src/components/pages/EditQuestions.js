@@ -1,56 +1,64 @@
 import React,{useState} from "react";
 import Nav from './Nav'
+import { v4 as uuidv4 } from 'uuid';
+
 function EditQuestions(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
-    console.log(questionList)
 
     const onChangeInput = (event) => {
-    /*    const target = event.target;
-        const value = target.value;
-        const name = target.name;
-        console.log(target)
-        let updatedQ = [...questionList]
-        updatedQ[name] = value
-
-        //const updatedQ= {...questionList, [name]: value};
-        setQuestionList(updatedQ);*/
+        let newQuestionList = [...questionList]
+        const selectedId = event.target.id
+        for (let i = 0; i < newQuestionList.length; i++){
+            if(newQuestionList[i]._id === selectedId){
+                if(event.target.className === 'edit-text'){
+                    newQuestionList[i].text = event.target.value
+                }else{
+                    newQuestionList[i].type = event.target.value
+                }
+            }
+        }
+        setQuestionList(newQuestionList)
     }
-    const handleSubmit=()=>{
+    const handleSubmit=(e)=>{
+        e.preventDefault()
         props.setQuestions(questionList)
+        console.log(props.questions)
     }
     const handleAddition=()=>{
         let updatedQ = [...questionList]
-        updatedQ = updatedQ.concat({text:'', type:'number'})
+        updatedQ = updatedQ.concat({_id: uuidv4(), text:'', type:'number'})
         setQuestionList(updatedQ)
     }
-    const handleDeletion=(event)=>{
-
+    const handleDeletion=(e)=>{
+        let updatedQ = [...questionList]
+        updatedQ = updatedQ.filter((item)=> item._id !== e.target.id)
+        setQuestionList(updatedQ)
     }
 
     return(
         <React.Fragment>
             <Nav/>
-            <form>
                 <div id="edit">
                     <h2> Edit Questions</h2>
                     <span className="material-icons" onClick={handleAddition}>add_circle_outline</span>
                     {questionList.map(item => (
                         <div className='edit-question' id = {item._id} key={item._id}>
                             <label htmlFor = 'edit-text'/>
-                            <input id = 'edit-text' value ={item.text} onChange = {onChangeInput}/>
+                            <input className = 'edit-text' id = {item._id} value ={item.text} onChange={onChangeInput}/>
                             <label htmlFor = 'edit-type'/>
-                            <select id = 'edit-type' name = 'edit-type' value = {item.type} onChange = {onChangeInput}>
+                            <select className = 'edit-type' id = {item._id} name = 'edit-type' value = {item.type} onChange={onChangeInput}>
                                 <option value = 'number'>number</option>
                                 <option value = 'boolean'>boolean</option>
                                 <option value = 'text'>text</option>
                                 <option value = 'multiple'>multiple choice</option>
                             </select>
-                            <span className="material-icons">delete_outline</span>
+                            <button onClick = {handleDeletion}>
+                                <span id = {item._id} className="material-icons" >delete_outline</span>
+                            </button>
                         </div>
                         ))}
-                    <button type = 'submit' onSubmit={handleSubmit}> Save </button>
+                    <button type = 'submit' onClick={handleSubmit}> Save </button>
                 </div>
-            </form>
         </React.Fragment>
     );
 }

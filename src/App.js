@@ -7,12 +7,13 @@ import LogDay from "./components/pages/LogDay";
 import EditQuestions from "./components/pages/EditQuestions";
 import ViewData from "./components/pages/ViewData";
 import ProfileForm from "./components/pages/ProfileForm";
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-    const [questions, setQuestions] = useState([{text:'Number of push ups',type:'number'},
-            {text:'Had a long walk today',type:'number'},
-            {text:'One great thing that happened today',type:'text'},
-            {text:'Today was a',type:'multiple'}])
+    const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number'},
+            {_id : uuidv4(), text:'Had a long walk today',type:'number'},
+            {_id : uuidv4(), text:'One great thing that happened today',type:'text'},
+            {_id : uuidv4(), text:'Today was a',type:'multiple'}])
       return (
           <div className="App">
             <header className="App-header">
