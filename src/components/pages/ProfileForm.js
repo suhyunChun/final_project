@@ -4,7 +4,6 @@ import Nav from './Nav'
 function ProfileForm(){
     return(
         <React.Fragment>
-            <Nav/>
             <div id="profile-form" >
                 <form className='profile-content'>
                     <div className="profile-container">

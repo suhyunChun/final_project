@@ -4,7 +4,6 @@ import Nav from './Nav'
 function ViewData() {
     return(
         <React.Fragment>
-            <Nav/>
             <div id="data">
                 ViewData
             </div>

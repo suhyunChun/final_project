@@ -3,7 +3,6 @@ import Nav from './Nav'
 function LogDay(props) {
     return(
         <React.Fragment>
-            <Nav/>
             <form>
                 <div id="log-day">
                     <div className = 'log-date'>

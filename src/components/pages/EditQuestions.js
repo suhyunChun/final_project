@@ -22,7 +22,6 @@ function EditQuestions(props) {
     const handleSubmit=(e)=>{
         e.preventDefault()
         props.setQuestions(questionList)
-        console.log(props.questions)
     }
     const handleAddition=()=>{
         let updatedQ = [...questionList]
@@ -34,10 +33,8 @@ function EditQuestions(props) {
         updatedQ = updatedQ.filter((item)=> item._id !== e.target.id)
         setQuestionList(updatedQ)
     }
-
     return(
         <React.Fragment>
-            <Nav/>
                 <div id="edit">
                     <h2> Edit Questions</h2>
                     <span className="material-icons" onClick={handleAddition}>add_circle_outline</span>
@@ -57,7 +54,7 @@ function EditQuestions(props) {
                             </button>
                         </div>
                         ))}
-                    <button type = 'submit' onClick={handleSubmit}> Save </button>
+                    <button onClick={handleSubmit}> Save </button>
                 </div>
         </React.Fragment>
     );
