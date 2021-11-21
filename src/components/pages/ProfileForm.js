@@ -1,7 +1,32 @@
 import React, {useState,useEffect } from "react";
+import {useHistory} from 'react-router-dom'
 import Nav from './Nav'
 
-function ProfileForm(){
+function ProfileForm(props){
+    const [user, setUser] = useState(props.user||{})
+    const history = useHistory()
+
+    const onChangeInput = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        const updatedUser= {...user, [name]: value};
+        setUser(updatedUser);
+    }
+    const removeImg=()=>{
+        let updatedUser = {...user, profileUrl: 'defaultProfile.jpg'};
+        setUser(updatedUser);
+    }
+    const handleSave=(event)=>{
+        console.log(user)
+        props.setUser(user)
+    }
+    const handleLogOut =() =>{
+        history.push('/')
+    }
+
+
     return(
         <React.Fragment>
             <div id="profile-form" >
@@ -13,7 +38,7 @@ function ProfileForm(){
                             <div className="photo">
                                 <img
                                     className='profile_picture'
-                                    src= 'defaultProfile.png'
+                                    src= {user.profileImg||'defaultProfile.png'}
                                     alt='profile'
                                 />
                                 <label className = 'newImg'>
@@ -21,22 +46,22 @@ function ProfileForm(){
                                     Choose New Image
 
                                 </label>
-                                <button type="button" className="removeImg" >Remove Image</button>
+                                <button type="button" className="removeImg" onClick={removeImg} >Remove Image</button>
                         </div>
                         </div>
                         <label id='name'><h3>Name</h3></label>
-                        <input type="text" name="name"/>
+                        <input type="text" name="name" value = {user.name||''} onChange={onChangeInput}/>
 
                         <label id='email'><h3>Email</h3></label>
-                        <input type="text" name="email"/>
+                        <input type="text" name="email" value = {user.email||''} onChange={onChangeInput}/>
                         <label id='location'><h3>Address</h3></label>
-                        <input type="text" name="location" />
-                        <input type ='text' name ='location-detail'/>
+                        <input type="text" name="location" value = {user.location||''} onChange={onChangeInput}/>
+                        <input type ='text' name ='location-detail' value = {user.locationDetail||''}onChange={onChangeInput}/>
                         <div className="clearfix">
-                            <button  type = 'submit' className='save'>
+                            <button  type = 'submit' className='save' onClick={handleSave}>
                                 Save
                             </button>
-                            <button type="button" className="logout">logout</button>
+                            <button type="button" className="logout" onClick={handleLogOut}>logout</button>
                         </div>
                     </div>
                 </form>

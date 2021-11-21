@@ -14,7 +14,8 @@ function App() {
             {_id : uuidv4(), text:'Had a long walk today',type:'number'},
             {_id : uuidv4(), text:'One great thing that happened today',type:'text'},
             {_id : uuidv4(), text:'Today was a',type:'radio', multiple : {first:'', second:'', third:'',}}])
-
+      const [user, setUser] = useState({profileImg : 'defaultProfile.png', name : 'test', email : 'test@test.com', location : 'songdo', locationDetail:'1'})
+      console.log(user)
       const handleQ=(q)=>{
           setQuestions(q)
       }
@@ -52,7 +53,7 @@ function App() {
                           <Route exact path='/logday' component={()=><LogDay questions ={questions}/>}/>
                           <Route exact path='/edit' component={()=><EditQuestions questions = {questions} setQuestions ={handleQ}/>}/>
                           <Route exact path='/data' component={ViewData}/>
-                          <Route exact path='/profile' component = {ProfileForm}/>
+                          <Route exact path='/profile' component = {()=><ProfileForm user={user} setUser={setUser}/>}/>
                       </Switch>
                     </BrowserRouter>
               </div>
