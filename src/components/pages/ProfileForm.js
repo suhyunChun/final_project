@@ -26,6 +26,12 @@ function ProfileForm(props){
         history.push('/')
     }
 
+    const handleImageSelected = (event) => {
+        console.log("New File Selected");
+    }
+    /*
+    need to add (upload new image)
+     */
 
     return(
         <React.Fragment>
@@ -42,21 +48,26 @@ function ProfileForm(props){
                                     alt='profile'
                                 />
                                 <label className = 'newImg'>
-                                    <input type="file"  name="image" accept="image/*" id="cloudinary" className = 'newImg'/>
+                                    <input type="file"  name="image" accept="image/*" id="cloudinary" className = 'newImg' onChange={handleImageSelected}/>
                                     Choose New Image
 
                                 </label>
                                 <button type="button" className="removeImg" onClick={removeImg} >Remove Image</button>
+                            </div>
                         </div>
+                        <div className = 'profile-name'>
+                            <label id='name'><h3>Name</h3></label>
+                            <input type="text" name="name" value = {user.name||''} onChange={onChangeInput}/>
                         </div>
-                        <label id='name'><h3>Name</h3></label>
-                        <input type="text" name="name" value = {user.name||''} onChange={onChangeInput}/>
-
-                        <label id='email'><h3>Email</h3></label>
-                        <input type="text" name="email" value = {user.email||''} onChange={onChangeInput}/>
-                        <label id='location'><h3>Address</h3></label>
-                        <input type="text" name="location" value = {user.location||''} onChange={onChangeInput}/>
-                        <input type ='text' name ='location-detail' value = {user.locationDetail||''}onChange={onChangeInput}/>
+                        <div className = 'profile-email'>
+                            <label id='email'><h3>Email</h3></label>
+                            <input type="text" name="email" value = {user.email||''} onChange={onChangeInput}/>
+                        </div>
+                        <div className = 'profile-location'>
+                            <label id='location'><h3>Address</h3></label>
+                            <input type="text" name="location" value = {user.location||''} onChange={onChangeInput}/>
+                            <input type ='text' name ='location-detail' value = {user.locationDetail||''}onChange={onChangeInput}/>
+                        </div>
                         <div className="clearfix">
                             <button  type = 'submit' className='save' onClick={handleSave}>
                                 Save

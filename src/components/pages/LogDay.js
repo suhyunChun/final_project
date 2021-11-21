@@ -73,7 +73,7 @@ function LogDay(props) {
 
                         ))}
                     </div>
-                    <button type = 'submit'>
+                    <button type = 'submit' className = 'save'>
                         Submit
                     </button>
                 </div>
