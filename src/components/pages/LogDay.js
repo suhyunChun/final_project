@@ -1,21 +1,47 @@
 import React,{useState} from "react";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import moment from 'moment'
 
 function LogDay(props) {
+    const [questionList, setQuestionList] = useState([...props.questions])
+    const currDate = moment();
+    const [shownDate, setShownDate] = useState(currDate)
 
-    const type_form=(type)=>{
+    const handleFutureTime=()=>{
+        if(shownDate < currDate.subtract(1,'days')){
+            let tomorrow = moment(shownDate).add(1,'days')
+            setShownDate(tomorrow)
+        }
+    }
+    const handlePastTime=()=>{
+        let yesterday = moment(shownDate).subtract(1,'days')
+        setShownDate(yesterday)
+    }
+    const handleSubmit=()=>{
+        /*
+        need to post data in server
+         */
+        console.log(questionList)
+    }
 
+    const handleChange=(event)=>{
+        console.log("HANDLE CHANGE,",event.target)
     }
     return(
         <React.Fragment>
             <form>
                 <div id="log-day">
                     <div className = 'log-date'>
-                        {Date.now()}
+                        <ArrowBackIosIcon onClick={handlePastTime}/>
+                        {shownDate.format('MM/DD/YYYY')}
+                        <ArrowForwardIosIcon onClick ={handleFutureTime}/>
                     </div>
                     <div className = 'log-form'>
-                        {(props.questions).map(item => (
-                            <div className='question' id = {item._id} key={item._id} >
+                        {(questionList).map(item => (
+                            <div className='question' id = {item._id} key={item._id} onChange={handleChange}>
                                 {item.text}
+                                <br/>
                                 {(()=>{
                                     switch(item.type){
                                         case 'boolean':
@@ -29,16 +55,18 @@ function LogDay(props) {
                                                 return(<div className ='radio'>
                                                     <input name = 'multiple-radio' id = {item.multiple.first} type = 'radio' value = {item.multiple.first}/>
                                                     <label htmlFor={item.multiple.first}>{item.multiple.first}</label>
+                                                    <br/>
                                                     <input name = 'multiple-radio' id = {item.multiple.second} type = 'radio' value = {item.multiple.second}/>
                                                     <label htmlFor={item.multiple.second}>{item.multiple.second}</label>
+                                                    <br/>
                                                     <input name = 'multiple-radio' id = {item.multiple.third} type = 'radio' value = {item.multiple.third}/>
                                                     <label htmlFor={item.multiple.third}>{item.multiple.third}</label>
+                                                    <br/>
                                                 </div>)
 
                                         default:
                                             return(
                                                 <input type={item.type}/>)
-
                                     }
                                 })()}
                             </div>
@@ -54,16 +82,3 @@ function LogDay(props) {
     );
 }
 export default LogDay
-
-/*
-                                {item.type ==='radio' && item.multiple !== undefined?
-                                    <div className ='radio'>
-                                        <input name = 'multiple-radio' id = {item.multiple.first} type = 'radio' value = {item.multiple.first}/>
-                                        <label htmlFor={item.multiple.first}>{item.multiple.first}</label>
-                                        <input name = 'multiple-radio' id = {item.multiple.second} type = 'radio' value = {item.multiple.second}/>
-                                        <label htmlFor={item.multiple.second}>{item.multiple.second}</label>
-                                        <input name = 'multiple-radio' id = {item.multiple.third} type = 'radio' value = {item.multiple.third}/>
-                                        <label htmlFor={item.multiple.third}>{item.multiple.third}</label>
-                                    </div>
-                                    :<input type={item.type}/>}
- */

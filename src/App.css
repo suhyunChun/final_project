@@ -142,19 +142,23 @@ ul{
 }
 
 /*Edit page*/
-.edit-question{
+.edit-question, .question{
   background-color: var(--standardBackgroundColor);
-  margin:2%;
+  margin:0.7%;
+  width : 470px;
 }
 input[type='radio']{
   vertical-align:top;
+}
+.first, .second, .third{
+  border :none;
+  border-bottom: 1px solid var(--moderateColor);
 }
 
   /*profile form*/
 .profile{
   width:100px;
   border-radius:100%;
-
 }
 /*Create New Account*/
 
@@ -193,6 +197,6 @@ input[type='radio']{
     padding-right:8%;
   }
   #nav-title{
-    visibility: hidden !important;
+    display: none !important;
   }
 }
