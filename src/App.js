@@ -2,7 +2,7 @@ import './App.css';
 import Page from "./components/Page";
 import Login from "./components/Login";
 import { BrowserRouter, Switch, Route,Link } from 'react-router-dom';
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import LogDay from "./components/pages/LogDay";
 import EditQuestions from "./components/pages/EditQuestions";
 import ViewData from "./components/pages/ViewData";
@@ -10,24 +10,27 @@ import ProfileForm from "./components/pages/ProfileForm";
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-      const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number'},
+    const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number'},
             {_id : uuidv4(), text:'Had a long walk today',type:'number'}, /*number/string*/
             {_id : uuidv4(), text:'One great thing that happened today',type:'text'}, /*string*/
             {_id : uuidv4(), text:'Today was a',type:'radio', multiple : {first:'1', second:'2', third:'3',}}]) /*question, **number(index)**, string(answer)*/
-      const [user, setUser] = useState({profileImg : 'defaultProfile.png', name : 'test', email : 'test@test.com', location : 'songdo', locationDetail:'1'})
+    const [user, setUser] = useState({profileImg : 'defaultProfile.png', name : 'test', email : 'test@test.com', location : 'songdo', locationDetail:'1'})
+    const [selected, setSelected] = useState('')
     /*boolean, true/false
     * 1. answer array
     * 2. link to question's id
     * inlcude date, questions, answer
     * */
-      const handleQ=(q)=>{
-          setQuestions(q)
-      }
-      const onClickLink=()=>{
 
-      }
-      console.log("IN APP JS, questions",questions)
-      return (
+
+    const handleQ=(q)=>{
+        setQuestions(q)
+    }
+    const onClickLink=(e)=>{
+        setSelected(e.target.id)
+    }
+    console.log("IN APP JS, questions",questions)
+    return (
           <div className="App">
             <header className="App-header">
             </header>
@@ -37,18 +40,18 @@ function App() {
                             <ul className ='nav-link'>
                                 <div id='nav-pages'>
                                     <li>
-                                        <Link to ='/logday'> Log Day </Link>
+                                        <Link to ='/logday' id ='logday' onClick={onClickLink} style={{color : (selected === 'logday')? '#66bfbf' : '', textDecoration:(selected === 'logday')?'underline':''}}> Log Day </Link>
                                     </li>
                                     <li>
-                                        <Link to ='/edit' > Edit Questions </Link>
+                                        <Link to ='/edit' id='edit' onClick={onClickLink} style={{color : (selected === 'edit')? '#66bfbf' : '', textDecoration:(selected === 'edit')?'underline':''}} > Edit Questions </Link>
                                     </li>
                                     <li>
-                                        <Link to ='/data' > View Data </Link>
+                                        <Link to ='/data'  id='data' onClick={onClickLink} style={{color : (selected === 'data')? '#66bfbf' : '', textDecoration:(selected === 'data')?'underline':''}}> View Data </Link>
                                     </li>
                                 </div>
                             </ul>
                             <div id ='nav-profile'>
-                                <Link to ='/profile'>
+                                <Link to ='/profile' onClick={onClickLink}>
                                     <img
                                         className='profile_picture'
                                         src='defaultProfile.png'
@@ -67,7 +70,7 @@ function App() {
                     </BrowserRouter>
               </div>
 
-      );
+    );
 
 }
 
