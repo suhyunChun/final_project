@@ -33,7 +33,9 @@ body {
   background-color: var(--actionBackgroundColor);
 }
 .save-div{
+  width:80%;
   display:flex;
+  justify-content: start;
 
 
 }
@@ -172,6 +174,7 @@ a{
   font-size:1.1rem;
 
 }
+
 a:focus{
   color:var(--activeColor);
   text-decoration: underline;
@@ -208,23 +211,25 @@ ul{
   width: 100%;
 }
 /*Edit page*/
-#edit, #log-day{
+#edit, #log-day, #profile-form{
   display:flex;
   flex-direction: column;
   justify-items: center;
   align-items: center;
 }
-.edit-title, .log-date{
+.edit-title, .log-date,.profile-title{
   width : 80%;
   display:flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+
 }
 #nav-pages>li{
   margin-left:21px;
 }
-.edit-question, .question{
+.edit-question, .question, .profile-email, .profile-photo, .profile-location, .profile-name{
   background-color: var(--standardBackgroundColor);
   margin:0.7%;
   width : 80%;
@@ -274,6 +279,41 @@ input[type='radio']{
 .profile{
   width:100px;
   border-radius:100%;
+}
+.profile-content{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  width:100%;
+}
+.photo{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
+.newImg{
+  font-size:0.9em;
+  margin-left:25px;
+  margin-right:25px;
+  border-radius:10px;
+  padding:8px;
+  background-color: var(--activeColor);
+}
+.removeImg{
+  border:none;
+  background:none;
+  text-decoration: underline;
+  text-size:1.3em;
+}
+.clearfix{
+  width:80%;
+  display:flex;
+  justify-content: space-between;
+}
+.logout{
+  background:none;
+  border:none;
+  text-decoration: underline;
 }
 /*Create New Account*/
 

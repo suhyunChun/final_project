@@ -37,9 +37,10 @@ function ProfileForm(props){
         <React.Fragment>
             <div id="profile-form" >
                 <form className='profile-content'>
-                    <div className="profile-container">
+                    <div className ='profile-title'>
                         <h2>Edit Profile</h2>
-                        <div className = 'Profile-photo'>
+                    </div>
+                        <div className = 'profile-photo'>
                             <h3>Profile photo</h3>
                             <div className="photo">
                                 <img
@@ -56,24 +57,23 @@ function ProfileForm(props){
                         </div>
                         <div className = 'profile-name'>
                             <label id='name'><h3>Name</h3></label>
-                            <input type="text" name="name" value = {user.name||''} onChange={onChangeInput}/>
+                            <input className = 'edit-text' type="text" name="name" value = {user.name||''} onChange={onChangeInput}/>
                         </div>
                         <div className = 'profile-email'>
                             <label id='email'><h3>Email</h3></label>
-                            <input type="text" name="email" value = {user.email||''} onChange={onChangeInput}/>
+                            <input className = 'edit-text' type="text" name="email" value = {user.email||''} onChange={onChangeInput}/>
                         </div>
                         <div className = 'profile-location'>
                             <label id='location'><h3>Address</h3></label>
-                            <input type="text" name="location" value = {user.location||''} onChange={onChangeInput}/>
-                            <input type ='text' name ='location-detail' value = {user.locationDetail||''}onChange={onChangeInput}/>
+                            <input className = 'edit-text' type="text" name="location" value = {user.location||''} onChange={onChangeInput}/>
+                            <input className = 'edit-text' type ='text' name ='location-detail' value = {user.locationDetail||''}onChange={onChangeInput}/>
                         </div>
                         <div className="clearfix">
-                            <button  type = 'submit' className='save' onClick={handleSave}>
+                            <button  type = 'submit' className='save' onClick={handleSave} style={{width:150+'px'}}>
                                 Save
                             </button>
-                            <button type="button" className="logout" onClick={handleLogOut}>logout</button>
+                            <button type="button" className="logout" onClick={handleLogOut}>Logout</button>
                         </div>
-                    </div>
                 </form>
             </div>
         </React.Fragment>

@@ -20,9 +20,11 @@ function App() {
     * 2. link to question's id
     * inlcude date, questions, answer
     * */
-      console.log(user)
       const handleQ=(q)=>{
           setQuestions(q)
+      }
+      const onClickLink=()=>{
+
       }
       console.log("IN APP JS, questions",questions)
       return (
@@ -38,10 +40,10 @@ function App() {
                                         <Link to ='/logday'> Log Day </Link>
                                     </li>
                                     <li>
-                                        <Link to ='/edit'> Edit Questions </Link>
+                                        <Link to ='/edit' > Edit Questions </Link>
                                     </li>
                                     <li>
-                                        <Link to ='/data'> View Data </Link>
+                                        <Link to ='/data' > View Data </Link>
                                     </li>
                                 </div>
                             </ul>

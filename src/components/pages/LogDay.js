@@ -37,7 +37,7 @@ function LogDay(props) {
                     <div className = 'log-date' style={{height:71.83+'px'}}>
                         <ArrowBackIosIcon onClick={handlePastTime}/>
                         <span  style ={{fontSize:1.5+'em'}}><strong>{shownDate.format('MM/DD/YYYY')}</strong></span>
-                        <ArrowForwardIosIcon onClick ={handleFutureTime} style={{color: (shownDate.format('MM/DD/YYYY')==currDate.format('MM/DD/YYYY')? 'lightgrey':'')}} />
+                        <ArrowForwardIosIcon onClick ={handleFutureTime} style={{color: (shownDate.format('MM/DD/YYYY')==currDate.format('MM/DD/YYYY')? 'darkgrey':'')}} />
                     </div>
 
                         {(questionList).map(item => (
