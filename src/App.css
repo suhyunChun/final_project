@@ -131,6 +131,8 @@ input[type='file']{
   width : 340px;
   height : 40px;
   border-radius:12px;
+  color:white;
+  background-color: #2b839f;
 }
 .btn_createAccount{
   width : 80%;
@@ -139,6 +141,7 @@ input[type='file']{
   height : 40px;
   vertical-align: center;
   border-radius:9px;
+  background-color: #66bfbf;
 }
 /*nav_bar*/
 

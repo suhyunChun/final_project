@@ -44,10 +44,10 @@ function Login({handleLogged }) {
                             {errorMessage}
                         </div>}
                     <div className = 'loginBtnGroup'>
-                        <button className = 'btn_login' style={{color : 'white', backgroundColor:'#0067A3'}} onClick={handleLogin}>
+                        <button className = 'btn_login'  onClick={handleLogin}>
                             Log in
                         </button>
-                        <button className = 'btn_createAccount' style={{color : 'white', backgroundColor:'darkgreen'}} onClick={handleOpen}>
+                        <button className = 'btn_createAccount'  onClick={handleOpen}>
                             Create New Account
                         </button>
                     </div>
