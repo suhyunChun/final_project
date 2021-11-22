@@ -11,10 +11,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 function App() {
       const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number'},
-            {_id : uuidv4(), text:'Had a long walk today',type:'number'},
-            {_id : uuidv4(), text:'One great thing that happened today',type:'text'},
-            {_id : uuidv4(), text:'Today was a',type:'radio', multiple : {first:'', second:'', third:'',}}])
+            {_id : uuidv4(), text:'Had a long walk today',type:'number'}, /*number/string*/
+            {_id : uuidv4(), text:'One great thing that happened today',type:'text'}, /*string*/
+            {_id : uuidv4(), text:'Today was a',type:'radio', multiple : {first:'1', second:'2', third:'3',}}]) /*question, **number(index)**, string(answer)*/
       const [user, setUser] = useState({profileImg : 'defaultProfile.png', name : 'test', email : 'test@test.com', location : 'songdo', locationDetail:'1'})
+    /*boolean, true/false
+    * 1. answer array
+    * 2. link to question's id
+    * inlcude date, questions, answer
+    * */
       console.log(user)
       const handleQ=(q)=>{
           setQuestions(q)
@@ -27,25 +32,27 @@ function App() {
                     <BrowserRouter>
                         <div className='nav_bar'>
                             <h1 id = 'nav-title'>Day Logger</h1>
-                            <ul>
-                                <li>
-                                    <Link to ='/logday'> Log Day </Link>
-                                </li>
-                                <li>
-                                    <Link to ='/edit'> Edit Questions </Link>
-                                </li>
-                                <li>
-                                    <Link to ='/data'> View Data </Link>
-                                </li>
-                                <li>
-                                    <Link to ='/profile'>
-                                        <img
-                                            className='profile_picture'
-                                            src='defaultProfile.png'
-                                            alt='profile'/>
-                                    </Link>
-                                </li>
+                            <ul className ='nav-link'>
+                                <div id='nav-pages'>
+                                    <li>
+                                        <Link to ='/logday'> Log Day </Link>
+                                    </li>
+                                    <li>
+                                        <Link to ='/edit'> Edit Questions </Link>
+                                    </li>
+                                    <li>
+                                        <Link to ='/data'> View Data </Link>
+                                    </li>
+                                </div>
                             </ul>
+                            <div id ='nav-profile'>
+                                <Link to ='/profile'>
+                                    <img
+                                        className='profile_picture'
+                                        src='defaultProfile.png'
+                                        alt='profile'/>
+                                </Link>
+                            </div>
                         </div>
                       <Switch>
                           <Route exact path='/' component={Login}/>

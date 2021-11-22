@@ -24,16 +24,18 @@ body {
 
 .save{
   color:white;
-  font-size: 1.2rem;
-  width : 130px;
-  height : 48px;
+  font-size: 1.1rem;
+  width : 100px;
+  height : 50px;
   border :none;
   border-radius:10px;
   margin-top:11px;
   background-color: var(--actionBackgroundColor);
 }
 .save-div{
-  width : 90%;
+  display:flex;
+
+
 }
 
 input:focus,
@@ -89,9 +91,8 @@ button:hover {
   margin-top: 20px;
   justify-content: space-evenly;
 }
-.form-group, label{
+.form-group{
   font-size: 18px;
-
   padding-top: 10px;
   width : 90%;
 }
@@ -140,17 +141,41 @@ input[type='file']{
 /*nav_bar*/
 
 .nav_bar{
+  background-color: var( --standardBackgroundColor);
   display :flex;
   width : 100%;
   height :100px;
   justify-content: space-between;
-  background-color: white;
+
+}
+#nav-profile{
+  display:flex;
+  margin-right:10px;
+  align-items: center;
+}
+#nav-title{
+  font-size:2em;
+}
+#nav-pages{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .nav_bar, a{
+  color:black;
   text-decoration: none;
+}
+#nav-pages>li{
 
 }
+a{
+  font-size:1.1rem;
 
+}
+a:focus{
+  color:var(--activeColor);
+  text-decoration: underline;
+}
 .nav_bar, ul, li{
   list-style:none;
   text-decoration: none;
@@ -161,7 +186,14 @@ ul{
   flex-direction: row;
   align-items: center;
 }
-
+.bool{
+  display:flex;
+}
+.bool-opt{
+  display:flex;
+  align-items: center;
+  margin-right:60px;
+}
 
 .Profile-photo, .profile-location, .profile-email, .profile-name{
   margin:10px 10px;
@@ -172,36 +204,42 @@ ul{
   background-color: var(--standardBackgroundColor);
 
 }
-
+.log-form{
+  width: 100%;
+}
 /*Edit page*/
-#edit{
+#edit, #log-day{
   display:flex;
   flex-direction: column;
   justify-items: center;
   align-items: center;
 }
-.edit-title{
-  width : 90%;
+.edit-title, .log-date{
+  width : 80%;
   display:flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-
+#nav-pages>li{
+  margin-left:21px;
+}
 .edit-question, .question{
   background-color: var(--standardBackgroundColor);
   margin:0.7%;
-  width : 90%;
+  width : 80%;
   padding : 11px;
   border-radius:10px;
 }
-.edit-text{
+.edit-text, .log-text{
   border:1px solid lightgray;
   margin-bottom : 11px;
-  width : 100%;
+  width : 99%;
   height : 25px;
   border-radius:6px;
-
+}
+.log-text{
+  border:none;
 }
 .mult-opt{
   margin-top:3px;
@@ -209,8 +247,10 @@ ul{
 .opt{
   display:flex;
   align-items: center;
+  align-content: center;
 }
 .opt *{
+  font-size:0.9em;
   vertical-align: middle;
   position: relative;
   margin-top:7px;
@@ -274,5 +314,8 @@ input[type='radio']{
 
   #nav-title{
     display: none !important;
+  }
+  #nav-pages>li{
+    /*width:120px;*/
   }
 }

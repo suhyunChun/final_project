@@ -50,7 +50,6 @@ function ProfileForm(props){
                                 <label className = 'newImg'>
                                     <input type="file"  name="image" accept="image/*" id="cloudinary" className = 'newImg' onChange={handleImageSelected}/>
                                     Choose New Image
-
                                 </label>
                                 <button type="button" className="removeImg" onClick={removeImg} >Remove Image</button>
                             </div>

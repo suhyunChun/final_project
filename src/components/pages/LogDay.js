@@ -5,11 +5,13 @@ import moment from 'moment'
 
 function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
+    const [answerArray,setAnswerArray] = useState([])
     const currDate = moment();
     const [shownDate, setShownDate] = useState(currDate)
 
     const handleFutureTime=()=>{
-        if(shownDate < currDate.subtract(1,'days')){
+        console.log(currDate,shownDate)
+        if(shownDate.format('MM/DD/YYYY') < currDate.format('MM/DD/YYYY')){
             let tomorrow = moment(shownDate).add(1,'days')
             setShownDate(tomorrow)
         }
@@ -32,50 +34,62 @@ function LogDay(props) {
         <React.Fragment>
             <form>
                 <div id="log-day">
-                    <div className = 'log-date'>
+                    <div className = 'log-date' style={{height:71.83+'px'}}>
                         <ArrowBackIosIcon onClick={handlePastTime}/>
-                        {shownDate.format('MM/DD/YYYY')}
-                        <ArrowForwardIosIcon onClick ={handleFutureTime}/>
+                        <span  style ={{fontSize:1.5+'em'}}><strong>{shownDate.format('MM/DD/YYYY')}</strong></span>
+                        <ArrowForwardIosIcon onClick ={handleFutureTime} style={{color: (shownDate.format('MM/DD/YYYY')==currDate.format('MM/DD/YYYY')? 'lightgrey':'')}} />
                     </div>
-                    <div className = 'log-form'>
+
                         {(questionList).map(item => (
                             <div className='question' id = {item._id} key={item._id} onChange={handleChange}>
-                                {item.text}
-                                <br/>
+                                <div className = 'log-text'>{item.text}</div>
                                 {(()=>{
                                     switch(item.type){
                                         case 'boolean':
                                             return(<div className = 'bool'>
-                                                <input name = 'bool-opt' type = 'radio' id = 't' value = 'true'/>
-                                                <label htmlFor='t'>true</label>
-                                                <input name = 'bool-opt' type = 'radio' id = 'f' value = 'false'/>
-                                                <label htmlFor='f'>false</label>
+                                                <div className = 'bool-opt'>
+                                                    <input name = 'bool-opt' type = 'radio' id = 't' value = 'true'/>
+                                                    <label htmlFor='t'>True</label>
+                                                </div>
+                                                <div className = 'bool-opt'>
+                                                    <input name = 'bool-opt' type = 'radio' id = 'f' value = 'false'/>
+                                                    <label htmlFor='f'>False</label>
+                                                </div>
                                             </div>)
                                         case 'radio':
-                                                return(<div className ='radio'>
-                                                    <input name = 'multiple-radio' id = {item.multiple.first} type = 'radio' value = {item.multiple.first}/>
-                                                    <label htmlFor={item.multiple.first}>{item.multiple.first}</label>
-                                                    <br/>
-                                                    <input name = 'multiple-radio' id = {item.multiple.second} type = 'radio' value = {item.multiple.second}/>
-                                                    <label htmlFor={item.multiple.second}>{item.multiple.second}</label>
-                                                    <br/>
-                                                    <input name = 'multiple-radio' id = {item.multiple.third} type = 'radio' value = {item.multiple.third}/>
-                                                    <label htmlFor={item.multiple.third}>{item.multiple.third}</label>
-                                                    <br/>
+                                                return(
+                                                    <div className ='mult-opt'>
+                                                        <div className = 'opt'>
+                                                            <input name = 'multiple-radio' id = {item._id} type = 'radio' value = {item.multiple === undefined? '' :item.multiple.first}/>
+                                                            <label  htmlFor={item.multiple === undefined? '':item.multiple.first}>{item.multiple === undefined? '':item.multiple.first}</label>
+                                                        </div>
+                                                        <div className='opt'>
+                                                            <input name = 'multiple-radio' id = {item._id} type = 'radio' value = {item.multiple === undefined? '':item.multiple.second}/>
+                                                            <label htmlFor={item.multiple === undefined? '':item.multiple.second}>{item.multiple === undefined? '':item.multiple.second}</label>
+                                                        </div>
+                                                        <div className = 'opt'>
+                                                            <input name = 'multiple-radio' id = {item._id} type = 'radio' value = {item.multiple === undefined? '':item.multiple.third}/>
+                                                            <label  htmlFor={item.multiple === undefined? '':item.multiple.third}>{item.multiple === undefined? '':item.multiple.third}</label>
+                                                        </div>
                                                 </div>)
+                                        case 'text':
+                                            return(
+                                                <input type={item.type} className = 'edit-text'/>
+                                            )
 
                                         default:
                                             return(
-                                                <input type={item.type}/>)
+                                                <input type={item.type} className = 'edit-text' style={{width:150+'px'}}/>)
                                     }
                                 })()}
                             </div>
 
                         ))}
+                    <div className='save-div'>
+                        <button type = 'submit' className = 'save'>
+                            Submit
+                        </button>
                     </div>
-                    <button type = 'submit' className = 'save'>
-                        Submit
-                    </button>
                 </div>
             </form>
         </React.Fragment>
