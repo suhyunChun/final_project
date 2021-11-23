@@ -49,7 +49,7 @@ function ProfileForm(props){
                                     alt='profile'
                                 />
                                 <label className = 'newImg'>
-                                    <input type="file"  name="image" accept="image/*" id="cloudinary" className = 'newImg' onChange={handleImageSelected}/>
+                                    <input type="file"  name="image" accept="image/*" id="cloudinary" className = 'newImg' style={{width:0+'%'}}onChange={handleImageSelected}/>
                                     Choose New Image
                                 </label>
                                 <button type="button" className="removeImg" onClick={removeImg} >Remove Image</button>
@@ -66,7 +66,7 @@ function ProfileForm(props){
                         <div className = 'profile-location'>
                             <label id='location'><h3>Address</h3></label>
                             <input className = 'edit-text' type="text" name="location" value = {user.location||''} onChange={onChangeInput}/>
-                            <input className = 'edit-text' type ='text' name ='location-detail' value = {user.locationDetail||''}onChange={onChangeInput}/>
+                            <input className = 'edit-text' type ='text' name ='locationDetail' value = {user.locationDetail||''} onChange={onChangeInput}/>
                         </div>
                         <div className="clearfix">
                             <button  type = 'submit' className='save' onClick={handleSave} style={{width:150+'px'}}>

@@ -10,10 +10,10 @@ import ProfileForm from "./components/pages/ProfileForm";
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-    const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number'},
-            {_id : uuidv4(), text:'Had a long walk today',type:'number'}, /*number/string*/
-            {_id : uuidv4(), text:'One great thing that happened today',type:'text'}, /*string*/
-            {_id : uuidv4(), text:'Today was a',type:'radio', multiple : {first:'1', second:'2', third:'3',}}]) /*question, **number(index)**, string(answer)*/
+    const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number',answer :''},
+            {_id : uuidv4(), text:'Had a long walk today',type:'number',answer :''}, /*number/string*/
+            {_id : uuidv4(), text:'One great thing that happened today',type:'text',answer :''}, /*string*/
+            {_id : uuidv4(), text:'Today was a',type:'radio', multiple : {first:'1', second:'2', third:'3'},answer :''}]) /*question, **number(index)**, string(answer)*/
     const [user, setUser] = useState({profileImg : 'defaultProfile.png', name : 'test', email : 'test@test.com', location : 'songdo', locationDetail:'1'})
     const [selected, setSelected] = useState('')
     /*boolean, true/false

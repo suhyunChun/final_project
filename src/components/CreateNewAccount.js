@@ -3,7 +3,9 @@ import { useHistory} from "react-router-dom";
 
 function CreatNewAccount(props){
     const [user,setUser] = useState({profileUrl:'defaultProfile.jpg'})
+    const history = useHistory();
     const handleSave=(e)=>{
+        history.push('/logday')
     }
     const onChangeInput = (event) => {
         const target = event.target;
@@ -29,7 +31,7 @@ function CreatNewAccount(props){
                     <label id='password'>Password</label>
                     <br/>
                     <input type="password" name="password" style={{width: '100%', height:'30px'}} onChange={onChangeInput}/>
-                    <div className="clearfix">
+                    <div className="clearfix-signup">
                         <button  type = 'submit' className='signUp' onClick={handleSave}>Sign up</button>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import moment from 'moment'
 
 function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
-    const [answerArray,setAnswerArray] = useState([])
+    const [answerArray,setAnswerArray] = useState({})
     const currDate = moment();
     const [shownDate, setShownDate] = useState(currDate)
 
@@ -28,7 +28,15 @@ function LogDay(props) {
     }
 
     const handleChange=(event)=>{
-        console.log("HANDLE CHANGE,",event.target)
+        console.log("HANDLE CHANGE,", event.target, event.target.value)
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        console.log(target.name)
+
+        const answer= {...answerArray, question:name, value : value, type: target.type};
+        setAnswerArray(answer);
+        console.log(answer)
     }
     return(
         <React.Fragment>
@@ -39,7 +47,6 @@ function LogDay(props) {
                         <span  style ={{fontSize:1.5+'em'}}><strong>{shownDate.format('MM/DD/YYYY')}</strong></span>
                         <ArrowForwardIosIcon onClick ={handleFutureTime} style={{color: (shownDate.format('MM/DD/YYYY')==currDate.format('MM/DD/YYYY')? 'darkgrey':'')}} />
                     </div>
-
                         {(questionList).map(item => (
                             <div className='question' id = {item._id} key={item._id} onChange={handleChange}>
                                 <div className = 'log-text'>{item.text}</div>
@@ -58,28 +65,28 @@ function LogDay(props) {
                                             </div>)
                                         case 'radio':
                                                 return(
-                                                    <div className ='mult-opt'>
+                                                    <div className ='mult-opt' >
                                                         <div className = 'opt'>
-                                                            <input name = 'multiple-radio' id = {item._id} type = 'radio' value = {item.multiple === undefined? '' :item.multiple.first}/>
+                                                            <input name ={item.text} id = {item._id} type = 'radio' value = {item.multiple === undefined? '' :item.multiple.first}/>
                                                             <label  htmlFor={item.multiple === undefined? '':item.multiple.first}>{item.multiple === undefined? '':item.multiple.first}</label>
                                                         </div>
                                                         <div className='opt'>
-                                                            <input name = 'multiple-radio' id = {item._id} type = 'radio' value = {item.multiple === undefined? '':item.multiple.second}/>
+                                                            <input name = {item.text} id = {item._id} type = 'radio' value = {item.multiple === undefined? '':item.multiple.second}/>
                                                             <label htmlFor={item.multiple === undefined? '':item.multiple.second}>{item.multiple === undefined? '':item.multiple.second}</label>
                                                         </div>
                                                         <div className = 'opt'>
-                                                            <input name = 'multiple-radio' id = {item._id} type = 'radio' value = {item.multiple === undefined? '':item.multiple.third}/>
+                                                            <input name = {item.text} id = {item._id} type = 'radio' value = {item.multiple === undefined? '':item.multiple.third}/>
                                                             <label  htmlFor={item.multiple === undefined? '':item.multiple.third}>{item.multiple === undefined? '':item.multiple.third}</label>
                                                         </div>
                                                 </div>)
                                         case 'text':
                                             return(
-                                                <input type={item.type} className = 'edit-text'/>
+                                                <input name = {item.text} type={item.type} className = 'edit-text'/>
                                             )
 
                                         default:
                                             return(
-                                                <input type={item.type} className = 'edit-text' style={{width:150+'px'}}/>)
+                                                <input name = {item.text} type={item.type} className = 'edit-text' style={{width:150+'px'}}/>)
                                     }
                                 })()}
                             </div>

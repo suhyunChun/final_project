@@ -257,12 +257,13 @@ ul{
   display:flex;
   align-items: center;
   align-content: center;
+  margin-top:7px;
 }
+
 .opt *{
   font-size:0.9em;
   vertical-align: middle;
   position: relative;
-  margin-top:7px;
 }
 .edit-type{
   display:flex;
@@ -319,8 +320,71 @@ input[type='radio']{
   border:none;
   text-decoration: underline;
 }
+
 /*Create New Account*/
 
+.container,button{
+  border: none;
+  cursor: pointer;
+  background: none;
+  opacitiy: 0.9;
+  color : black;
+}
+.container {
+  padding: 30px;
+
+
+}
+.clearfix-signup{
+  display:flex;
+  justify-content: center;
+
+}
+.signUp{
+  margin-top:20px;
+  color : white;
+  background-color: #66bfbf;
+  width: 110px;
+  height: 40px;
+  border-radius: 12px;
+}
+.canclebtn{
+  float:right;
+  left:15px;
+  top:15px;
+  font-size:20px;
+  font-weight: bold;
+  color : black;
+}
+.canclebtn:hover,
+.canclebtn:focus{
+  color: #66bfbf;
+  cursor:pointer;
+}
+.form-group{
+  font-size: 18px;
+  font-family: "Arial ";
+  padding-top: 10px;
+  width : 90%;
+}
+.container>input[type=text]{
+  width:100%;
+  height:30px;
+  display: inline-block;
+}
+input[type = text]:focus{
+  background-color:white;
+  outline:none;
+}
+#header_signup{
+  text-justify: auto;
+  font-size:30px;
+  display:flex;
+  position:relative;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+}
 .modal{
   background: rgba(66, 59, 59, 0.5);
   background-size: 100vh 100%;
