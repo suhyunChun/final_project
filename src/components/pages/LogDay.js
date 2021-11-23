@@ -5,7 +5,7 @@ import moment from 'moment'
 
 function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
-    const [answerArray,setAnswerArray] = useState({})
+   // const [answerArray,setAnswerArray] = useState([...props.questions.text])
     const currDate = moment();
     const [shownDate, setShownDate] = useState(currDate)
 
@@ -23,29 +23,38 @@ function LogDay(props) {
     const handleSubmit=()=>{
         /*
         need to post data in server
+                if(questionList.date === undefined){
+            //add new
+        }else {
+            //updating
+            props.setQuestions(questionList)
+        }
          */
-        console.log(questionList)
+        let tmp =questionList.map(obj=> ({ ...obj, date: shownDate }))
+        props.setQuestions(tmp)
     }
 
     const handleChange=(event)=>{
-        console.log("HANDLE CHANGE,", event.target, event.target.value)
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-        console.log(target.name)
+        let tmpQuestion = [...questionList]
+        for(let i = 0; i < tmpQuestion.length; i++){
+            if(tmpQuestion[i].text === event.target.name){
+                if(tmpQuestion[i].type === 'radio' && event.target.name !== 'bool-opt'){
+                    tmpQuestion[i].answer = (Object.values(tmpQuestion[i].multiple)).indexOf(event.target.value)
+                }else{
+                    tmpQuestion[i].answer = event.target.value
+                }
+            }
+        }
+        setQuestionList(tmpQuestion)
 
-        const answer= {...answerArray, question:name, value : value, type: target.type};
-        setAnswerArray(answer);
-        console.log(answer)
     }
     return(
         <React.Fragment>
-            <form>
                 <div id="log-day">
                     <div className = 'log-date' style={{height:71.83+'px'}}>
                         <ArrowBackIosIcon onClick={handlePastTime}/>
                         <span  style ={{fontSize:1.5+'em'}}><strong>{shownDate.format('MM/DD/YYYY')}</strong></span>
-                        <ArrowForwardIosIcon onClick ={handleFutureTime} style={{color: (shownDate.format('MM/DD/YYYY')==currDate.format('MM/DD/YYYY')? 'darkgrey':'')}} />
+                        <ArrowForwardIosIcon onClick ={handleFutureTime} style={{color: (shownDate.format('MM/DD/YYYY')===currDate.format('MM/DD/YYYY')? 'darkgrey':'')}} />
                     </div>
                         {(questionList).map(item => (
                             <div className='question' id = {item._id} key={item._id} onChange={handleChange}>
@@ -53,52 +62,52 @@ function LogDay(props) {
                                 {(()=>{
                                     switch(item.type){
                                         case 'boolean':
-                                            return(<div className = 'bool'>
+                                            return(<div className = 'bool' value = {item.answer}>
                                                 <div className = 'bool-opt'>
-                                                    <input name = 'bool-opt' type = 'radio' id = 't' value = 'true'/>
+                                                    <input name = {item.text} type = 'radio' id = 't' defaultValue = 'true' defaultChecked={item.answer ==='true'}/>
                                                     <label htmlFor='t'>True</label>
                                                 </div>
-                                                <div className = 'bool-opt'>
-                                                    <input name = 'bool-opt' type = 'radio' id = 'f' value = 'false'/>
+                                                <div className = 'bool-opt' value = {item.answer}>
+                                                    <input name = {item.text} type = 'radio' id = 'f' defaultValue = 'false' defaultChecked={item.answer ==='false'}/>
                                                     <label htmlFor='f'>False</label>
                                                 </div>
                                             </div>)
                                         case 'radio':
                                                 return(
-                                                    <div className ='mult-opt' >
-                                                        <div className = 'opt'>
-                                                            <input name ={item.text} id = {item._id} type = 'radio' value = {item.multiple === undefined? '' :item.multiple.first}/>
+                                                    <div className ='mult-opt'>
+                                                        <div className = 'opt' >
+                                                            <input name ={item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '' :item.multiple.first} defaultChecked={item.multiple.first ===Object.values(item.multiple)[item.answer]}/>
                                                             <label  htmlFor={item.multiple === undefined? '':item.multiple.first}>{item.multiple === undefined? '':item.multiple.first}</label>
                                                         </div>
                                                         <div className='opt'>
-                                                            <input name = {item.text} id = {item._id} type = 'radio' value = {item.multiple === undefined? '':item.multiple.second}/>
+                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.second} defaultChecked={item.multiple.second ===Object.values(item.multiple)[item.answer]}/>
                                                             <label htmlFor={item.multiple === undefined? '':item.multiple.second}>{item.multiple === undefined? '':item.multiple.second}</label>
                                                         </div>
                                                         <div className = 'opt'>
-                                                            <input name = {item.text} id = {item._id} type = 'radio' value = {item.multiple === undefined? '':item.multiple.third}/>
+                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.third} defaultChecked={item.multiple.third ===Object.values(item.multiple)[item.answer]}/>
                                                             <label  htmlFor={item.multiple === undefined? '':item.multiple.third}>{item.multiple === undefined? '':item.multiple.third}</label>
                                                         </div>
                                                 </div>)
                                         case 'text':
                                             return(
-                                                <input name = {item.text} type={item.type} className = 'edit-text'/>
+                                                <input name = {item.text} type={item.type} className = 'edit-text' defaultValue ={item.answer? item.answer : ''}/>
                                             )
 
                                         default:
                                             return(
-                                                <input name = {item.text} type={item.type} className = 'edit-text' style={{width:150+'px'}}/>)
+                                                <input name = {item.text} type={item.type} className = 'edit-text' style={{width:150+'px'}} defaultValue ={item.answer? item.answer : ''}/>)
                                     }
                                 })()}
                             </div>
 
                         ))}
                     <div className='save-div'>
-                        <button type = 'submit' className = 'save'>
+                        <button type = 'submit' className = 'save' onClick={handleSubmit}>
                             Submit
                         </button>
                     </div>
                 </div>
-            </form>
+
         </React.Fragment>
     );
 }

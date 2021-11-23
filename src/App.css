@@ -35,7 +35,7 @@ body {
 .save-div{
   width:80%;
   display:flex;
-  justify-content: start;
+  justify-content: flex-start;
 
 
 }
@@ -332,8 +332,6 @@ input[type='radio']{
 }
 .container {
   padding: 30px;
-
-
 }
 .clearfix-signup{
   display:flex;

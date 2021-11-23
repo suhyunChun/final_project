@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import Nav from './Nav'
+
 import { v4 as uuidv4 } from 'uuid';
 
 function EditQuestions(props) {
@@ -13,7 +13,7 @@ function EditQuestions(props) {
             if(newQuestionList[i]._id === selectedId){
                 if(event.target.className === 'edit-text'){
                     newQuestionList[i].text = event.target.value
-                }else if(event.target.className == 'edit-type'){
+                }else if(event.target.className === 'edit-type'){
                     newQuestionList[i].type = event.target.value
                 }else{
                     const name = event.target.className

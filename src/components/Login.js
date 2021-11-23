@@ -37,7 +37,7 @@ function Login({handleLogged }) {
                         <br/>
                         <label htmlFor='login_pass'>Password</label>
                         <br/>
-                        <input type='password' id = 'login_pass' className = 'formPassword' onChange={(e)=>setPass(e.target.value)}/>
+                        <input type='password'  id = 'login_pass' className = 'formPassword' onChange={(e)=>setPass(e.target.value)}/>
                     </div>
                     {errorMessage == null? '':
                         <div className='errorMSG' style={{color : 'red'}}>
@@ -53,7 +53,7 @@ function Login({handleLogged }) {
                     </div>
                 </form>
             </div>
-            <CreateNewAccount handleLogged={handleLogged} registerForm={registerForm} handleClose={handleClose} handleErrorMsg={handleErrorMsg} handleClose={handleClose} />`
+            <CreateNewAccount handleLogged={handleLogged} registerForm={registerForm} handleClose={handleClose} handleErrorMsg={handleErrorMsg}/>`
         </React.Fragment>
     );
 
