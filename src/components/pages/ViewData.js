@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import LogDay from "./LogDay";
-
+import DataGraph from './DataGraph'
 
 function ViewData(props) {
     console.log(props.questions)
@@ -16,7 +16,7 @@ function ViewData(props) {
                 {clicked?
                     <div> <LogDay questions = {props.questions} setQuestions = {props.setQuestions} shownDate={props.shownDate} currDate={props.currDate} setShownDate = {props.setShownDate} readOnly = {true}/> </div>
                     :
-                    <div>Question</div>}
+                    <div><DataGraph questions = {props.questions}/></div>}
             </div>
         </React.Fragment>
     );
