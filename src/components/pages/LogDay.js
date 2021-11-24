@@ -5,21 +5,6 @@ import moment from 'moment'
 
 function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
-    /*useEffect(()=>{
-        setQuestionList([...props.questions.filter((item)=> item.date!==undefined? item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true)])
-    },[props.shownDate])
-*/
-    function CheckInclude(a, b) {
-        let tmp = [...a]
-        let newArrayOfDate = [];
-        tmp.forEach(function(item) {
-            if (item.date === undefined)
-                return false
-            newArrayOfDate.push(item.date.format('MM/DD/YYYY'));
-        });
-
-        return newArrayOfDate.includes(b)
-    }
     const handleFutureTime=()=>{
         if(props.shownDate.format('MM/DD/YYYY') < props.currDate.format('MM/DD/YYYY')){
             let tomorrow = moment(props.shownDate).add(1,'days')
@@ -72,7 +57,7 @@ function LogDay(props) {
                                         case 'boolean':
                                             return(<div className = 'bool'>
                                                 <div className = 'bool-opt'>
-                                                    <input name = {item.text} type = 'radio' id = 't' defaultValue = 'true' defaultChecked={item.answer? item.answer[1] ==='true' : ''}/>
+                                                    <input name = {item.text} type = 'radio' id = 't' defaultValue = 'true' defaultChecked={item.answer? item.answer[1] ==='true' : '' }/>
                                                     <label htmlFor='t'>True</label>
                                                 </div>
                                                 <div className = 'bool-opt'>
