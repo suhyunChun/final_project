@@ -8,18 +8,15 @@ import EditQuestions from "./components/pages/EditQuestions";
 import ViewData from "./components/pages/ViewData";
 import ProfileForm from "./components/pages/ProfileForm";
 import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment'
 
-/*
-  id
-  date
-  question  : [{}]
-  ans : [{}]
- */
 function App() {
-    const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number',answer :''},
-            {_id : uuidv4(), text:'Had a long walk today',type:'number',answer :''}, /*number/string*/
-            {_id : uuidv4(), text:'One great thing that happened today',type:'text',answer :''}, /*string*/
-            {_id : uuidv4(), text:'Today was a',type:'radio', multiple : {first:'1', second:'2', third:'3'},answer :''}]) /*question, **number(index)**, string(answer)*/
+    const currDate = moment();
+    const [shownDate, setShownDate] = useState(currDate)
+    const [questions, setQuestions] = useState([{_id : uuidv4(), date: shownDate, text:'Number of push ups',type:'number', answer : []},
+            {_id : uuidv4(), date: shownDate, text:'Had a long walk today',type:'number',answer : []}, /*number/string*/
+            {_id : uuidv4(), date: shownDate, text:'One great thing that happened today',type:'text',answer : []}, /*string*/
+            {_id : uuidv4(), date: shownDate, text:'Today was a',type:'radio', multiple : {first:'Ok day', second:'Bad day', third:'Great Day',}, answer : []}]) /*question, **number(index)**, string(answer)*/
     const [user, setUser] = useState({profileImg : 'defaultProfile.png', name : 'test', email : 'test@test.com', location : 'songdo', locationDetail:'1'})
     const [selected, setSelected] = useState('')
     /*boolean, true/false
@@ -68,9 +65,9 @@ function App() {
                       <Switch>
                           <Route exact path='/' component={Login}/>
                           <Route exact path='/page' component={Page}/>
-                          <Route exact path='/logday' component={()=><LogDay questions ={questions} setQuestions ={handleQ}/>}/>
-                          <Route exact path='/edit' component={()=><EditQuestions questions = {questions} setQuestions ={handleQ}/>}/>
-                          <Route exact path='/data' component={ViewData}/>
+                          <Route exact path='/logday' component={()=><LogDay questions ={questions} setQuestions ={handleQ} shownDate={shownDate} setShownDate = {setShownDate} currDate={currDate}/>}/>
+                          <Route exact path='/edit' component={()=><EditQuestions questions = {questions} setQuestions ={handleQ} shownDate={shownDate}/>}/>
+                          <Route exact path='/data' component={()=> <ViewData questions ={questions} setQuestions ={handleQ} shownDate={shownDate} setShownDate = {setShownDate} currDate={currDate}/>}/>
                           <Route exact path='/profile' component = {()=><ProfileForm user={user} setUser={setUser}/>}/>
                       </Switch>
                     </BrowserRouter>

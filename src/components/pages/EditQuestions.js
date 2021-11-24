@@ -1,9 +1,8 @@
 import React,{useState} from "react";
-
 import { v4 as uuidv4 } from 'uuid';
 
 function EditQuestions(props) {
-    const [questionList, setQuestionList] = useState([...props.questions])
+    const [questionList, setQuestionList] = useState([...props.questions.filter((item)=> item.date!==undefined?item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true)])
 
     const onChangeInput = (event) => {
         let newQuestionList = [...questionList]
@@ -27,11 +26,12 @@ function EditQuestions(props) {
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        props.setQuestions(questionList)
+        console.log(props.questions, (questionList))
+        props.setQuestions([...props.questions, ...questionList])
     }
     const handleAddition=()=>{
         let updatedQ = [...questionList]
-        updatedQ = updatedQ.concat({_id: uuidv4(), text:'', type:'number'})
+        updatedQ = updatedQ.concat({_id: uuidv4(), date: props.shownDate, text:'', type:'number'})
         setQuestionList(updatedQ)
     }
     const handleDeletion=(e)=>{
