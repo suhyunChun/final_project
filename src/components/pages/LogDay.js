@@ -4,11 +4,11 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import moment from 'moment'
 
 function LogDay(props) {
-    const [questionList, setQuestionList] = useState([...props.questions.filter((item)=> item.date!==undefined?item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true)])
-    useEffect(()=>{
+    const [questionList, setQuestionList] = useState([...props.questions])
+    /*useEffect(()=>{
         setQuestionList([...props.questions.filter((item)=> item.date!==undefined? item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true)])
     },[props.shownDate])
-
+*/
     function CheckInclude(a, b) {
         let tmp = [...a]
         let newArrayOfDate = [];
@@ -32,14 +32,14 @@ function LogDay(props) {
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        let chk = CheckInclude(questionList,props.shownDate.format('MM/DD/YYYY'))
+        /*let chk = CheckInclude(questionList,props.shownDate.format('MM/DD/YYYY'))
         if(chk){
             let newQ = [...props.questions]
             let tmp = newQ.filter((item)=> item.date.format('MM/DD/YYYY') !== props.shownDate.format('MM/DD/YYYY'))
             props.setQuestions(tmp.concat(questionList))
-        }else{
-            props.setQuestions(props.questions.concat(questionList))
-        }
+        }else{*/
+            props.setQuestions(questionList)
+        //}
     }
 
     const handleChange=(event)=>{
@@ -64,7 +64,7 @@ function LogDay(props) {
                         <span  style ={{fontSize:1.5+'em'}}><strong>{props.shownDate.format('MM/DD/YYYY')}</strong></span>
                         <ArrowForwardIosIcon onClick ={handleFutureTime} style={{color: (props.shownDate.format('MM/DD/YYYY')===props.currDate.format('MM/DD/YYYY')? 'darkgrey':'')}} />
                     </div>
-                        {(questionList).map(item => (
+                        {(questionList.filter((item)=> item.date!==undefined?item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true)).map(item => (
                             <div className='question' id = {item._id} key={item._id} onChange={handleChange}>
                                 <div className = 'log-text'>{item.text}</div>
                                 {(()=>{
@@ -84,15 +84,15 @@ function LogDay(props) {
                                                 return(
                                                     <div className ='mult-opt'>
                                                         <div className = 'opt' >
-                                                            <input name ={item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '' :item.multiple.first} defaultChecked={item.multiple.first&&item.answer&&item.answer ===Object.values(item.multiple)[item.answer[1]]}/>
+                                                            <input name ={item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '' :item.multiple.first} defaultChecked={item.multiple.first&&item.answer&&item.multiple.first ===Object.values(item.multiple)[item.answer[1]]}/>
                                                             <label  htmlFor={item.multiple === undefined? '':item.multiple.first}>{item.multiple === undefined? '':item.multiple.first}</label>
                                                         </div>
                                                         <div className='opt'>
-                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.second} defaultChecked={item.multiple.second&& item.answer&& item.answer ===Object.values(item.multiple)[item.answer[1]]}/>
+                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.second} defaultChecked={item.multiple.second&& item.answer&& item.multiple.second ===Object.values(item.multiple)[item.answer[1]]}/>
                                                             <label htmlFor={item.multiple === undefined? '':item.multiple.second}>{item.multiple === undefined? '':item.multiple.second}</label>
                                                         </div>
                                                         <div className = 'opt'>
-                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.third} defaultChecked={item.multiple.third && item.answer&&(item.answer ===Object.values(item.multiple)[item.answer[1]])}/>
+                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.third} defaultChecked={item.multiple.third && item.answer&&(item.multiple.third ===Object.values(item.multiple)[item.answer[1]])}/>
                                                             <label  htmlFor={item.multiple === undefined? '':item.multiple.third}>{item.multiple === undefined? '':item.multiple.third}</label>
                                                         </div>
                                                 </div>)

@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 function EditQuestions(props) {
-    const [questionList, setQuestionList] = useState([...props.questions.filter((item)=> item.date!==undefined?item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true)])
+    const [questionList, setQuestionList] = useState([...props.questions])
 
     const onChangeInput = (event) => {
         let newQuestionList = [...questionList]
@@ -26,8 +26,7 @@ function EditQuestions(props) {
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        console.log(props.questions, (questionList))
-        props.setQuestions([...props.questions, ...questionList])
+        props.setQuestions(questionList)
     }
     const handleAddition=()=>{
         let updatedQ = [...questionList]
@@ -46,7 +45,7 @@ function EditQuestions(props) {
                         <h2> Edit Questions</h2>
                         <span className="material-icons" onClick={handleAddition}>add_circle_outline</span>
                     </div>
-                    {questionList.map(item => (
+                    {questionList.filter((item)=> item.date!==undefined?item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true).map(item => (
                         <div className='edit-question' id = {item._id} key={item._id}>
                             <label htmlFor = 'edit-text'/>
                             <input className = 'edit-text' id = {item._id} value ={item.text} onChange={onChangeInput}/>
