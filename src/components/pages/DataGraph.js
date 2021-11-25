@@ -1,6 +1,9 @@
 import React,{useState,useEffect} from "react";
 import groupByKey from '../../sample/test/groupByKey'
 import TextTypeGraph from '../graph/TextTypeGraph'
+import NumTypeGraph from "../graph/NumTypeGraph";
+import BoolTypeGraph from "../graph/BoolTypeGraph";
+import MultipleTypeGraph from "../graph/MultipleTypeGraph";
 
 function DataGraph(props) {
     const [data, setDate] = useState([...props.questions].sort((a,b)=>(a.date).diff(b.date)))
@@ -24,7 +27,9 @@ function DataGraph(props) {
      */
     return(
         <React.Fragment>
-
+            <NumTypeGraph data={data} numData={numData}/>
+            <TextTypeGraph data={data} textData={textData}/>
+            <MultipleTypeGraph data = {data} radioData ={radioData}/>
         </React.Fragment>
     );
 }
