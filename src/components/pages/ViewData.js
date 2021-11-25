@@ -14,7 +14,7 @@ function ViewData(props) {
                 <button onClick = {()=>handleClicked(true)}> Date </button>
                 <button onClick = {()=>handleClicked(false)}> Question </button>
                 {clicked?
-                    <div> <LogDay questions = {props.questions} setQuestions = {props.setQuestions} shownDate={props.shownDate} currDate={props.currDate} setShownDate = {props.setShownDate} readOnly = {true}/> </div>
+                    <div> <LogDay questions = {props.questions} setQuestions = {props.setQuestions} shownDate={props.shownDate} currDate={props.currDate} setShownDate = {props.setShownDate} read = {true}/> </div>
                     :
                     <div><DataGraph questions = {props.questions}/></div>}
             </div>

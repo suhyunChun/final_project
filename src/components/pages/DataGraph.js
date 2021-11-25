@@ -1,15 +1,6 @@
 import React,{useState,useEffect} from "react";
 import groupByKey from '../../sample/test/groupByKey'
-import {
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    Cell,
-    CartesianGrid,
-    Tooltip,
-    Legend
-} from "recharts";
+import TextTypeGraph from '../graph/TextTypeGraph'
 
 function DataGraph(props) {
     const [data, setDate] = useState([...props.questions].sort((a,b)=>(a.date).diff(b.date)))
@@ -33,7 +24,6 @@ function DataGraph(props) {
      */
     return(
         <React.Fragment>
-
 
         </React.Fragment>
     );

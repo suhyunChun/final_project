@@ -57,11 +57,11 @@ function LogDay(props) {
                                         case 'boolean':
                                             return(<div className = 'bool'>
                                                 <div className = 'bool-opt'>
-                                                    <input name = {item.text} type = 'radio' id = 't' defaultValue = 'true' defaultChecked={item.answer? item.answer[1] ==='true' : '' }/>
+                                                    <input name = {item.text} type = 'radio' id = 't' defaultValue = 'true' defaultChecked={item.answer? item.answer[1] ==='true' : ''}  disabled={props.read}/>
                                                     <label htmlFor='t'>True</label>
                                                 </div>
                                                 <div className = 'bool-opt'>
-                                                    <input name = {item.text} type = 'radio' id = 'f' defaultValue = 'false' defaultChecked={item.answer? item.answer[1] ==='false':''}/>
+                                                    <input name = {item.text} type = 'radio' id = 'f' defaultValue = 'false' defaultChecked={item.answer? item.answer[1] ==='false':''}  disabled={props.read}/>
                                                     <label htmlFor='f'>False</label>
                                                 </div>
                                             </div>)
@@ -69,30 +69,29 @@ function LogDay(props) {
                                                 return(
                                                     <div className ='mult-opt'>
                                                         <div className = 'opt' >
-                                                            <input name ={item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '' :item.multiple.first} defaultChecked={item.multiple.first&&item.answer&&item.multiple.first ===Object.values(item.multiple)[item.answer[1]]}/>
+                                                            <input name ={item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '' :item.multiple.first} defaultChecked={item.multiple.first&&item.answer&&item.multiple.first ===Object.values(item.multiple)[item.answer[1]]}  disabled={props.read}/>
                                                             <label  htmlFor={item.multiple === undefined? '':item.multiple.first}>{item.multiple === undefined? '':item.multiple.first}</label>
                                                         </div>
                                                         <div className='opt'>
-                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.second} defaultChecked={item.multiple.second&& item.answer&& item.multiple.second ===Object.values(item.multiple)[item.answer[1]]}/>
+                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.second} defaultChecked={item.multiple.second&& item.answer&& item.multiple.second ===Object.values(item.multiple)[item.answer[1]]}  disabled={props.read}/>
                                                             <label htmlFor={item.multiple === undefined? '':item.multiple.second}>{item.multiple === undefined? '':item.multiple.second}</label>
                                                         </div>
                                                         <div className = 'opt'>
-                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.third} defaultChecked={item.multiple.third && item.answer&&(item.multiple.third ===Object.values(item.multiple)[item.answer[1]])}/>
+                                                            <input name = {item.text} id = {item._id} type = 'radio' defaultValue = {item.multiple === undefined? '':item.multiple.third} defaultChecked={item.multiple.third && item.answer&&(item.multiple.third ===Object.values(item.multiple)[item.answer[1]])}  disabled={props.read}/>
                                                             <label  htmlFor={item.multiple === undefined? '':item.multiple.third}>{item.multiple === undefined? '':item.multiple.third}</label>
                                                         </div>
                                                 </div>)
                                         case 'text':
                                             return(
-                                                <input name = {item.text} type={item.type} className = 'edit-text' defaultValue ={item.answer ? item.answer[1]  : ''}/>
+                                                <input name = {item.text} type={item.type} className = 'edit-text' defaultValue ={item.answer ? item.answer[1]  : ''} readOnly = {props.read}/>
                                             )
 
                                         default:
                                             return(
-                                                <input name = {item.text} type={item.type} className = 'edit-text' style={{width:150+'px'}} defaultValue ={item.answer ? item.answer[1]  : ''}/>)
+                                                <input name = {item.text} type={item.type} className = 'edit-text' style={{width:150+'px'}} defaultValue ={item.answer ? item.answer[1]  : ''} readOnly = {props.read}/>)
                                     }
                                 })()}
                             </div>
-
                         ))}
                     <div className='save-div'>
                         <button type = 'submit' className = 'save' onClick={handleSubmit}>

@@ -65,7 +65,7 @@ function App() {
                       <Switch>
                           <Route exact path='/' component={Login}/>
                           <Route exact path='/page' component={Page}/>
-                          <Route exact path='/logday' component={()=><LogDay questions ={questions} setQuestions ={handleQ} shownDate={shownDate} setShownDate = {setShownDate} currDate={currDate}/>}/>
+                          <Route exact path='/logday' component={()=><LogDay questions ={questions} setQuestions ={handleQ} shownDate={shownDate} setShownDate = {setShownDate} currDate={currDate} read ={false}/>}/>
                           <Route exact path='/edit' component={()=><EditQuestions questions = {questions} setQuestions ={handleQ} shownDate={shownDate}/>}/>
                           <Route exact path='/data' component={()=> <ViewData questions ={questions} setQuestions ={handleQ} shownDate={shownDate} setShownDate = {setShownDate} currDate={currDate}/>}/>
                           <Route exact path='/profile' component = {()=><ProfileForm user={user} setUser={setUser}/>}/>
