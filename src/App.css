@@ -29,12 +29,13 @@ body {
   height : 50px;
   border :none;
   border-radius:10px;
-  margin-top:11px;
+
   background-color: var(--actionBackgroundColor);
 }
 .save-div{
-  width:80%;
+  width:600px;
   display:flex;
+  margin-top:10px;
   justify-content: flex-start;
 
 
@@ -222,7 +223,7 @@ ul{
   align-items: center;
 }
 .edit-title, .log-date,.profile-title{
-  width : 80%;
+  width : 600px;
   display:flex;
   flex-direction: row;
   justify-content: space-between;
@@ -236,7 +237,7 @@ ul{
 .edit-question, .question, .profile-email, .profile-photo, .profile-location, .profile-name{
   background-color: var(--standardBackgroundColor);
   margin:0.7%;
-  width : 80%;
+  width :600px;
   padding : 11px;
   border-radius:10px;
 }
@@ -311,8 +312,9 @@ input[type='radio']{
   text-size:1.3em;
 }
 .clearfix{
-  width:80%;
+  width:600px;
   display:flex;
+  margin-top:10px;
   justify-content: space-between;
 }
 .logout{
@@ -424,7 +426,11 @@ input[type = text]:focus{
   .nav_bar{
     justify-content: space-around;
   }
-  #nav-pages>li{
 
+  #edit, #log-day, #profile-form{
+    width :100%;
+  }
+  .edit-question, .question, .profile-email, .profile-photo, .profile-location, .profile-name,.edit-title, .log-date, .profile-title,.clearfix, .save-div {
+    width:90%;
   }
 }
