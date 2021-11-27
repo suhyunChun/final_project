@@ -1,15 +1,13 @@
 import React,{useState} from "react";
 import moment from 'moment'
 import {
-    Label,
+    ResponsiveContainer,
     LineChart,
     Line,
     CartesianGrid,
     XAxis,
     YAxis,
-    Legend,
     Tooltip,
-    ReferenceArea
 } from "recharts";
 
 
@@ -19,26 +17,22 @@ function NumTypeGraph(props) {
     return(
         <React.Fragment>
             {data.map((item)=>(
-                <div>
-                    <span> {item} </span>
-                    <button onClick={()=>console.log(props.numData[item].map(function(ans){
-                        return ans.answer
-                    }))}>test</button>
+                <div className = 'graph'>
+                    <h3 style={{color:'#075a7a'}}> {item} </h3>
+                    <ResponsiveContainer minWidth={260} minHeight={240}>
                     <LineChart
-                        width={400}
-                        height={250}
                         data={props.numData[item].map(function(ans){
                             return ans.answer
                         })}
                     >
                         <Tooltip />
-                        <Legend/>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey='date'/>
-                        <YAxis dataKey='res'/>
-                        <Line type="monotone" dataKey="res" stroke="#f76b8a" activeDot={{ r: 8 }}/>
+                        <XAxis  label={{ value: 'Dates', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }} dataKey='date'>
+                        </XAxis>
+                        <YAxis dataKey='res' label={{ value: 'Nums', angle: -90, position: 'insideLeft' }} domain ={[0, 'dataMax']}/>
+                        <Line type="monotone" dataKey="res" stroke="#f76b8a" strokeWidth={1.6} activeDot={{ r: 8 }}/>
                     </LineChart>
-
+                    </ResponsiveContainer>
                 </div>
             ))}
         </React.Fragment>

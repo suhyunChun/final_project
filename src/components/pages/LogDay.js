@@ -32,7 +32,7 @@ function LogDay(props) {
         for(let i = 0; i < tmpQuestion.length; i++){
             if(tmpQuestion[i].text === event.target.name && tmpQuestion[i].date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY')){
                 if(tmpQuestion[i].type === 'radio' && event.target.name !== 'bool-opt'){
-                    tmpQuestion[i].answer = {data:props.shownDate.format('MM/DD/YYYY'), res:(Object.values(tmpQuestion[i].multiple)).indexOf(event.target.value), ans:event.target.value}
+                    tmpQuestion[i].answer = {data:props.shownDate.format('MM/DD/YYYY'), res:(Object.values(tmpQuestion[i].multiple)).indexOf(event.target.value)}
                 }else{
                     tmpQuestion[i].answer = {date:props.shownDate.format('MM/DD/YYYY'),res:event.target.value}
                 }

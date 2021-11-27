@@ -216,7 +216,7 @@ ul{
   width: 100%;
 }
 /*Edit page*/
-#edit, #log-day, #profile-form{
+#edit, #log-day, #profile-form,#data{
   display:flex;
   flex-direction: column;
   justify-items: center;
@@ -228,19 +228,22 @@ ul{
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
-
+}
+.recharts-wrapper{
+  display:flex;
+  width : 100px;
 }
 #nav-pages>li{
   margin-right:21px;
 }
-.edit-question, .question, .profile-email, .profile-photo, .profile-location, .profile-name{
+.edit-question, .question, .profile-email, .profile-photo, .profile-location, .profile-name,.graph{
   background-color: var(--standardBackgroundColor);
   margin:0.7%;
   width :600px;
   padding : 11px;
   border-radius:10px;
 }
+
 .edit-text, .log-text{
   border:1px solid lightgray;
   margin-bottom : 11px;
@@ -405,7 +408,10 @@ input[type = text]:focus{
   background-color: var(--standardBackgroundColor);
   border-radius:10%;
 }
+.viewData{
+  opacitiy: 0.9;
 
+}
 @media screen and (max-width:600px){
   .modal{
     padding :0;
@@ -427,10 +433,11 @@ input[type = text]:focus{
     justify-content: space-around;
   }
 
-  #edit, #log-day, #profile-form{
+  #edit, #log-day, #profile-form,.viewData{
     width :100%;
+
   }
-  .edit-question, .question, .profile-email, .profile-photo, .profile-location, .profile-name,.edit-title, .log-date, .profile-title,.clearfix, .save-div {
+  .edit-question, .question, .profile-email, .profile-photo, .profile-location, .profile-name,.edit-title, .log-date, .profile-title,.clearfix, .save-div,.graph {
     width:90%;
   }
 }

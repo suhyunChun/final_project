@@ -10,12 +10,14 @@ function ViewData(props) {
     return(
         <React.Fragment>
             <div id="data">
-                <button onClick = {()=>handleClicked(true)} style={{color: (clicked)? 'rgb(102, 191, 191)':''}}> Date </button>
-                <button onClick = {()=>handleClicked(false)} style={{color: (clicked)? '':'rgb(102, 191, 191)'}}> Question </button>
-                {clicked?
-                    <div> <LogDay questions = {props.questions} setQuestions = {props.setQuestions} shownDate={props.shownDate} currDate={props.currDate} setShownDate = {props.setShownDate} read = {true}/> </div>
+                <div className = 'clearfix'>
+                <button onClick = {()=>handleClicked(true)} style={{border:1+'px solid black', fontSize : 1.5+'rem',padding : 7+'px', color: (clicked)? 'rgb(102, 191, 191)':'',backgroundColor :(clicked)? '#ffffff' :'', borderRadius:10+'px'}}> Date </button>
+                <button onClick = {()=>handleClicked(false)} style={{border:1+'px solid black', fontSize : 1.5+'rem',padding : 7+'px', color: (clicked)? '':'rgb(102, 191, 191)',backgroundColor :(clicked)? '':'#fcfefe',borderRadius:10+'px' }}> Question </button>
+                </div>
+                    {clicked?
+                    <div className = 'viewData'> <LogDay questions = {props.questions} setQuestions = {props.setQuestions} shownDate={props.shownDate} currDate={props.currDate} setShownDate = {props.setShownDate} read = {true}/> </div>
                     :
-                    <div><DataGraph questions = {props.questions}/></div>}
+                        <div> <DataGraph questions = {props.questions}/></div>}
             </div>
         </React.Fragment>
     );

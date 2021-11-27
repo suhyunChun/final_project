@@ -30,6 +30,7 @@ function DataGraph(props) {
             <NumTypeGraph data={data} numData={numData}/>
             <TextTypeGraph data={data} textData={textData}/>
             <MultipleTypeGraph data = {data} radioData ={radioData}/>
+            <BoolTypeGraph data={data} boolData = {boolData}/>
         </React.Fragment>
     );
 }

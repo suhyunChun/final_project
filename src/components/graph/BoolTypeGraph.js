@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     BarChart,
     Bar,
@@ -12,25 +12,33 @@ import {
 
 function BoolTypeGraph(props) {
     const data = Object.keys(props.boolData)
+    const [tmpData,setTmpData] = useState({...props.boolData})
+
+    const formatDate =()=>{
+
+    }
+
     return(
         <React.Fragment>
             {data.map((item)=>(
-                <div>
-                    <span>{item}</span>
-                    <button onClick={()=>console.log(props.boolData[item].map(function(ans){
-                            return ans.answer
-                        }))}>test</button>
+                <div className = 'graph'>
+                    <h3 style={{color:'#075a7a'}}>{item}</h3>
+                    <button onClick={()=>console.log(tmpData[item].map(function(ans){
+                        return ans.answer
+                    }))}>test</button>
                     <BarChart
                         width={400}
                         height={250}
-                        data={props.boolData[item].map(function(ans){
+                        data={tmpData[item].map(function(ans){
                             return ans.answer
                         })}
                     >
-                        <XAxis dataKey="res" fontFamily="sans-serif" />
+                        <XAxis dataKey = 'res' fontFamily="sans-serif" allowDuplicatedCategory={false} />
                         <YAxis />
+                        <Tooltip/>
                         <Bar
                             dataKey='res'
+                            stackId = 'a'
                             fontFamily="sans-serif"
                         >
                         </Bar>
