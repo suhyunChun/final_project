@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import {Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {Bar, BarChart,  ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 function MultipleTypeGraph(props) {
     const data = Object.keys(props.radioData)
@@ -39,7 +39,6 @@ function MultipleTypeGraph(props) {
         <React.Fragment>
             {newRadioData.map((item)=>(
                 <div className = 'graph'>
-                    <button onClick ={()=>console.log(item.res)}>test</button>
                     <h3 style={{color:'#075a7a'}}>{item.text}</h3>
                         <ResponsiveContainer minWidth={260} minHeight={240}>
                         <BarChart

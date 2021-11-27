@@ -1,5 +1,5 @@
-import React,{useState} from "react";
-import moment from 'moment'
+import React from "react";
+
 import {
     ResponsiveContainer,
     LineChart,
@@ -29,7 +29,7 @@ function NumTypeGraph(props) {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis  label={{ value: 'Dates', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }} dataKey='date'>
                         </XAxis>
-                        <YAxis dataKey='res' label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain ={[0, 'dataMax']}/>
+                        <YAxis dataKey={(v)=>parseInt(v.res)} label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain={[0,'dataMax']} allowDataOverflow={true} />
                         <Line type="monotone" dataKey="res" stroke="#f76b8a" strokeWidth={1.6} activeDot={{ r: 8 }}/>
                     </LineChart>
                     </ResponsiveContainer>

@@ -4,10 +4,8 @@ import {
     Bar,
     XAxis,
     YAxis,
-    Cell,
-    CartesianGrid,
     Tooltip,
-    Legend, ResponsiveContainer
+    ResponsiveContainer
 } from "recharts";
 
 function BoolTypeGraph(props) {

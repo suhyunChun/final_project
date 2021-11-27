@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React from "react";
 import groupByKey from '../../sample/test/groupByKey'
 import TextTypeGraph from '../graph/TextTypeGraph'
 import NumTypeGraph from "../graph/NumTypeGraph";
@@ -6,11 +6,11 @@ import BoolTypeGraph from "../graph/BoolTypeGraph";
 import MultipleTypeGraph from "../graph/MultipleTypeGraph";
 
 function DataGraph(props) {
-    const [data, setDate] = useState([...props.questions].sort((a,b)=>(a.date).diff(b.date)))
-    const [textData, setTextData] = useState(groupByKey([...data.filter((item)=> item.type === 'text')],'text'))
-    const [numData, setNumData] = useState(groupByKey([...data.filter((item)=> item.type === 'number')],'text'))
-    const [radioData, setRadioData] = useState(groupByKey([...data.filter((item)=> item.type === 'radio')],'text'))
-    const [boolData, setBoolData] = useState(groupByKey([...data.filter((item)=> item.type === 'boolean')],'text'))
+    const data = [...props.questions].sort((a,b)=>(a.date).diff(b.date))
+    const textData = groupByKey([...data.filter((item)=> item.type === 'text')],'text')
+    const numData = groupByKey([...data.filter((item)=> item.type === 'number')],'text')
+    const radioData = groupByKey([...data.filter((item)=> item.type === 'radio')],'text')
+    const boolData= groupByKey([...data.filter((item)=> item.type === 'boolean')],'text')
 
    // console.log(textData,numData,radioData,boolData)
 
