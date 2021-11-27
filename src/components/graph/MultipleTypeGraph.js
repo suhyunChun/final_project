@@ -3,46 +3,58 @@ import {Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis} from 
 
 function MultipleTypeGraph(props) {
     const data = Object.keys(props.radioData)
-    let newRadioData = {...props.radioData}
+    const [newRadioData,setNewRadioData] = useState([])
 
     useEffect(()=>{
-        let first = 0;
-        let second = 0;
-        let third = 0;
+        let newData = []
         for(let i = 0; i < data.length;i++){
-            let q = newRadioData[data[i]]
+            let f  = 0;
+            let s = 0;
+            let t = 0;
+            let value = {}
+            let q = props.radioData[data[i]]
+            let a = Object.values(q[0].multiple)[0]
+            let b = Object.values(q[0].multiple)[1]
+            let c = Object.values(q[0].multiple)[2]
             for(let j = 0; j < q.length; j++){
-                const valueArray = Object.values(q[j].multiple)
-                q[j].answer.valueArray = valueArray;
-                q[j].answer.ans = valueArray[q[j].answer.res]
+                if(Object.values(q[j].multiple)[q[j].answer.res] === a){
+                    f += 1;
+                }else if (Object.values(q[j].multiple)[q[j].answer.res] === b){
+                    s += 1;
+                }else if(Object.values(q[j].multiple)[q[j].answer.res] === c){
+                    t += 1;
+                }
             }
+            value.text = data[i]
+            value.res = [{t:a,v:f},{t:b, v:s},{t:c, v:t}]
+            newData = newData.concat(value)
+            console.log(newData)
         }
+        setNewRadioData(newData)
     },[])
+
 
 
     return(
         <React.Fragment>
-            {data.map((item)=>(
+            {newRadioData.map((item)=>(
                 <div className = 'graph'>
-                    <h3 style={{color:'#075a7a'}}>{item}</h3>
-
-                    <button onClick={()=>console.log(newRadioData[item],newRadioData[item].map(function(ans){
-                            return ans.answer
-                        }))}>test</button>
-                    <ResponsiveContainer minWidth={260} minHeight={240}>
+                    <button onClick ={()=>console.log(item.res)}>test</button>
+                    <h3 style={{color:'#075a7a'}}>{item.text}</h3>
+                        <ResponsiveContainer minWidth={260} minHeight={240}>
                         <BarChart
                             width={400}
                             height={250}
-                            data={newRadioData[item].map(function(ans){
-                                return ans.answer
-                            })}
+                            data={item.res}
                         >
-                            <XAxis label={{ value: 'Responses', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }} dataKey="valueArray" fontFamily="sans-serif" />
+                            <XAxis dataKey='t' label={{ value: 'Responses', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }}  fontFamily="sans-serif" />
                             <YAxis label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain ={[0, 'dataMax']}/>
                             <Tooltip />
                             <Bar
-                                dataKey='ans'
+                                dataKey='v'
                                 fontFamily="sans-serif"
+                                stroke="#f76b8a"
+                                fill="#f76b8a"
                             >
                             </Bar>
                         </BarChart>

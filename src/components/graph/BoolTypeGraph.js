@@ -33,7 +33,6 @@ function BoolTypeGraph(props) {
             value.false = fNum;
             value ={text:data[i], res:[{t : 'true', value:tNum},{t: 'false', value:fNum}]}
             newData = newData.concat(value)
-            console.log(newData)
         }
         setNewBoolData(newData)
     },[])
