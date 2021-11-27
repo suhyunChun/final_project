@@ -18,6 +18,7 @@ function ViewData(props) {
                     <div className = 'viewData'> <LogDay questions = {props.questions} setQuestions = {props.setQuestions} shownDate={props.shownDate} currDate={props.currDate} setShownDate = {props.setShownDate} read = {true}/> </div>
                     :
                       <DataGraph questions = {props.questions}/>}
+                <button className = 'save' style ={{marginTop:3+'px'}}>Download the data</button>
             </div>
         </React.Fragment>
     );
