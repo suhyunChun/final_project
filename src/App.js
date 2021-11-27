@@ -42,7 +42,7 @@ function App() {
     const onClickLink=(e)=>{
         setSelected(e.target.id)
     }
-    //console.log("IN APP JS, questions",questions)
+
     return (
           <div className="App">
             <header className="App-header">

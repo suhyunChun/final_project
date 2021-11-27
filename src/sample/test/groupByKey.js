@@ -1,3 +1,4 @@
+
 function groupByKey(array, key) {
     return array
         .reduce((hash, obj) => {
@@ -6,4 +7,5 @@ function groupByKey(array, key) {
         }, {})
 }
 
-module.exports = groupByKey;
+module.exports= groupByKey
+

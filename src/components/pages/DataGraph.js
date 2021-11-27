@@ -12,8 +12,6 @@ function DataGraph(props) {
     const radioData = groupByKey([...data.filter((item)=> item.type === 'radio')],'text')
     const boolData= groupByKey([...data.filter((item)=> item.type === 'boolean')],'text')
 
-   // console.log(textData,numData,radioData,boolData)
-
 
     /*
     1. A summary of responses organized by question

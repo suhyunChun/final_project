@@ -28,7 +28,6 @@ function MultipleTypeGraph(props) {
             value.text = data[i]
             value.res = [{t:a,v:f},{t:b, v:s},{t:c, v:t}]
             newData = newData.concat(value)
-            console.log(newData)
         }
         setNewRadioData(newData)
     },[])
@@ -40,7 +39,7 @@ function MultipleTypeGraph(props) {
             {newRadioData.map((item)=>(
                 <div className = 'graph'>
                     <h3 style={{color:'#075a7a'}}>{item.text}</h3>
-                        <ResponsiveContainer minWidth={260} minHeight={240}>
+                        <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
                         <BarChart
                             width={400}
                             height={250}

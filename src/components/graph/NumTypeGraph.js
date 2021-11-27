@@ -19,6 +19,7 @@ function NumTypeGraph(props) {
             {data.map((item)=>(
                 <div className = 'graph'>
                     <h3 style={{color:'#075a7a'}}> {item} </h3>
+
                     <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
                     <LineChart
                         data={props.numData[item].map(function(ans){
