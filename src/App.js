@@ -36,13 +36,13 @@ function App() {
     * */
 
     const handleQ=(q)=>{
-        console.log('Change Q to', q)
+       // console.log('Change Q to', q)
         setQuestions(q)
     }
     const onClickLink=(e)=>{
         setSelected(e.target.id)
     }
-    console.log("IN APP JS, questions",questions)
+    //console.log("IN APP JS, questions",questions)
     return (
           <div className="App">
             <header className="App-header">

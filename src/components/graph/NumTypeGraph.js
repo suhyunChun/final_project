@@ -19,7 +19,7 @@ function NumTypeGraph(props) {
             {data.map((item)=>(
                 <div className = 'graph'>
                     <h3 style={{color:'#075a7a'}}> {item} </h3>
-                    <ResponsiveContainer minWidth={260} minHeight={240}>
+                    <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
                     <LineChart
                         data={props.numData[item].map(function(ans){
                             return ans.answer
@@ -29,7 +29,7 @@ function NumTypeGraph(props) {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis  label={{ value: 'Dates', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }} dataKey='date'>
                         </XAxis>
-                        <YAxis dataKey='res' label={{ value: 'Nums', angle: -90, position: 'insideLeft' }} domain ={[0, 'dataMax']}/>
+                        <YAxis dataKey='res' label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain ={[0, 'dataMax']}/>
                         <Line type="monotone" dataKey="res" stroke="#f76b8a" strokeWidth={1.6} activeDot={{ r: 8 }}/>
                     </LineChart>
                     </ResponsiveContainer>

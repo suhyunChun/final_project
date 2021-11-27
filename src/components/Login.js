@@ -8,7 +8,7 @@ function Login({handleLogged }) {
     const [email,setEmail] = useState('')
     const [pass,setPass] = useState('')
     const history = useHistory();
-    console.log(email,pass)
+    //console.log(email,pass)
     const handleOpen=(e)=>{
         e.preventDefault()
         setRegisterForm(true)
@@ -17,7 +17,7 @@ function Login({handleLogged }) {
         setRegisterForm(false)
     }
     const handleErrorMsg=(str)=>{
-        console.log('ERROR MESSAGE')
+       // console.log('ERROR MESSAGE')
         setErrorMessage(str)
     }
 

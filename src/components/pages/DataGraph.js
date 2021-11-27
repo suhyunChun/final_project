@@ -12,7 +12,7 @@ function DataGraph(props) {
     const [radioData, setRadioData] = useState(groupByKey([...data.filter((item)=> item.type === 'radio')],'text'))
     const [boolData, setBoolData] = useState(groupByKey([...data.filter((item)=> item.type === 'boolean')],'text'))
 
-    console.log(textData,numData,radioData,boolData)
+   // console.log(textData,numData,radioData,boolData)
 
 
     /*

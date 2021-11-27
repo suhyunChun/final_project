@@ -7,7 +7,7 @@ function EditQuestions(props) {
     const onChangeInput = (event) => {
         let newQuestionList = [...questionList]
         const selectedId = event.target.id
-        console.log(event.target)
+        //console.log(event.target)
         for (let i = 0; i < newQuestionList.length; i++){
             if(newQuestionList[i]._id === selectedId){
                 if(event.target.className === 'edit-text'){
@@ -17,11 +17,11 @@ function EditQuestions(props) {
                 }else{
                     const name = event.target.className
                     newQuestionList[i].multiple = {...newQuestionList[i].multiple,[name] : event.target.value}
-                    console.log(newQuestionList[i])
+                 //   console.log(newQuestionList[i])
                 }
             }
         }
-        console.log(newQuestionList)
+       // console.log(newQuestionList)
         setQuestionList(newQuestionList)
     }
     const handleSubmit=(e)=>{

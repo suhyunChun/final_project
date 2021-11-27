@@ -19,7 +19,7 @@ function ProfileForm(props){
         setUser(updatedUser);
     }
     const handleSave=(event)=>{
-        console.log(user)
+      //  console.log(user)
         props.setUser(user)
     }
     const handleLogOut =() =>{
@@ -27,7 +27,7 @@ function ProfileForm(props){
     }
 
     const handleImageSelected = (event) => {
-        console.log("New File Selected");
+       // console.log("New File Selected");
     }
     /*
     need to add (upload new image)
