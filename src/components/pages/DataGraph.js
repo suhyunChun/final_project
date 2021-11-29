@@ -5,19 +5,11 @@ import NumTypeGraph from "../graph/NumTypeGraph";
 import BoolTypeGraph from "../graph/BoolTypeGraph";
 import MultipleTypeGraph from "../graph/MultipleTypeGraph";
 
-/*1. A summary of responses organized by question
-    • For "text" questions you can display all the responses one after another (sorted by date).
-    • For “boolean” and “multiple choice” questions, you should make a bar graph showing each
-    response and the number of counts for each.
-    • For “number” questions the responses should be shown as a line graph, showing the
-    numerical response for each given day.
-    • For all the graphs, remember to provide appropriate axis / graph labels so that the data is
-    understandable.
- */
+
 function DataGraph(props) {
     const data =groupByKey([...props.questions].sort((a,b)=>(a.date).diff(b.date)),'text')
     const question =  Object.keys(data)
-    /*const textData = groupByKey([...data.filter((item)=> item.type === 'text')],'text')
+   /* const textData = groupByKey([...data.filter((item)=> item.type === 'text')],'text')
     const numData = groupByKey([...data.filter((item)=> item.type === 'number')],'text')
     const radioData = groupByKey([...data.filter((item)=> item.type === 'radio')],'text')
     const boolData= groupByKey([...data.filter((item)=> item.type === 'boolean')],'text')*/
@@ -39,21 +31,22 @@ function DataGraph(props) {
         let f  = 0;
         let s = 0;
         let t = 0;
-        let a = Object.values(data[0].multiple)[0]
-        let b = Object.values(data[0].multiple)[1]
-        let c = Object.values(data[0].multiple)[2]
+        let a = Object.values(data[0].multiple)[0].toLowerCase()
+        let b = Object.values(data[0].multiple)[1].toLowerCase()
+        let c = Object.values(data[0].multiple)[2].toLowerCase()
         for(let i = 0; i < data.length;i++){
-            if(Object.values(data[i].multiple)[data[i].answer.res] === a){
+            if(data[i].answer.res === undefined){
+                continue;
+            }else if(Object.values(data[i].multiple)[data[i].answer.res].toLowerCase() === a){
                 f+=1
-            }else if(Object.values(data[i].multiple)[data[i].answer.res] === b){
+            }else if(Object.values(data[i].multiple)[data[i].answer.res].toLowerCase() === b){
                 s+=1
-            }else if(Object.values(data[i].multiple)[data[i].answer.res] === c){
+            }else if(Object.values(data[i].multiple)[data[i].answer.res].toLowerCase() === c){
                 t+=1
             }
         }
         return [{t:a,v:f},{t:b, v:s},{t:c, v:t}]
     }
-
        /*
            1. use map here, check question type -> render specific graph for the type
 
@@ -95,35 +88,4 @@ function DataGraph(props) {
     );
 }
 
-
-
-
-
-            /*<NumTypeGraph data={data} numData={numData}/>
-            <TextTypeGraph data={data} textData={textData}/>
-            <MultipleTypeGraph data = {data} radioData ={radioData}/>
-            <BoolTypeGraph data={data} boolData = {boolData}/>*/
-/*  {props.boolData.map((item)=>(
-                <div key = {item._id} className = 'graph'>
-                    <h3 style={{color:'#075a7a'}}>{item.text}</h3>
-                    <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
-                       <BarChart
-                        width={400}
-                        height={250}
-                        data={item.res}>
-                           <Tooltip/>
-                        <XAxis dataKey='t' label={{marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }}/>
-                        <YAxis label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain ={[0, 'dataMax']}/>
-                        <Bar
-                            dataKey='value'
-                            fontFamily="sans-serif"
-                            stroke="#f76b8a"
-                            fill="#f76b8a"
-                        />
-
-                    </BarChart>
-                    </ResponsiveContainer>
-                </div>
-            ))}
- */
 export default DataGraph

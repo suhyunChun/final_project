@@ -11,14 +11,15 @@ function EditQuestions(props) {
         for (let i = 0; i < updatedQ.length; i++){
             if(updatedQ[i]._id === selectedId){
                 tmp = {...updatedQ[i]}
-                if(event.target.className === 'edit-text'){
+                if(event.target === null || event.target === undefined){
+                    continue;
+                }else if(event.target.className === 'edit-text'){
                     tmp.text = event.target.value
-                    //updatedQ[i].text = event.target.value
-                    console.log(tmp.text, questionList[i].text)
                 }else if(event.target.className === 'edit-type'){
+                    if(event.target.value === 'radio'){
+                        tmp.multiple={first:'', second:'', third:''}
+                    }
                     tmp.type = event.target.value
-                    //updatedQ[i].type = event.target.value
-                    console.log(tmp.type,props.questions[i].type)
                 }else{
                     const name = event.target.className
                     tmp.multiple= {...tmp.multiple,[name] : event.target.value}
@@ -58,7 +59,6 @@ function EditQuestions(props) {
                             <input className = 'edit-text' id = {item._id} value ={item.text} onChange={onChangeInput}/>
 
                             <div className = 'edit-type'>
-
                                 <select className = 'edit-type' id = {item._id} name = 'edit-type' value = {item.type} onChange={onChangeInput}>
                                     <option value = 'number'>number</option>
                                     <option value = 'boolean'>boolean</option>

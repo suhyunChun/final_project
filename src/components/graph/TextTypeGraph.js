@@ -9,7 +9,7 @@ function TextTypeGraph(props) {
             <div>
                 {props.textData.map((item)=>(
                     (item.answer.length !== 0?
-                            (<p>{item.answer.date} : {item.answer.res}</p>)
+                            (<p key = {item._id}>{item.answer.date} : {item.answer.res}</p>)
                             : ' ')
 
                 ))}
