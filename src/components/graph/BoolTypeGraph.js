@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
     BarChart,
     Bar,
@@ -9,43 +9,41 @@ import {
 } from "recharts";
 
 function BoolTypeGraph(props) {
-    const data = Object.keys(props.boolData)
-    const [newBoolData,setNewBoolData] = useState([])
+    //const booldata = Object.keys(props.boolData)
+    /*    let newBoolData = []
 
-    useEffect(()=>{
-        let newData = []
-        for(let i = 0; i < data.length;i++){
-            let tNum = 0;
-            let fNum = 0;
-            let value = {}
-            let q = props.boolData[data[i]]
-            for(let j = 0; j < q.length; j++){
-                if(q[j].answer.res === 'true'){
-                    tNum += 1;
-                }else if (q[j].answer.res ==='false'){
-                    fNum += 1;
+        useEffect(()=>{
+            let newData = []
+            for(let i = 0; i < booldata.length;i++){
+                let tNum = 0;
+                let fNum = 0;
+                let value = {}
+                let q = props.boolData[booldata[i]]
+                for(let j = 0; j < q.length; j++){
+                    if(q[j].answer.res === 'true'){
+                        tNum += 1;
+                    }else if (q[j].answer.res ==='false'){
+                        fNum += 1;
+                    }
                 }
+                value.text = booldata[i]
+                value.true = tNum;
+                value.false = fNum;
+                value ={_id: props.boolData[booldata[i]]._id, text:booldata[i], res:[{t : 'true', value:tNum},{t: 'false', value:fNum}]}
+                newData = newData.concat(value)
             }
-            value.text = data[i]
-            value.true = tNum;
-            value.false = fNum;
-            value ={_id: props.boolData[data[i]]._id, text:data[i], res:[{t : 'true', value:tNum},{t: 'false', value:fNum}]}
-            newData = newData.concat(value)
-        }
-        setNewBoolData(newData)
-    },[])
+            newBoolData = [...newData]
+            console.log('**')
+        },[])*/
 
 
     return(
         <React.Fragment>
-            {newBoolData.map((item)=>(
-                <div key = {item._id} className = 'graph'>
-                    <h3 style={{color:'#075a7a'}}>{item.text}</h3>
-                    <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
+            <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
                        <BarChart
                         width={400}
                         height={250}
-                        data={item.res}>
+                        data={props.boolData}>
                            <Tooltip/>
                         <XAxis dataKey='t' label={{marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }}/>
                         <YAxis label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain ={[0, 'dataMax']}/>
@@ -57,9 +55,7 @@ function BoolTypeGraph(props) {
                         />
 
                     </BarChart>
-                    </ResponsiveContainer>
-                </div>
-            ))}
+            </ResponsiveContainer>
         </React.Fragment>
     );
 }

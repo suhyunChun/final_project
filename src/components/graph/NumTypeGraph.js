@@ -12,17 +12,12 @@ import {
 
 
 function NumTypeGraph(props) {
-    const data = Object.keys(props.numData)
 
     return(
         <React.Fragment>
-            {data.map((item)=>(
-                <div key = {props.numData[item][0]._id}  className = 'graph'>
-                    <h3 style={{color:'#075a7a'}}> {item} </h3>
-
-                    <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
+            <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
                     <LineChart
-                        data={props.numData[item].map(function(ans){
+                        data={props.numData.map(function(ans){
                             return ans.answer
                         })}
                     >
@@ -33,9 +28,7 @@ function NumTypeGraph(props) {
                         <YAxis dataKey={(v)=>parseInt(v.res)} label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain={[0,'dataMax']} allowDataOverflow={true} />
                         <Line type="monotone" dataKey="res" stroke="#f76b8a" strokeWidth={1.6} activeDot={{ r: 8 }}/>
                     </LineChart>
-                    </ResponsiveContainer>
-                </div>
-            ))}
+            </ResponsiveContainer>
         </React.Fragment>
     );
 }

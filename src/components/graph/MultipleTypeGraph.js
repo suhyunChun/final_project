@@ -1,9 +1,8 @@
-import React,{useState,useEffect} from "react";
+import React from "react";
 import {Bar, BarChart,  ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 function MultipleTypeGraph(props) {
-    const data = Object.keys(props.radioData)
-    const [newRadioData,setNewRadioData] = useState([])
+  /*  const [newRadioData,setNewRadioData] = useState([])
 
     useEffect(()=>{
         let newData = []
@@ -29,38 +28,33 @@ function MultipleTypeGraph(props) {
             value.text = data[i]
             value.res = [{t:a,v:f},{t:b, v:s},{t:c, v:t}]
             newData = newData.concat(value)
+            setNewRadioData(newData)
+            console.log('--')
         }
-        setNewRadioData(newData)
-    },[])
+    },[props.radioData])
 
-
+*/
 
     return(
         <React.Fragment>
-            {newRadioData.map((item)=>(
-                <div key = {item._id} className = 'graph'>
-                    <h3 style={{color:'#075a7a'}}>{item.text}</h3>
-                        <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
-                        <BarChart
-                            width={400}
-                            height={250}
-                            data={item.res}
-                        >
-                            <XAxis dataKey='t' label={{ value: 'Responses', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }}  fontFamily="sans-serif" />
-                            <YAxis label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain ={[0, 'dataMax']}/>
-                            <Tooltip />
-                            <Bar
-                                dataKey='v'
-                                fontFamily="sans-serif"
-                                stroke="#f76b8a"
-                                fill="#f76b8a"
-                            >
-                            </Bar>
-                        </BarChart>
-                    </ResponsiveContainer>
-                </div>
-            ))}
-
+            <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
+                <BarChart
+                    width={400}
+                    height={250}
+                    data={props.radioData}
+                >
+                    <XAxis dataKey='t' label={{ value: 'Responses', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }}  fontFamily="sans-serif" />
+                    <YAxis label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain ={[0, 'dataMax']}/>
+                    <Tooltip />
+                    <Bar
+                        dataKey='v'
+                        fontFamily="sans-serif"
+                        stroke="#f76b8a"
+                        fill="#f76b8a"
+                    >
+                    </Bar>
+                </BarChart>
+            </ResponsiveContainer>
         </React.Fragment>
     );
 }
