@@ -25,6 +25,7 @@ function MultipleTypeGraph(props) {
                     t += 1;
                 }
             }
+            value._id = props.radioData[data[i]][0]._id;
             value.text = data[i]
             value.res = [{t:a,v:f},{t:b, v:s},{t:c, v:t}]
             newData = newData.concat(value)
@@ -37,7 +38,7 @@ function MultipleTypeGraph(props) {
     return(
         <React.Fragment>
             {newRadioData.map((item)=>(
-                <div className = 'graph'>
+                <div key = {item._id} className = 'graph'>
                     <h3 style={{color:'#075a7a'}}>{item.text}</h3>
                         <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
                         <BarChart
@@ -57,7 +58,6 @@ function MultipleTypeGraph(props) {
                             </Bar>
                         </BarChart>
                     </ResponsiveContainer>
-
                 </div>
             ))}
 

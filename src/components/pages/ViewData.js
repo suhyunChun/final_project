@@ -15,7 +15,9 @@ function ViewData(props) {
                 <button onClick = {()=>handleClicked(false)} style={{border:1+'px solid black', fontSize : 1.5+'rem',padding : 7+'px', color: (clicked)? '':'rgb(102, 191, 191)',backgroundColor :(clicked)? '':'#fcfefe',borderRadius:10+'px' }}> Question </button>
                 </div>
                     {clicked?
-                    <div className = 'viewData'> <LogDay questions = {props.questions} setQuestions = {props.setQuestions} shownDate={props.shownDate} currDate={props.currDate} setShownDate = {props.setShownDate} read = {true}/> </div>
+                    <div className = 'viewData'> <LogDay questions = {props.questions} setQuestions = {props.setQuestions}
+                                                         shownDate={props.shownDate} currDate={props.currDate}
+                                                         setShownDate = {props.setShownDate} read = {true}/> </div>
                     :
                       <DataGraph questions = {props.questions}/>}
                 <button className = 'save' style ={{marginTop:3+'px'}}>Download the data</button>

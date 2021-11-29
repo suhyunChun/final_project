@@ -36,7 +36,7 @@ function App() {
     * */
 
     const handleQ=(q)=>{
-       // console.log('Change Q to', q)
+        console.log('Change Q to', q)
         setQuestions(q)
     }
     const onClickLink=(e)=>{

@@ -11,8 +11,6 @@ function DataGraph(props) {
     const numData = groupByKey([...data.filter((item)=> item.type === 'number')],'text')
     const radioData = groupByKey([...data.filter((item)=> item.type === 'radio')],'text')
     const boolData= groupByKey([...data.filter((item)=> item.type === 'boolean')],'text')
-
-
     /*
     1. A summary of responses organized by question
         • For "text" questions you can display all the responses one after another (sorted by date).
@@ -22,6 +20,12 @@ function DataGraph(props) {
         numerical response for each given day.
         • For all the graphs, remember to provide appropriate axis / graph labels so that the data is
         understandable.
+     */
+
+    /*
+        1. use map here, check question type -> render specific graph for the type
+
+        2. calculation
      */
     return(
         <React.Fragment>

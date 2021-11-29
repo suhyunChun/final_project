@@ -23,20 +23,31 @@ function LogDay(props) {
             let tmp = newQ.filter((item)=> item.date.format('MM/DD/YYYY') !== props.shownDate.format('MM/DD/YYYY'))
             props.setQuestions(tmp.concat(questionList))
         }else{*/
+        //handleChange
         props.setQuestions(questionList)
         //}
     }
 
     const handleChange=(event)=>{
-        let tmpQuestion = [...questionList]
+        let tmpQuestion=[...questionList]//for loop
+        let tmp = {}
         for(let i = 0; i < tmpQuestion.length; i++){
+            tmp = {...tmpQuestion[i]}
             if(tmpQuestion[i].text === event.target.name && tmpQuestion[i].date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY')){
+                if(tmpQuestion[i].type === 'radio' && event.target.name !== 'bool-opt'){
+                    tmp.answer = {data:props.shownDate.format('MM/DD/YYYY'), res:(Object.values(tmp.multiple)).indexOf(event.target.value)}
+                }else{
+                    tmp.answer = {date:props.shownDate.format('MM/DD/YYYY'),res:event.target.value}
+                }
+            }
+            /*if(tmpQuestion[i].text === event.target.name && tmpQuestion[i].date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY')){
                 if(tmpQuestion[i].type === 'radio' && event.target.name !== 'bool-opt'){
                     tmpQuestion[i].answer = {data:props.shownDate.format('MM/DD/YYYY'), res:(Object.values(tmpQuestion[i].multiple)).indexOf(event.target.value)}
                 }else{
                     tmpQuestion[i].answer = {date:props.shownDate.format('MM/DD/YYYY'),res:event.target.value}
                 }
-            }
+            }*/
+            tmpQuestion[i] = tmp
         }
         setQuestionList(tmpQuestion)
     }

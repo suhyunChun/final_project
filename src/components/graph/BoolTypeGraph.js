@@ -29,18 +29,17 @@ function BoolTypeGraph(props) {
             value.text = data[i]
             value.true = tNum;
             value.false = fNum;
-            value ={text:data[i], res:[{t : 'true', value:tNum},{t: 'false', value:fNum}]}
+            value ={_id: props.boolData[data[i]]._id, text:data[i], res:[{t : 'true', value:tNum},{t: 'false', value:fNum}]}
             newData = newData.concat(value)
         }
         setNewBoolData(newData)
     },[])
 
 
-
     return(
         <React.Fragment>
             {newBoolData.map((item)=>(
-                <div className = 'graph'>
+                <div key = {item._id} className = 'graph'>
                     <h3 style={{color:'#075a7a'}}>{item.text}</h3>
                     <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
                        <BarChart

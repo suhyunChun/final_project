@@ -1,29 +1,36 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 function EditQuestions(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
 
     const onChangeInput = (event) => {
-        let newQuestionList = [...questionList]
+        let updatedQ = [...questionList]
+        let tmp={}
         const selectedId = event.target.id
-
-        for (let i = 0; i < newQuestionList.length; i++){
-            if(newQuestionList[i]._id === selectedId){
+        for (let i = 0; i < updatedQ.length; i++){
+            if(updatedQ[i]._id === selectedId){
+                tmp = {...updatedQ[i]}
                 if(event.target.className === 'edit-text'){
-                    newQuestionList[i].text = event.target.value
+                    tmp.text = event.target.value
+                    //updatedQ[i].text = event.target.value
+                    console.log(tmp.text, questionList[i].text)
                 }else if(event.target.className === 'edit-type'){
-                    newQuestionList[i].type = event.target.value
+                    tmp.type = event.target.value
+                    //updatedQ[i].type = event.target.value
+                    console.log(tmp.type,props.questions[i].type)
                 }else{
                     const name = event.target.className
-                    newQuestionList[i].multiple = {...newQuestionList[i].multiple,[name] : event.target.value}
-
+                    tmp.multiple= {...tmp.multiple,[name] : event.target.value}
+                    //updatedQ[i].multiple = {...updatedQ[i].multiple,[name] : event.target.value}
                 }
+                updatedQ[i] = tmp
             }
         }
 
-        setQuestionList(newQuestionList)
+        setQuestionList(updatedQ)
     }
+
     const handleSubmit=(e)=>{
         e.preventDefault()
         props.setQuestions(questionList)
