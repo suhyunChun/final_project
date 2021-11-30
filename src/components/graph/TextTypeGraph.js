@@ -3,7 +3,7 @@ import React from "react";
 function TextTypeGraph(props) {
    // const data = Object.keys(props.textData)
     //console.log(props.textData[data[0]][0].answer)
-    console.log(props.textData)
+
     return(
         <React.Fragment>
             <div>

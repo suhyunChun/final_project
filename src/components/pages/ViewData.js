@@ -7,6 +7,7 @@ function ViewData(props) {
     const handleClicked = (e)=>{
         setClicked(e)
     }
+
     return(
         <React.Fragment>
             <div id="data">
@@ -20,7 +21,11 @@ function ViewData(props) {
                                                          setShownDate = {props.setShownDate} read = {true}/> </div>
                     :
                       <DataGraph questions = {props.questions}/>}
-                <button className = 'save' style ={{marginTop:3+'px'}}>Download the data</button>
+                <button className = 'save' style ={{marginTop:3+'px'}}>
+                    <a
+                        style={{textDecoration:'none',color:'white'}}
+                        href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(props.questions))}`}
+                        download="logData.json">Download the data</a></button>
             </div>
         </React.Fragment>
     );
@@ -29,4 +34,14 @@ export default ViewData
 
 /*
                 <LogDay questions ={props.questions} setQuestions ={props.setQuestions} readOnly= {true}/>
+                <a
+  className="pull-right btn btn-primary"
+  style={{ margin: 10 }}
+  href={`data:text/json;charset=utf-8,${encodeURIComponent(
+  JSON.stringify(this.props.objectToDownload)
+  )}`}
+  download="data.json"
+>
+  DOWNLOAD DATA AS JSON
+</a>
  */
