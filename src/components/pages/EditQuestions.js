@@ -38,7 +38,7 @@ function EditQuestions(props) {
     }
     const handleAddition=()=>{
         let updatedQ = [...questionList]
-        updatedQ = updatedQ.concat({_id: uuidv4(), date: props.shownDate, text:'', type:'number'})
+        updatedQ = updatedQ.concat({_id: uuidv4(), text:'', type:'number',answer:[]})
         setQuestionList(updatedQ)
     }
     const handleDeletion=(e)=>{
