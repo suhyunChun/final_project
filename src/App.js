@@ -13,19 +13,10 @@ import moment from 'moment'
 function App() {
     const currDate = moment();
     const [shownDate, setShownDate] = useState(currDate)
-    const [questions, setQuestions] = useState([{_id : uuidv4(), date: shownDate, text:'Number of push ups',type:'number', answer : []},
-            {_id : uuidv4(), date: shownDate, text:'Had a long walk today',type:'number',answer : []}, /*number/string*/
-            {_id : uuidv4(), date: shownDate, text:'One great thing that happened today',type:'text',answer : []}, /*string*/
-            {_id : uuidv4(), date: shownDate, text:'Today was a',type:'radio', multiple : {first:'Ok day', second:'Bad day', third:'Great Day',}, answer : []},
-        {_id : uuidv4(), date: moment(currDate).subtract(1,'days'), text:'Number of push ups',type:'number', answer : []},
-        {_id : uuidv4(), date:  moment(currDate).subtract(1,'days'), text:'Had a long walk today',type:'number',answer : []}, /*number/string*/
-        {_id : uuidv4(), date:  moment(currDate).subtract(1,'days'), text:'One great thing that happened today',type:'text',answer : []}, /*string*/
-        {_id : uuidv4(), date:  moment(currDate).subtract(1,'days'), text:'Today was a',type:'radio', multiple : {first:'Ok day', second:'Bad day', third:'Great Day',}, answer : []},
-        {_id : uuidv4(), date: moment(currDate).subtract(2,'days'), text:'Number of push ups',type:'number', answer : []},
-        {_id : uuidv4(), date:  moment(currDate).subtract(2,'days'), text:'Had a long walk today',type:'number',answer : []}, /*number/string*/
-        {_id : uuidv4(), date:  moment(currDate).subtract(2,'days'), text:'One great thing that happened today',type:'text',answer : []}, /*string*/
-        {_id : uuidv4(), date:  moment(currDate).subtract(2,'days'), text:'Today was a',type:'radio', multiple : {first:'Ok day', second:'Bad day', third:'Great Day',}, answer : []},
-
+    const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number', answer : []},
+            {_id : uuidv4(),text:'Had a long walk today',type:'boolean',answer : []}, /*number/string*/
+            {_id : uuidv4(),  text:'One great thing that happened today',type:'text',answer : []}, /*string*/
+            {_id : uuidv4(),  text:'Today was a',type:'radio', multiple : {first:'Ok day', second:'Bad day', third:'Great Day',}, answer : []}
     ]) /*question, **number(index)**, string(answer)*/
     const [user, setUser] = useState({profileImg : 'defaultProfile.png', name : 'test', email : 'test@test.com', location : 'songdo', locationDetail:'1'})
     const [selected, setSelected] = useState('')

@@ -17,13 +17,11 @@ function NumTypeGraph(props) {
         <React.Fragment>
             <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
                     <LineChart
-                        data={props.numData.map(function(ans){
-                            return ans.answer
-                        })}
+                        data={props.numData}
                     >
                         <Tooltip />
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis  label={{ value: 'Dates', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }} dataKey='date'>
+                        <XAxis  label={{ value: 'Dates', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }} dataKey={(v)=>v.date.format('MM/DD/YYYY')}>
                         </XAxis>
                         <YAxis dataKey={(v)=>parseInt(v.res)} label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain={[0,'dataMax']} allowDataOverflow={true} />
                         <Line type="monotone" dataKey="res" stroke="#f76b8a" strokeWidth={1.6} activeDot={{ r: 8 }}/>

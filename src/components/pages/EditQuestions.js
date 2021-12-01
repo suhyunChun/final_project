@@ -53,7 +53,7 @@ function EditQuestions(props) {
                         <h2> Edit Questions</h2>
                         <span className="material-icons" onClick={handleAddition}>add_circle_outline</span>
                     </div>
-                    {questionList.filter((item)=> item.date!==undefined?item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true).map(item => (
+                    {questionList.map(item => (
                         <div className='edit-question' id = {item._id} key={item._id}>
                             <label htmlFor = 'edit-text'/>
                             <input className = 'edit-text' id = {item._id} value ={item.text} onChange={onChangeInput}/>
@@ -93,3 +93,8 @@ function EditQuestions(props) {
     );
 }
 export default EditQuestions
+
+
+/*
+{questionList.filter((item)=> item.date!==undefined?item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true)
+ */

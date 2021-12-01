@@ -3,13 +3,12 @@ import React from "react";
 function TextTypeGraph(props) {
    // const data = Object.keys(props.textData)
     //console.log(props.textData[data[0]][0].answer)
-
     return(
         <React.Fragment>
             <div>
                 {props.textData.map((item)=>(
-                    (item.answer.length !== 0?
-                            (<p key = {item._id}>{item.answer.date} : {item.answer.res}</p>)
+                    (item.length !== 0?
+                            (<p key = {item.date}>{item.date.format('MM/DD/YYYY')} : {item.res}</p>)
                             : ' ')
 
                 ))}
