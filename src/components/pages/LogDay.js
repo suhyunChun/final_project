@@ -2,7 +2,6 @@ import React,{useState} from "react";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import moment from 'moment'
-import { v4 as uuidv4 } from 'uuid';
 
 function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
