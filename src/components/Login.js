@@ -9,6 +9,7 @@ function Login({handleLogged }) {
     const [pass,setPass] = useState('')
     const history = useHistory();
 
+    console.log(email,pass)
     const handleOpen=(e)=>{
         e.preventDefault()
         setRegisterForm(true)

@@ -7,7 +7,6 @@ import MultipleTypeGraph from "../graph/MultipleTypeGraph";
 
 
 function DataGraph(props) {
-    //sort((a,b)=>(a.answer.date).diff(b.answer.date))
     const data =[...props.questions]
 
     const formatData=(data)=>{
@@ -15,7 +14,6 @@ function DataGraph(props) {
             let tmp = (data[i].answer).sort((a,b)=>a.date-b.date)
             data[i].answer = [...tmp]
         }
-
         return data
     }
     console.log(formatData(data))
@@ -95,11 +93,3 @@ function DataGraph(props) {
 }
 
 export default DataGraph
-/*case 'boolean':
-return(
-    <BoolTypeGraph data={data} boolData={formatBoolean(item.answer)}/>
-)
-case 'radio':
-return(
-    <MultipleTypeGraph data={data} radioData={formatMultiple(item.answer)}/>
-)*/
