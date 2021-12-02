@@ -31,17 +31,3 @@ function ViewData(props) {
     );
 }
 export default ViewData
-
-/*
-                <LogDay questions ={props.questions} setQuestions ={props.setQuestions} readOnly= {true}/>
-                <a
-  className="pull-right btn btn-primary"
-  style={{ margin: 10 }}
-  href={`data:text/json;charset=utf-8,${encodeURIComponent(
-  JSON.stringify(this.props.objectToDownload)
-  )}`}
-  download="data.json"
->
-  DOWNLOAD DATA AS JSON
-</a>
- */

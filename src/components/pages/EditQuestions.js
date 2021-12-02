@@ -34,6 +34,9 @@ function EditQuestions(props) {
 
     const handleSubmit=(e)=>{
         e.preventDefault()
+        /*
+        post -> updated only changed one (using id)
+         */
         props.setQuestions(questionList)
     }
     const handleAddition=()=>{
@@ -94,7 +97,3 @@ function EditQuestions(props) {
 }
 export default EditQuestions
 
-
-/*
-{questionList.filter((item)=> item.date!==undefined?item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true)
- */

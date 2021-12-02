@@ -2,13 +2,15 @@ import './App.css';
 import Page from "./components/Page";
 import Login from "./components/Login";
 import { BrowserRouter, Switch, Route,Link } from 'react-router-dom';
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import LogDay from "./components/pages/LogDay";
 import EditQuestions from "./components/pages/EditQuestions";
 import ViewData from "./components/pages/ViewData";
 import ProfileForm from "./components/pages/ProfileForm";
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment'
+import {getCurrentUser} from "./API/userApi";
+import {getFormAPIMethod} from "./API/formApi";
 
 function App() {
     const currDate = moment();
@@ -17,15 +19,22 @@ function App() {
             {_id : uuidv4(),text:'Had a long walk today',type:'boolean',answer : []}, /*number/string*/
             {_id : uuidv4(),  text:'One great thing that happened today',type:'text',answer : []}, /*string*/
             {_id : uuidv4(),  text:'Today was a',type:'radio', multiple : {first:'Ok day', second:'Bad day', third:'Great Day',}, answer : []}
-    ]) /*question, **number(index)**, string(answer)*/
+    ])
     const [user, setUser] = useState({profileImg : 'defaultProfile.png', name : 'test', email : 'test@test.com', location : 'songdo', locationDetail:'1'})
-    const [selected, setSelected] = useState('')
-    /*boolean, true/false
-    * 1. answer array
-    * 2. link to question's id
-    * inlcude date, questions, answer
-    * */
+    const [selected, setSelected] = useState('logday')
 
+    /*
+    using useEffect -> get user's questions and user's info
+     */
+    useEffect(()=>{
+        /*getCurrentUser().then((obj)=>{
+            //console.log('set user in page', obj)
+            setUser(obj)
+        });
+        getFormAPIMethod().then((form) => {
+            setQuestions(form);
+        });*/
+    },[])
     const handleQ=(q)=>{
         console.log('Change Q to', q)
         setQuestions(q)
@@ -58,7 +67,7 @@ function App() {
                                 <Link to ='/profile' onClick={onClickLink}>
                                     <img
                                         className='profile_picture'
-                                        src='defaultProfile.png'
+                                        src={user? user.profileImg:'defaultProfile.png'}
                                         alt='profile'/>
                                 </Link>
                             </div>

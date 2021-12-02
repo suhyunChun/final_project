@@ -438,6 +438,7 @@ input[type = text]:focus{
 
   }
   .edit-question, .question, .profile-email, .profile-photo, .profile-location, .profile-name,.edit-title, .log-date, .profile-title,.clearfix, .save-div,.graph {
-    width:90%;
+    width:93%;
+
   }
 }

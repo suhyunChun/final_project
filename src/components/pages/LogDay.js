@@ -17,6 +17,11 @@ function LogDay(props) {
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
+        console.log(e.target)
+        /*
+         check and post only modified one
+
+         */
         props.setQuestions(questionList)
     }
     const handleChange=(event)=>{
@@ -124,7 +129,3 @@ function LogDay(props) {
     );
 }
 export default LogDay
-
-/*
- {(questionList.filter((item)=> item.date!==undefined?item.date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY'): true))
- */

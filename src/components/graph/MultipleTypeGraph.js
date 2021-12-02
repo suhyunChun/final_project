@@ -2,38 +2,6 @@ import React from "react";
 import {Bar, BarChart,  ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 function MultipleTypeGraph(props) {
-  /*  const [newRadioData,setNewRadioData] = useState([])
-
-    useEffect(()=>{
-        let newData = []
-        for(let i = 0; i < data.length;i++){
-            let f  = 0;
-            let s = 0;
-            let t = 0;
-            let value = {}
-            let q = props.radioData[data[i]]
-            let a = Object.values(q[0].multiple)[0]
-            let b = Object.values(q[0].multiple)[1]
-            let c = Object.values(q[0].multiple)[2]
-            for(let j = 0; j < q.length; j++){
-                if(Object.values(q[j].multiple)[q[j].answer.res] === a){
-                    f += 1;
-                }else if (Object.values(q[j].multiple)[q[j].answer.res] === b){
-                    s += 1;
-                }else if(Object.values(q[j].multiple)[q[j].answer.res] === c){
-                    t += 1;
-                }
-            }
-            value._id = props.radioData[data[i]][0]._id;
-            value.text = data[i]
-            value.res = [{t:a,v:f},{t:b, v:s},{t:c, v:t}]
-            newData = newData.concat(value)
-            setNewRadioData(newData)
-            console.log('--')
-        }
-    },[props.radioData])
-
-*/
 
     return(
         <React.Fragment>

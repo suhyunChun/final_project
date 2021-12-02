@@ -5,6 +5,9 @@ function CreatNewAccount(props){
     const [user,setUser] = useState({profileUrl:'defaultProfile.jpg'})
     const history = useHistory();
     const handleSave=(e)=>{
+        /*
+        post -> add new user
+         */
         history.push('/logday')
     }
     const onChangeInput = (event) => {

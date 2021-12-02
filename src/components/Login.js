@@ -18,11 +18,14 @@ function Login({handleLogged }) {
         setRegisterForm(false)
     }
     const handleErrorMsg=(str)=>{
-
+        /*needed to add error messages*/
         setErrorMessage(str)
     }
 
     const handleLogin=()=>{
+        /*
+        post -> login
+         */
         history.push('/logday')
     }
     return(
