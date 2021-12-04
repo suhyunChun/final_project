@@ -5,6 +5,7 @@ import moment from 'moment'
 
 function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
+    const [edited,setEdited] = useState([])
     const handleFutureTime=()=>{
         if(props.shownDate.format('MM/DD/YYYY') < props.currDate.format('MM/DD/YYYY')){
             let tomorrow = moment(props.shownDate).add(1,'days')
@@ -20,8 +21,11 @@ function LogDay(props) {
         console.log(e.target)
         /*
          check and post only modified one
-
          */
+        for(let i = 0; i < edited.length;i++){
+
+        }
+        setEdited([])
         props.setQuestions(questionList)
     }
     const handleChange=(event)=>{
@@ -34,10 +38,10 @@ function LogDay(props) {
                 tmp = {...tmpQuestion[i]}
                 idx = i
                 if(tmpQuestion[i].type === 'radio' && event.target.name !== 'bool-opt'){
-                    newAns = {date:props.shownDate, res:tmp.multiple&&(Object.values(tmp.multiple)).indexOf(event.target.value)}
+                    newAns = {date:props.shownDate, response:tmp.multiple&&(Object.values(tmp.multiple)).indexOf(event.target.value)}
 
                 }else{
-                    newAns = {date:props.shownDate,res:event.target.value}
+                    newAns = {date:props.shownDate,response:event.target.value}
                 }
             }
         }
@@ -54,6 +58,7 @@ function LogDay(props) {
             tmpQuestion[idx].answer = tmpQuestion[idx].answer.concat(newAns)
 
         }
+        setEdited(edited.concat([idx]))
         setQuestionList(tmpQuestion)
     }
 

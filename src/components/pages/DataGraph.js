@@ -16,15 +16,14 @@ function DataGraph(props) {
         }
         return data
     }
-    console.log(formatData(data))
     const formatBoolean=(data)=>{
         let tNum = 0;
         let fNum = 0;
         if(data !== undefined) {
             for (let i = 0; i < data.length; i++) {
-                if (data[i].res === 'true') {
+                if (data[i].response === 'true') {
                     tNum += 1;
-                } else if (data[i].res === 'false') {
+                } else if (data[i].response === 'false') {
                     fNum += 1;
                 }
             }

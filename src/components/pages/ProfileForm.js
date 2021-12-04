@@ -49,7 +49,6 @@ function ProfileForm(props){
     }
 
     const handleImageSelected = (event) => {
-        console.log("New File Selected");
         if (event.target.files && event.target.files[0]) {
             const selectedFile = event.target.files[0];
             console.dir(selectedFile);

@@ -3,7 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 function EditQuestions(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
-
+    const [added, setAdded] = useState([])
+    const [deleted, setDeleted] = useState([])
+    const [edited, setEdited] = useState([])
+    
     const onChangeInput = (event) => {
         let updatedQ = [...questionList]
         let tmp={}
@@ -23,12 +26,11 @@ function EditQuestions(props) {
                 }else{
                     const name = event.target.className
                     tmp.multiple= {...tmp.multiple,[name] : event.target.value}
-                    //updatedQ[i].multiple = {...updatedQ[i].multiple,[name] : event.target.value}
                 }
                 updatedQ[i] = tmp
             }
         }
-
+        setEdited(edited.concat([selectedId]))
         setQuestionList(updatedQ)
     }
 
@@ -37,16 +39,31 @@ function EditQuestions(props) {
         /*
         post -> updated only changed one (using id)
          */
+        for(let i = 0; i < added.length;i++){
+                //add api funciton
+        }
+        for(let i = 0; i <deleted.length;i++){
+                //deleted api function
+        }
+        for(let i = 0; i < edited.length;i++){
+                //edit api funciton with id
+        }
+        setDeleted([])
+        setAdded([])
+        setEdited([])
         props.setQuestions(questionList)
     }
     const handleAddition=()=>{
         let updatedQ = [...questionList]
+        const newId = uuidv4();
         updatedQ = updatedQ.concat({_id: uuidv4(), text:'', type:'number',answer:[]})
+        setAdded(added.concat([newId]))
         setQuestionList(updatedQ)
     }
     const handleDeletion=(e)=>{
         let updatedQ = [...questionList]
         updatedQ = updatedQ.filter((item)=> item._id !== e.target.id)
+        setDeleted(deleted.concat[e.target.id])
         setQuestionList(updatedQ)
     }
     return(

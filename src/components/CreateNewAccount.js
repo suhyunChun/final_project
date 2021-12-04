@@ -1,14 +1,22 @@
 import React, {useState} from "react";
 import { useHistory} from "react-router-dom";
+import {createUserAPIMethod} from "../API/userApi";
 
 function CreatNewAccount(props){
     const [user,setUser] = useState({profileUrl:'defaultProfile.jpg'})
     const history = useHistory();
     const handleSave=(e)=>{
-        /*
-        post -> add new user
-         */
-        history.push('/logday')
+        createUserAPIMethod(user)
+            .then((res) =>
+                    history.push('/logday'),
+                e.preventDefault())
+            .catch(() =>
+                    history.push('/'),
+                    props.handleClose(),
+                    props.handleErrorMsg('Error in SignUp Page : Invalid email and/or password'),
+                    e.preventDefault()
+            )
+        //history.push('/logday')
     }
     const onChangeInput = (event) => {
         const target = event.target;
