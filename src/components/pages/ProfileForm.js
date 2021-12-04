@@ -14,9 +14,10 @@ function ProfileForm(props){
     let formData;
 
     useEffect(()=>{
-        /*getCurrentUser().then((obj)=>{
+        getCurrentUser().then((obj)=>{
+            console.log('set user in profileform', obj)
             setUser(obj)
-        });*/
+        });
     },[])
 
     const onChangeInput = (event) => {

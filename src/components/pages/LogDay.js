@@ -1,17 +1,28 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import moment from 'moment'
+import {getCurrentUser} from "../../API/userApi";
+import {getFormAPIMethod} from "../../API/formApi";
 
 function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
     const [edited,setEdited] = useState([])
+
+/*    useEffect(()=>{
+      getFormAPIMethod().then((form) => {
+          console.log("set form in page", form)
+          setQuestionList(form);
+      });
+    },[])*/
+
     const handleFutureTime=()=>{
         if(props.shownDate.format('MM/DD/YYYY') < props.currDate.format('MM/DD/YYYY')){
             let tomorrow = moment(props.shownDate).add(1,'days')
             props.setShownDate(tomorrow)
         }
     }
+
     const handlePastTime=()=>{
         let yesterday = moment(props.shownDate).subtract(1,'days')
         props.setShownDate(yesterday)

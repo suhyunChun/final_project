@@ -7,7 +7,6 @@ import LogDay from "./components/pages/LogDay";
 import EditQuestions from "./components/pages/EditQuestions";
 import ViewData from "./components/pages/ViewData";
 import ProfileForm from "./components/pages/ProfileForm";
-import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment'
 import {getCurrentUser} from "./API/userApi";
 import {getFormAPIMethod} from "./API/formApi";
@@ -15,26 +14,10 @@ import {getFormAPIMethod} from "./API/formApi";
 function App() {
     const currDate = moment();
     const [shownDate, setShownDate] = useState(currDate)
-    const [questions, setQuestions] = useState([{_id : uuidv4(), text:'Number of push ups',type:'number', answer : []},
-            {_id : uuidv4(),text:'Had a long walk today',type:'boolean',answer : []}, /*number/string*/
-            {_id : uuidv4(),  text:'One great thing that happened today',type:'text',answer : []}, /*string*/
-            {_id : uuidv4(),  text:'Today was a',type:'radio', multiple : {first:'Ok day', second:'Bad day', third:'Great Day',}, answer : []}
-    ])
-    const [user, setUser] = useState({profileImg : 'defaultProfile.png', name : 'test', email : 'test@test.com', location : 'songdo', locationDetail:'1'})
+    const [questions, setQuestions] = useState([])
+    const [user, setUser] = useState({})
     const [selected, setSelected] = useState('logday')
 
-    /*
-    using useEffect -> get user's questions and user's info
-     */
-    useEffect(()=>{
-        /*getCurrentUser().then((obj)=>{
-            //console.log('set user in page', obj)
-            setUser(obj)
-        });
-        getFormAPIMethod().then((form) => {
-            setQuestions(form);
-        });*/
-    },[])
     const handleQ=(q)=>{
         console.log('Change Q to', q)
         setQuestions(q)
@@ -43,6 +26,7 @@ function App() {
         setSelected(e.target.id)
     }
 
+    console.log("*******************",questions,user)
     return (
           <div className="App">
             <header className="App-header">

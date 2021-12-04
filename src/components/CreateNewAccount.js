@@ -2,21 +2,37 @@ import React, {useState} from "react";
 import { useHistory} from "react-router-dom";
 import {createUserAPIMethod} from "../API/userApi";
 
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function validatePassword(password){
+    const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
+    return re.test(password)
+}
+
 function CreatNewAccount(props){
-    const [user,setUser] = useState({profileUrl:'defaultProfile.jpg'})
-    const history = useHistory();
+    const [user,setUser] = useState({profileUrl:'defaultProfile.png'})
+
     const handleSave=(e)=>{
-        createUserAPIMethod(user)
-            .then((res) =>
-                    history.push('/logday'),
-                e.preventDefault())
-            .catch(() =>
-                    history.push('/'),
-                    props.handleClose(),
-                    props.handleErrorMsg('Error in SignUp Page : Invalid email and/or password'),
-                    e.preventDefault()
-            )
-        //history.push('/logday')
+        if(validatePassword(user.password) && validateEmail(user.email)) {
+            createUserAPIMethod(user)
+                .then((res) =>
+                    e.preventDefault())
+                .catch(() =>
+                        alert('email duplicated'),
+                        props.handleClose(),
+                        e.preventDefault()
+                )
+        }else{
+            if(!validateEmail((user.email))){
+                alert("Invalid email")
+            }else{
+                alert("invalid password")
+            }
+        }
     }
     const onChangeInput = (event) => {
         const target = event.target;

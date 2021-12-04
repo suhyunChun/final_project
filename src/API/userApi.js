@@ -3,22 +3,22 @@ const defaultHeaders = {
         'Content-Type': 'application/json; charset=UTF-8'
     },
 }
-
+/*
 export const getUserAPIMethod = () => {
-    return fetch(`/api/currentuser`, {
+    return fetch(`https://cse316-final-project.herokuapp.com/api/user`, {
         ...defaultHeaders,
     }).then(checkStatus)
 }
-
+*/
 export const getUserByIdAPIMethod = (id) => {
-    return fetch(`/api/user/${id}`, {
+    return fetch(`https://cse316-final-project.herokuapp.com/api/users/${id}`, {
         ...defaultHeaders,
     }).then(checkStatus)
         .then(parseJSON);
 }
 
 export const updateUserAPIMethod = (user) => {
-    return fetch(`/api/user/${user._id}`, {
+    return fetch(`https://cse316-final-project.herokuapp.com/api/users/${user._id}`, {
         ...defaultHeaders,
         method: 'PUT', // The method defaults to GET
         body: JSON.stringify(user),
@@ -26,7 +26,7 @@ export const updateUserAPIMethod = (user) => {
 }
 
 export const deleteUserByIdAPIMethod = (id) => {
-    return fetch(`/api/user/${id}`, {
+    return fetch(`https://cse316-final-project.herokuapp.com/api/users/${id}`, {
         ...defaultHeaders,
         method: 'DELETE',
     }).then(checkStatus)
@@ -34,55 +34,52 @@ export const deleteUserByIdAPIMethod = (id) => {
 }
 
 export const createUserAPIMethod = (users) => {
-    return fetch(`/api/user/register`, {
+    return fetch(`https://cse316-final-project.herokuapp.com/api/register`, {
         ...defaultHeaders,
         method: 'POST', // The method defaults to GET
-        credentials: 'include',
         body: JSON.stringify(users),
     }).then(checkStatus)
         .then(res => res.json())
 }
-
+/*
 export const printUserId = (user) => {
     return fetch(`/api/user/userid`, {
         ...defaultHeaders,
     })
-}
+}*/
 export const getCurrentUser = () =>{
-    return fetch(`/api/user/currentuser`, {
+    return fetch(`https://cse316-final-project.herokuapp.com/api/currentuser`, {
         ...defaultHeaders,
-        credentials: 'include',
     }).then(checkStatus)
         .then(parseJSON)
         .catch((err)=>console.dir(err))
 }
 
 export const logInUsersAPIMethod = (user) => {
-    return fetch(`/api/user/login`, {
+    return fetch(`https://cse316-final-project.herokuapp.com/api/login`, {
         ...defaultHeaders,
         method: 'POST', // The method defaults to GET
-        credentials: 'include',
         body: JSON.stringify(user),
     }).then(checkStatus)
         .catch((err)=> console.log("LOG IN ERROR"))
 }
 
 export const logOutUsersAPIMethod = (user) => {
-    return fetch(`/api/user/logout`, {
+    return fetch(`https://cse316-final-project.herokuapp.com/api/logout`, {
         ...defaultHeaders,
         method: 'POST',
         body: JSON.stringify(user),
     }).then(checkStatus)
         .then(parseJSON);
 }
-
+/*
 export const uploadFileForUsersAPIMethod = (id, formData) => {
     return fetch(`/api/user/${id}/file`, {
         method: 'POST',
         body: formData,
     }).then(checkStatus)
         .then(parseJSON);
-}
+}*/
 
 export const uploadImageToCloudinaryAPIMethod = (formData) => {
     const cloudName = 'suhyun'
