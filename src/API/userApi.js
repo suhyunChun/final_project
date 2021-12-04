@@ -3,22 +3,22 @@ const defaultHeaders = {
         'Content-Type': 'application/json; charset=UTF-8'
     },
 }
-/*
+
 export const getUserAPIMethod = () => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/user`, {
+    return fetch(`/api/user`, {
         ...defaultHeaders,
     }).then(checkStatus)
 }
-*/
+
 export const getUserByIdAPIMethod = (id) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/users/${id}`, {
+    return fetch(`/users/${id}`, {
         ...defaultHeaders,
     }).then(checkStatus)
         .then(parseJSON);
 }
 
 export const updateUserAPIMethod = (user) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/users/${user._id}`, {
+    return fetch(`/api/users/${user._id}`, {
         ...defaultHeaders,
         method: 'PUT', // The method defaults to GET
         body: JSON.stringify(user),
@@ -26,7 +26,7 @@ export const updateUserAPIMethod = (user) => {
 }
 
 export const deleteUserByIdAPIMethod = (id) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/users/${id}`, {
+    return fetch(`/api/users/${id}`, {
         ...defaultHeaders,
         method: 'DELETE',
     }).then(checkStatus)
@@ -34,21 +34,21 @@ export const deleteUserByIdAPIMethod = (id) => {
 }
 
 export const createUserAPIMethod = (users) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/register`, {
+    return fetch(`/api/register`, {
         ...defaultHeaders,
         method: 'POST', // The method defaults to GET
         body: JSON.stringify(users),
     }).then(checkStatus)
         .then(res => res.json())
 }
-/*
+
 export const printUserId = (user) => {
     return fetch(`/api/user/userid`, {
         ...defaultHeaders,
     })
-}*/
+}
 export const getCurrentUser = () =>{
-    return fetch(`https://cse316-final-project.herokuapp.com/api/currentuser`, {
+    return fetch(`/api/currentuser`, {
         ...defaultHeaders,
     }).then(checkStatus)
         .then(parseJSON)
@@ -56,7 +56,7 @@ export const getCurrentUser = () =>{
 }
 
 export const logInUsersAPIMethod = (user) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/login`, {
+    return fetch(`/api/login`, {
         ...defaultHeaders,
         method: 'POST', // The method defaults to GET
         body: JSON.stringify(user),
@@ -65,7 +65,7 @@ export const logInUsersAPIMethod = (user) => {
 }
 
 export const logOutUsersAPIMethod = (user) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/logout`, {
+    return fetch(`/api/logout`, {
         ...defaultHeaders,
         method: 'POST',
         body: JSON.stringify(user),

@@ -9,17 +9,15 @@ import {
 
 
 function ProfileForm(props){
-    const [user, setUser] = useState(props.user||{})
+    const [user, setUser] = useState({})
     const history = useHistory()
     let formData;
 
     useEffect(()=>{
-        getCurrentUser().then((obj)=>{
-            console.log('set user in profileform', obj)
-            setUser(obj)
-        });
+        getCurrentUser()
+            .then((obj)=>setUser(obj))
+            .then(()=>console.log('**'))
     },[])
-
     const onChangeInput = (event) => {
         const target = event.target;
         const value = target.value;
@@ -34,18 +32,16 @@ function ProfileForm(props){
         setUser(updatedUser);
     }
     const handleSave=(event)=>{
-        /*
-        post user ->updating
-         */
-        /*updateUserAPIMethod(user)
-            .then((res) => {console.dir(res)})*/
+        console.log(user)
+        updateUserAPIMethod(user)
+            .then((res)=>console.dir(res))
         props.setUser(user)
     }
     const handleLogOut =() =>{
-       /* logOutUsersAPIMethod(user)
+        logOutUsersAPIMethod(user)
             .then((res)=>{
                 console.dir(res)
-            })*/
+            })
         history.push('/')
     }
 

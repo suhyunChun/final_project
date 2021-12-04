@@ -3,18 +3,18 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import moment from 'moment'
 import {getCurrentUser} from "../../API/userApi";
-import {getFormAPIMethod} from "../../API/formApi";
+import {getFormAPIMethod, updateFormAPIMethod} from "../../API/formApi";
 
 function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
     const [edited,setEdited] = useState([])
 
-/*    useEffect(()=>{
-      getFormAPIMethod().then((form) => {
-          console.log("set form in page", form)
-          setQuestionList(form);
-      });
-    },[])*/
+    useEffect(()=>{
+        getFormAPIMethod().then((form) => {
+            console.log("set form in page", form)
+            setQuestionList(form);
+        });
+    },[])
 
     const handleFutureTime=()=>{
         if(props.shownDate.format('MM/DD/YYYY') < props.currDate.format('MM/DD/YYYY')){
@@ -29,12 +29,15 @@ function LogDay(props) {
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        console.log(e.target)
+        console.log(edited)
         /*
          check and post only modified one
          */
         for(let i = 0; i < edited.length;i++){
-
+            updateFormAPIMethod(questionList.filter((item)=>item._id === edited[i]))
+                .then((res)=>{
+                    console.dir(res)
+                })
         }
         setEdited([])
         props.setQuestions(questionList)
@@ -69,7 +72,9 @@ function LogDay(props) {
             tmpQuestion[idx].answer = tmpQuestion[idx].answer.concat(newAns)
 
         }
-        setEdited(edited.concat([idx]))
+        if(!edited.includes(tmpQuestion[idx]._id)){
+            setEdited(edited.concat([tmpQuestion[idx]._id]))
+        }
         setQuestionList(tmpQuestion)
     }
 

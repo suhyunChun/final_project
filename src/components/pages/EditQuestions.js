@@ -1,12 +1,13 @@
-import React,{useState} from "react";
+import React, {useEffect, useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
+import {createFormAPIMethod, deleteFormByIdAPIMethod, getFormAPIMethod, updateFormAPIMethod} from "../../API/formApi";
 
 function EditQuestions(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
     const [added, setAdded] = useState([])
     const [deleted, setDeleted] = useState([])
     const [edited, setEdited] = useState([])
-    
+
     const onChangeInput = (event) => {
         let updatedQ = [...questionList]
         let tmp={}
@@ -30,7 +31,9 @@ function EditQuestions(props) {
                 updatedQ[i] = tmp
             }
         }
-        setEdited(edited.concat([selectedId]))
+        if(!edited.includes(selectedId)){
+            setEdited(edited.concat([selectedId]))
+        }
         setQuestionList(updatedQ)
     }
 
@@ -40,12 +43,20 @@ function EditQuestions(props) {
         post -> updated only changed one (using id)
          */
         for(let i = 0; i < added.length;i++){
-                //add api funciton
+            createFormAPIMethod(questionList.filter((item)=>item._id === added[i]))
+                .then((res)=> console.dir(res))
+                .catch((err)=> console.log(err))
         }
         for(let i = 0; i <deleted.length;i++){
-                //deleted api function
+            deleteFormByIdAPIMethod(deleted[i])
+                .then((res)=>console.dir(res))
+                .catch((err)=>console.dir(err))
         }
         for(let i = 0; i < edited.length;i++){
+            console.log(questionList.filter((item)=>item._id === edited[i]),edited)
+            updateFormAPIMethod(questionList.filter((item)=>item._id === edited[i]))
+                .then((res)=>console.dir(res))
+                .catch((err)=>console.dir(err))
                 //edit api funciton with id
         }
         setDeleted([])
@@ -56,14 +67,15 @@ function EditQuestions(props) {
     const handleAddition=()=>{
         let updatedQ = [...questionList]
         const newId = uuidv4();
-        updatedQ = updatedQ.concat({_id: uuidv4(), text:'', type:'number',answer:[]})
+        updatedQ = updatedQ.concat({_id: newId, text:'', type:'number',answer:[]})
         setAdded(added.concat([newId]))
         setQuestionList(updatedQ)
+
     }
     const handleDeletion=(e)=>{
         let updatedQ = [...questionList]
         updatedQ = updatedQ.filter((item)=> item._id !== e.target.id)
-        setDeleted(deleted.concat[e.target.id])
+        setDeleted(deleted.concat([e.target.id]))
         setQuestionList(updatedQ)
     }
     return(

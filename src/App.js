@@ -8,7 +8,7 @@ import EditQuestions from "./components/pages/EditQuestions";
 import ViewData from "./components/pages/ViewData";
 import ProfileForm from "./components/pages/ProfileForm";
 import moment from 'moment'
-import {getCurrentUser} from "./API/userApi";
+import {getCurrentUser, getUserAPIMethod} from "./API/userApi";
 import {getFormAPIMethod} from "./API/formApi";
 
 function App() {

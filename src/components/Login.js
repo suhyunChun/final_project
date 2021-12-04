@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
 import CreateNewAccount from "./CreateNewAccount";
 import {logInUsersAPIMethod} from "../API/userApi";
-import axios from 'axios'
 
 function Login({handleLogged }) {
     const [errorMessage, setErrorMessage] = useState('')
@@ -25,22 +24,20 @@ function Login({handleLogged }) {
     const handleLogin=(e)=>{
         e.preventDefault()
         console.log(email,pass)
-        axios.post("https://cse316-final-project.herokuapp.com/api/login",{
-            email:email,
-            password:pass
-        })
-            .then((res)=> {
-                console.log(res.data)
-                if(res.data === 'Login Failed'){
-                    handleErrorMsg('password do not match');
-                    history.push('/')
-                }else{
-                    history.push('/logday')}})
-      /*  logInUsersAPIMethod({email:email, password:pass})
-            .then((res)=> console.log(res))
-            .then((res)=> {if(res.data === 'Login Failed'){handleErrorMsg('password do not match');history.push('/')}else{history.push('/logday')}})
-*/
+        logInUsersAPIMethod({email:email, password:pass})
+            .then(response => response.json())
+            .then(res => {
+                console.log("RES IS ",res);
+                if(res._id != null){
+                    history.push("/logday");
+                }
+                else{
+                    setErrorMessage("Invalid user or password");
+                }
+            })
+            .catch(err => console.dir(err));
     }
+
     return(
         <React.Fragment>
             <div id="login">
