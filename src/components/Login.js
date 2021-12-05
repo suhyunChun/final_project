@@ -3,11 +3,12 @@ import {useHistory} from "react-router-dom";
 import CreateNewAccount from "./CreateNewAccount";
 import {logInUsersAPIMethod} from "../API/userApi";
 
-function Login({handleLogged }) {
+function Login() {
     const [errorMessage, setErrorMessage] = useState('')
     const [registerForm, setRegisterForm] = useState(false)
     const [email,setEmail] = useState('')
     const [pass,setPass] = useState('')
+    const [user,setUser]= useState({})
     const history = useHistory();
     const handleOpen=(e)=>{
         e.preventDefault()
@@ -29,7 +30,8 @@ function Login({handleLogged }) {
             .then(res => {
                 console.log("RES IS ",res);
                 if(res._id != null){
-                    history.push("/logday");
+                    setUser(user)
+                    history.push("/profile");
                 }
                 else{
                     setErrorMessage("Invalid user or password");
@@ -68,7 +70,7 @@ function Login({handleLogged }) {
                     </div>
                 </form>
             </div>
-            <CreateNewAccount handleLogged={handleLogged} registerForm={registerForm} handleClose={handleClose} handleErrorMsg={handleErrorMsg}/>`
+            <CreateNewAccount registerForm={registerForm} handleClose={handleClose} handleErrorMsg={handleErrorMsg}/>`
         </React.Fragment>
     );
 

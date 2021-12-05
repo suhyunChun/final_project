@@ -6,21 +6,21 @@ import {
     updateUserAPIMethod,
     uploadImageToCloudinaryAPIMethod
 } from "../../API/userApi";
+import {useLocation} from 'react-router'
 
 
 function ProfileForm(props){
     const [user, setUser] = useState({...props.user})
     const history = useHistory()
     let formData;
-
-    console.log(user)
+    const location = useLocation();
 
     useEffect(()=>{
         getCurrentUser()
             .then((obj)=>setUser(obj))
-            .then((obj)=>console.log(obj))
-    },[])
 
+
+    },[])
 
     const onChangeInput = (event) => {
         const target = event.target;
@@ -32,7 +32,6 @@ function ProfileForm(props){
     }
     const removeImg=()=>{
         let updatedUser = {...user, profileImg: 'defaultProfile.png'};
-        console.log(updatedUser)
         setUser(updatedUser);
     }
     const handleSave=(event)=>{
@@ -74,7 +73,7 @@ function ProfileForm(props){
     return(
         <React.Fragment>
             <div id="profile-form" >
-                <form className='profile-content'>
+                <div className='profile-content'>
                     <div className ='profile-title'>
                         <h2>Edit Profile</h2>
                     </div>
@@ -112,7 +111,7 @@ function ProfileForm(props){
                             </button>
                             <button type="button" className="logout" onClick={handleLogOut}>Logout</button>
                         </div>
-                </form>
+                </div>
             </div>
         </React.Fragment>
     )

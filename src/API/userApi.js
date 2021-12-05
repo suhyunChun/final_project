@@ -70,7 +70,6 @@ export const logOutUsersAPIMethod = (user) => {
         method: 'POST',
         body: JSON.stringify(user),
     }).then(checkStatus)
-        .then(parseJSON);
 }
 /*
 export const uploadFileForUsersAPIMethod = (id, formData) => {
@@ -103,5 +102,6 @@ function checkStatus(response) {
 }
 
 function parseJSON(response) {
+    console.log(response)
     return response.json();
 }

@@ -16,13 +16,20 @@ function App() {
     const [shownDate, setShownDate] = useState(currDate)
     const [questions, setQuestions] = useState([])
     const [user, setUser] = useState({})
-    const [selected, setSelected] = useState('logday')
+    const [selected, setSelected] = useState('')
 
     useEffect(()=>{
         getCurrentUser()
-            .then((res)=>setUser(res))
+            .then((res)=>{
+                setUser(res)})
+
+    },[])
+    useEffect(()=>{
         getFormAPIMethod()
-            .then((res)=>setQuestions(res))
+            .then((res)=>{
+                setQuestions(res)
+                console.log("In App, ", res)
+            })
     },[])
     const handleQ=(q)=>{
         console.log('Change Q to', q)
