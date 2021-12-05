@@ -23,7 +23,7 @@ function App() {
             .then((res)=>setUser(res))
         getFormAPIMethod()
             .then((res)=>setQuestions(res))
-    })
+    },[])
     const handleQ=(q)=>{
         console.log('Change Q to', q)
         setQuestions(q)
@@ -31,7 +31,7 @@ function App() {
     const onClickLink=(e)=>{
         setSelected(e.target.id)
     }
-    console.log("*******************",questions,user)
+    //console.log("*******************",questions,user)
     return (
           <div className="App">
             <header className="App-header">

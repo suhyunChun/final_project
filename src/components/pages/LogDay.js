@@ -9,12 +9,12 @@ function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
     const [edited,setEdited] = useState([])
 
-    useEffect(()=>{
+   /* useEffect(()=>{
         getFormAPIMethod().then((form) => {
             console.log("set form in page", form)
             setQuestionList(form);
         });
-    },[])
+    },[])*/
 
     const handleFutureTime=()=>{
         if(props.shownDate.format('MM/DD/YYYY') < props.currDate.format('MM/DD/YYYY')){
@@ -29,7 +29,6 @@ function LogDay(props) {
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        console.log(edited)
         for(let i = 0; i < edited.length;i++){
             updateFormAPIMethod(questionList.filter((item)=>item._id === edited[i]))
                 .then((res)=>{

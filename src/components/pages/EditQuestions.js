@@ -31,39 +31,45 @@ function EditQuestions(props) {
                 updatedQ[i] = tmp
             }
         }
-        if(!edited.includes(selectedId)){
+        if(!edited.includes(selectedId) && !added.includes(selectedId)){
             setEdited(edited.concat([selectedId]))
         }
         setQuestionList(updatedQ)
     }
-
     const handleSubmit=(e)=>{
         e.preventDefault()
-        /*
-        post -> updated only changed one (using id)
-         */
-        for(let i = 0; i < added.length;i++){
-            console.log(questionList.filter((item)=>item._id === added[i])[0])
-            createFormAPIMethod(questionList.filter((item)=>item._id === added[i])[0])
-                .then((res)=> console.dir(res))
-                .catch((err)=> console.log(err))
+        let chk = true;
+        for(let i = 0; i < questionList.length;i++){
+            if(questionList[i].text === ''){
+                chk = false
+            }
         }
-        for(let i = 0; i <deleted.length;i++){
-            deleteFormByIdAPIMethod(deleted[i])
-                .then((res)=>console.dir(res))
-                .catch((err)=>console.dir(err))
+        if(chk) {
+            for (let i = 0; i < added.length; i++) {
+                let tmp = questionList.filter((item) => item._id === added[i])[0]
+                console.log(tmp)
+                createFormAPIMethod(tmp)
+                    .then((res) => console.dir(res))
+                    .catch((err) => console.log(err))
+            }
+            for (let i = 0; i < deleted.length; i++) {
+                console.log(deleted)
+                deleteFormByIdAPIMethod(deleted[i])
+                    .then((res) => console.dir(res))
+                    .catch((err) => console.dir(err))
+            }
+            for (let i = 0; i < edited.length; i++) {
+                updateFormAPIMethod(questionList.filter((item) => item._id === edited[i])[0])
+                    .then((res) => console.dir(res))
+                    .catch((err) => console.dir(err))
+            }
+            setDeleted([])
+            setAdded([])
+            setEdited([])
+            props.setQuestions(questionList)
+        }else{
+            alert('Error ValidationError: text: `text` is required')
         }
-        for(let i = 0; i < edited.length;i++){
-            //console.log(questionList.filter((item)=>item._id === edited[i]),edited)
-            updateFormAPIMethod(questionList.filter((item)=>item._id === edited[i])[0])
-                .then((res)=>console.dir(res))
-                .catch((err)=>console.dir(err))
-                //edit api funciton with id
-        }
-        setDeleted([])
-        setAdded([])
-        setEdited([])
-        props.setQuestions(questionList)
     }
     const handleAddition=()=>{
         let updatedQ = [...questionList]
@@ -71,14 +77,20 @@ function EditQuestions(props) {
         updatedQ = updatedQ.concat({_id: newId, text:'', type:'number',answer:[]})
         setAdded(added.concat([newId]))
         setQuestionList(updatedQ)
-
     }
+
     const handleDeletion=(e)=>{
         let updatedQ = [...questionList]
         updatedQ = updatedQ.filter((item)=> item._id !== e.target.id)
-        setDeleted(deleted.concat([e.target.id]))
+        if(!added.includes(e.target.id)) {
+            console.log(added,e.target.id)
+            setDeleted(deleted.concat([e.target.id]))
+        }else{
+            setAdded(added.filter((o)=>o !== e.target.id))
+        }
         setQuestionList(updatedQ)
     }
+
     return(
         <React.Fragment>
                 <div id="edit">
