@@ -13,11 +13,15 @@ function ProfileForm(props){
     const history = useHistory()
     let formData;
 
-  /*  useEffect(()=>{
+    console.log(user)
+
+    useEffect(()=>{
         getCurrentUser()
             .then((obj)=>setUser(obj))
-            .then(()=>console.log('**'))
-    },[])*/
+            .then((obj)=>console.log(obj))
+    },[])
+
+
     const onChangeInput = (event) => {
         const target = event.target;
         const value = target.value;

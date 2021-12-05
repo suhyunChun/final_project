@@ -40,7 +40,8 @@ export const createFormAPIMethod = (form) => {
         method: 'POST',
         body: JSON.stringify(form),
     }).then(checkStatus)
-        .then(parseJSON);
+        .then(parseJSON)
+    .catch((err)=>console.dir(err))
 }
 
 function checkStatus(response) {
