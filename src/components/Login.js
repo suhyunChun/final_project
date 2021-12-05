@@ -35,7 +35,7 @@ function Login({handleLogged }) {
                     setErrorMessage("Invalid user or password");
                 }
             })
-            .catch(err => alert('Login error'));
+            .catch(err => console.dir(err));
     }
 
     return(
