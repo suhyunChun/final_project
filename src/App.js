@@ -18,12 +18,12 @@ function App() {
     const [user, setUser] = useState({})
     const [selected, setSelected] = useState('')
 
-    useEffect(()=>{
+   /* useEffect(()=>{
         getCurrentUser()
             .then((res)=>{
                 setUser(res)})
 
-    },[])
+    },[])*/
     useEffect(()=>{
         getFormAPIMethod()
             .then((res)=>{
@@ -38,7 +38,7 @@ function App() {
     const onClickLink=(e)=>{
         setSelected(e.target.id)
     }
-    //console.log("*******************",questions,user)
+    console.log("*******************",questions,user)
     return (
           <div className="App">
             <header className="App-header">

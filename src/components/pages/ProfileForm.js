@@ -18,17 +18,24 @@ function ProfileForm(props){
     useEffect(()=>{
         getCurrentUser()
             .then((obj)=>setUser(obj))
-
-
     },[])
 
     const onChangeInput = (event) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-
-        const updatedUser= {...user, [name]: value};
+        let updatedUser = {...user}
+        if(name === 'location' || name === 'locationDetail'){
+            if(name === 'location') {
+                updatedUser.locations.location = value;
+            }else{
+                updatedUser.locations.locationDetail = value;
+            }
+        }else {
+            updatedUser = {...user, [name]: value};
+        }
         setUser(updatedUser);
+        console.log(updatedUser)
     }
     const removeImg=()=>{
         let updatedUser = {...user, profileImg: 'defaultProfile.png'};
@@ -36,13 +43,18 @@ function ProfileForm(props){
     }
     const handleSave=(event)=>{
         console.log(user)
-        updateUserAPIMethod(user)
+        let tmpUser = {...user}
+        const loc = tmpUser.locations.location
+        const loc2 = tmpUser.locations.locationDetail
+        tmpUser={...user,location:loc, locationDetail:loc2}
+        updateUserAPIMethod(tmpUser)
             .then((res)=>console.dir(res))
         props.setUser(user)
     }
     const handleLogOut =() =>{
         logOutUsersAPIMethod(user)
             .then((res)=>{
+                setUser({})
                 console.dir(res)
             })
         history.push('/')
@@ -102,8 +114,8 @@ function ProfileForm(props){
                         </div>
                         <div className = 'profile-location'>
                             <label id='location'><h3>Address</h3></label>
-                            <input className = 'edit-text' type="text" name="location" value = {user? user.location:''} onChange={onChangeInput}/>
-                            <input className = 'edit-text' type ='text' name ='locationDetail' value = {user? user.locationDetail:''} onChange={onChangeInput}/>
+                            <input className = 'edit-text' type="text" name="location" value = {user.locations? user.locations.location:''} onChange={onChangeInput}/>
+                            <input className = 'edit-text' type ='text' name ='locationDetail' value = {user.locations? user.locations.locationDetail:''} onChange={onChangeInput}/>
                         </div>
                         <div className="clearfix">
                             <button  type = 'submit' className='save' onClick={handleSave} style={{width:150+'px'}}>
