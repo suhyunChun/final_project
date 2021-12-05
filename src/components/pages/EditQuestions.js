@@ -43,7 +43,8 @@ function EditQuestions(props) {
         post -> updated only changed one (using id)
          */
         for(let i = 0; i < added.length;i++){
-            createFormAPIMethod(questionList.filter((item)=>item._id === added[i]))
+            console.log(questionList.filter((item)=>item._id === added[i])[0])
+            createFormAPIMethod(questionList.filter((item)=>item._id === added[i])[0])
                 .then((res)=> console.dir(res))
                 .catch((err)=> console.log(err))
         }
@@ -53,8 +54,8 @@ function EditQuestions(props) {
                 .catch((err)=>console.dir(err))
         }
         for(let i = 0; i < edited.length;i++){
-            console.log(questionList.filter((item)=>item._id === edited[i]),edited)
-            updateFormAPIMethod(questionList.filter((item)=>item._id === edited[i]))
+            //console.log(questionList.filter((item)=>item._id === edited[i]),edited)
+            updateFormAPIMethod(questionList.filter((item)=>item._id === edited[i])[0])
                 .then((res)=>console.dir(res))
                 .catch((err)=>console.dir(err))
                 //edit api funciton with id

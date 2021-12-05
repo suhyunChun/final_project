@@ -9,15 +9,15 @@ import {
 
 
 function ProfileForm(props){
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({...props.user})
     const history = useHistory()
     let formData;
 
-    useEffect(()=>{
+  /*  useEffect(()=>{
         getCurrentUser()
             .then((obj)=>setUser(obj))
             .then(()=>console.log('**'))
-    },[])
+    },[])*/
     const onChangeInput = (event) => {
         const target = event.target;
         const value = target.value;

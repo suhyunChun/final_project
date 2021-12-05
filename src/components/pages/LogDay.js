@@ -30,9 +30,6 @@ function LogDay(props) {
     const handleSubmit=(e)=>{
         e.preventDefault()
         console.log(edited)
-        /*
-         check and post only modified one
-         */
         for(let i = 0; i < edited.length;i++){
             updateFormAPIMethod(questionList.filter((item)=>item._id === edited[i]))
                 .then((res)=>{

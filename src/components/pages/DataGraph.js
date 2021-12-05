@@ -5,7 +5,6 @@ import NumTypeGraph from "../graph/NumTypeGraph";
 import BoolTypeGraph from "../graph/BoolTypeGraph";
 import MultipleTypeGraph from "../graph/MultipleTypeGraph";
 
-
 function DataGraph(props) {
     const data =[...props.questions]
 
