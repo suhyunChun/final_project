@@ -10,6 +10,7 @@ import ProfileForm from "./components/pages/ProfileForm";
 import moment from 'moment'
 import {getCurrentUser, getUserAPIMethod} from "./API/userApi";
 import {getFormAPIMethod} from "./API/formApi";
+import {useLocation} from 'react-router'
 
 function App() {
     const currDate = moment();
@@ -18,12 +19,18 @@ function App() {
     const [user, setUser] = useState({})
     const [selected, setSelected] = useState('')
 
-   /* useEffect(()=>{
+    useEffect(()=>{
+        getFormAPIMethod()
+            .then((res)=>{
+                setQuestions(res)
+            })
+    },[])
+    useEffect(()=>{
         getCurrentUser()
             .then((res)=>{
                 setUser(res)})
-
-    },[])*/
+    },[])
+    console.log("IN PAGE,", user)
     useEffect(()=>{
         getFormAPIMethod()
             .then((res)=>{
@@ -37,6 +44,10 @@ function App() {
     }
     const onClickLink=(e)=>{
         setSelected(e.target.id)
+    }
+    const handleClick=()=>{
+        getCurrentUser()
+            .then((obj)=>setUser(obj))
     }
     console.log("*******************",questions,user)
     return (
@@ -63,14 +74,16 @@ function App() {
                                 <Link to ='/profile' onClick={onClickLink}>
                                     <img
                                         className='profile_picture'
-                                        src={user? user.profileImg:'defaultProfile.png'}
-                                        alt='profile'/>
+                                        src={user && user.profileImg? user.profileImg:'defaultProfile.png'}
+                                        alt='profile'
+                                        onClick={handleClick}
+                                    />
                                 </Link>
                             </div>
                         </div>
                       <Switch>
                           <Route exact path='/' component={Login}/>
-                          <Route exact path='/page' component={Page}/>
+                          <Route exact path='/page' component={()=><App/>}/>
                           <Route exact path='/logday' component={()=><LogDay questions ={questions} setQuestions ={handleQ} shownDate={shownDate} setShownDate = {setShownDate} currDate={currDate} read ={false}/>}/>
                           <Route exact path='/edit' component={()=><EditQuestions questions = {questions} setQuestions ={handleQ} shownDate={shownDate}/>}/>
                           <Route exact path='/data' component={()=> <ViewData questions ={questions} setQuestions ={handleQ} shownDate={shownDate} setShownDate = {setShownDate} currDate={currDate}/>}/>

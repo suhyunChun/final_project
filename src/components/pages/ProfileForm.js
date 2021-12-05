@@ -6,19 +6,16 @@ import {
     updateUserAPIMethod,
     uploadImageToCloudinaryAPIMethod
 } from "../../API/userApi";
-import {useLocation} from 'react-router'
 
 
 function ProfileForm(props){
     const [user, setUser] = useState({...props.user})
     const history = useHistory()
     let formData;
-    const location = useLocation();
-
-    useEffect(()=>{
+  /*  useEffect(()=>{
         getCurrentUser()
-            .then((obj)=>setUser(obj))
-    },[])
+            .then((obj)=>{setUser(obj)})
+    },[])*/
 
     const onChangeInput = (event) => {
         const target = event.target;
@@ -35,14 +32,12 @@ function ProfileForm(props){
             updatedUser = {...user, [name]: value};
         }
         setUser(updatedUser);
-        console.log(updatedUser)
     }
     const removeImg=()=>{
         let updatedUser = {...user, profileImg: 'defaultProfile.png'};
         setUser(updatedUser);
     }
     const handleSave=(event)=>{
-        console.log(user)
         let tmpUser = {...user}
         const loc = tmpUser.locations.location
         const loc2 = tmpUser.locations.locationDetail
