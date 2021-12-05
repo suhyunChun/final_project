@@ -23,7 +23,7 @@ function App() {
             .then((res)=>setUser(res))
         getFormAPIMethod()
             .then((res)=>setQuestions(res))
-    })
+    },[])
     const handleQ=(q)=>{
         console.log('Change Q to', q)
         setQuestions(q)

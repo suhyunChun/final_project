@@ -61,7 +61,7 @@ export const logInUsersAPIMethod = (user) => {
         method: 'POST', // The method defaults to GET
         body: JSON.stringify(user),
     }).then(checkStatus)
-        .catch((err)=> console.log("LOG IN ERROR"))
+        .catch((err)=> console.dir(err))
 }
 
 export const logOutUsersAPIMethod = (user) => {
