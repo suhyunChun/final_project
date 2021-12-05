@@ -50,9 +50,8 @@ function ProfileForm(props){
         logOutUsersAPIMethod(user)
             .then((res)=>{
                 setUser({})
-                console.dir(res)
+                props.setLoginSuccess(false)
             })
-        history.push('/')
     }
 
     const handleImageSelected = (event) => {

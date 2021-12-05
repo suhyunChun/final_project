@@ -1,16 +1,16 @@
 import './App.css';
 import Page from "./components/Page";
-import Login from "./components/Login";
-import { BrowserRouter, Switch, Route,Link } from 'react-router-dom';
+import {BrowserRouter, Switch, Route, Link, useHistory} from 'react-router-dom';
 import React, {useEffect, useState} from 'react'
 import LogDay from "./components/pages/LogDay";
 import EditQuestions from "./components/pages/EditQuestions";
 import ViewData from "./components/pages/ViewData";
 import ProfileForm from "./components/pages/ProfileForm";
 import moment from 'moment'
-import {getCurrentUser, getUserAPIMethod} from "./API/userApi";
+import {getCurrentUser, getUserAPIMethod, logInUsersAPIMethod} from "./API/userApi";
 import {getFormAPIMethod} from "./API/formApi";
-import {useLocation} from 'react-router'
+import Login from '../src/components/Login'
+import CreateNewAccount from "./components/CreateNewAccount";
 
 function App() {
     const currDate = moment();
@@ -18,26 +18,47 @@ function App() {
     const [questions, setQuestions] = useState([])
     const [user, setUser] = useState({})
     const [selected, setSelected] = useState('')
+    const [loginSuccess, setLoginSuccess] = useState(false)
+    const [registerForm, setRegisterForm] = useState(false)
+    const [email,setEmail] = useState('')
+    const [pass,setPass] = useState('')
+    const history = useHistory();
 
-    useEffect(()=>{
+    const handleOpen=(e)=>{
+        e.preventDefault()
+        setRegisterForm(true)
+    }
+    const handleClose=()=>{
+        setRegisterForm(false)
+    }
+    const handleErrorMsg=(str)=>{
+
+    }
+    const handleLogin=(e)=>{
+        e.preventDefault()
+        console.log(email,pass)
+        logInUsersAPIMethod({email:email, password:pass})
+            .then(response => response.json())
+            .then(res => {
+                if(res._id != null){
+                    setLoginSuccess(true)
+                    setUser(res)
+                }
+            })
+        .catch(err => alert('Login Error'));
+    }
+   useEffect(()=>{
         getFormAPIMethod()
             .then((res)=>{
+                console.log(res)
                 setQuestions(res)
             })
     },[])
-    useEffect(()=>{
-        getCurrentUser()
-            .then((res)=>{
-                setUser(res)})
-    },[])
-    console.log("IN PAGE,", user)
-    useEffect(()=>{
-        getFormAPIMethod()
-            .then((res)=>{
-                setQuestions(res)
-                console.log("In App, ", res)
-            })
-    },[])
+    /*  useEffect(()=>{
+         getCurrentUser()
+             .then((res)=>{
+                 setUser(res)})
+     },[])*/
     const handleQ=(q)=>{
         console.log('Change Q to', q)
         setQuestions(q)
@@ -49,50 +70,103 @@ function App() {
         getCurrentUser()
             .then((obj)=>setUser(obj))
     }
-    console.log("*******************",questions,user)
-    return (
-          <div className="App">
-            <header className="App-header">
-            </header>
-                    <BrowserRouter>
-                        <div className='nav_bar'>
-                            <h1 id = 'nav-title'>Day Logger</h1>
-                            <ul className ='nav-link'>
-                                <div id='nav-pages'>
-                                    <li>
-                                        <Link to ='/logday' id ='logday' onClick={onClickLink} style={{color : (selected === 'logday')? '#66bfbf' : '', textDecoration:(selected === 'logday')?'underline':''}}> Log Day </Link>
-                                    </li>
-                                    <li>
-                                        <Link to ='/edit' id='edit' onClick={onClickLink} style={{color : (selected === 'edit')? '#66bfbf' : '', textDecoration:(selected === 'edit')?'underline':''}} > Edit Questions </Link>
-                                    </li>
-                                    <li>
-                                        <Link to ='/data'  id='data' onClick={onClickLink} style={{color : (selected === 'data')? '#66bfbf' : '', textDecoration:(selected === 'data')?'underline':''}}> View Data </Link>
-                                    </li>
-                                </div>
-                            </ul>
-                            <div id ='nav-profile'>
-                                <Link to ='/profile' onClick={onClickLink}>
-                                    <img
-                                        className='profile_picture'
-                                        src={user && user.profileImg? user.profileImg:'defaultProfile.png'}
-                                        alt='profile'
-                                        onClick={handleClick}
-                                    />
-                                </Link>
-                            </div>
-                        </div>
-                      <Switch>
-                          <Route exact path='/' component={Login}/>
-                          <Route exact path='/page' component={()=><App/>}/>
-                          <Route exact path='/logday' component={()=><LogDay questions ={questions} setQuestions ={handleQ} shownDate={shownDate} setShownDate = {setShownDate} currDate={currDate} read ={false}/>}/>
-                          <Route exact path='/edit' component={()=><EditQuestions questions = {questions} setQuestions ={handleQ} shownDate={shownDate}/>}/>
-                          <Route exact path='/data' component={()=> <ViewData questions ={questions} setQuestions ={handleQ} shownDate={shownDate} setShownDate = {setShownDate} currDate={currDate}/>}/>
-                          <Route exact path='/profile' component = {()=><ProfileForm user={user} setUser={setUser}/>}/>
-                      </Switch>
-                    </BrowserRouter>
-              </div>
 
-    );
+    console.log(loginSuccess)
+
+    if(!loginSuccess) {
+        return(
+               <React.Fragment>
+                   <div id="login">
+                       <div className='login_header'>
+                           <h1> Day Logger </h1>
+                       </div>
+                       <form className='login-content' onSubmit={handleLogin}>
+                           <div className='form-group'>
+                               <label htmlFor='login_email'>Email</label>
+                               <br/>
+                               <input id='login_email' type='text' className='formEmail'
+                                      onChange={(e) => setEmail(e.target.value)}/>
+                               <br/>
+                               <label htmlFor='login_pass'>Password</label>
+                               <br/>
+                               <input type='password' id='login_pass' className='formPassword'
+                                      onChange={(e) => setPass(e.target.value)}/>
+                           </div>
+                           <div className='loginBtnGroup'>
+                               <button className='btn_login' onClick={handleLogin}>
+                                   Log in
+                               </button>
+                               <button className='btn_createAccount' onClick={handleOpen}>
+                                   Create New Account
+                               </button>
+                           </div>
+                       </form>
+                   </div>
+                   <CreateNewAccount registerForm={registerForm} handleClose={handleClose}
+                                     handleErrorMsg={handleErrorMsg}/>`
+               </React.Fragment>
+               );
+    }else {
+        return (
+            <div className="App">
+                <header className="App-header">
+                </header>
+                <BrowserRouter>
+                    <div className='nav_bar'>
+                        <h1 id='nav-title'>Day Logger</h1>
+                        <ul className='nav-link'>
+                            <div id='nav-pages'>
+                                <li>
+                                    <Link to='/logday' id='logday' onClick={onClickLink} style={{
+                                        color: (selected === 'logday') ? '#66bfbf' : '',
+                                        textDecoration: (selected === 'logday') ? 'underline' : ''
+                                    }}> Log Day </Link>
+                                </li>
+                                <li>
+                                    <Link to='/edit' id='edit' onClick={onClickLink} style={{
+                                        color: (selected === 'edit') ? '#66bfbf' : '',
+                                        textDecoration: (selected === 'edit') ? 'underline' : ''
+                                    }}> Edit Questions </Link>
+                                </li>
+                                <li>
+                                    <Link to='/data' id='data' onClick={onClickLink} style={{
+                                        color: (selected === 'data') ? '#66bfbf' : '',
+                                        textDecoration: (selected === 'data') ? 'underline' : ''
+                                    }}> View Data </Link>
+                                </li>
+                            </div>
+                        </ul>
+                        <div id='nav-profile'>
+                            <Link to='/profile' onClick={onClickLink}>
+                                <img
+                                    className='profile_picture'
+                                    src={user && user.profileImg ? user.profileImg : 'defaultProfile.png'}
+                                    alt='profile'
+                                    onClick={handleClick}
+                                />
+                            </Link>
+                        </div>
+                    </div>
+                    <Switch>
+                        <Route exact path='/page' component={() => <App/>}/>
+                        <Route exact path='/logday'
+                               component={() => <LogDay questions={questions} setQuestions={handleQ}
+                                                        shownDate={shownDate} setShownDate={setShownDate}
+                                                        currDate={currDate} read={false}/>}/>
+                        <Route exact path='/edit'
+                               component={() => <EditQuestions questions={questions} setQuestions={handleQ}
+                                                               shownDate={shownDate}/>}/>
+                        <Route exact path='/data'
+                               component={() => <ViewData questions={questions} setQuestions={handleQ}
+                                                          shownDate={shownDate} setShownDate={setShownDate}
+                                                          currDate={currDate}/>}/>
+                        <Route exact path='/profile' component={() => <ProfileForm setLoginSuccess={setLoginSuccess}user={user} setUser={setUser}/>}/>
+                    </Switch>
+                </BrowserRouter>
+            </div>
+
+        );
+    }
 
 }
 

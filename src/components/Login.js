@@ -4,7 +4,7 @@ import CreateNewAccount from "./CreateNewAccount";
 import {logInUsersAPIMethod} from "../API/userApi";
 import App from "../App";
 
-function Login() {
+function Login(props) {
     const [errorMessage, setErrorMessage] = useState('')
     const [registerForm, setRegisterForm] = useState(false)
     const [email,setEmail] = useState('')
@@ -32,15 +32,15 @@ function Login() {
             .then(res => {
                 console.log("RES IS ",res);
                 if(res._id != null){
-                    setUser(user)
-                    setLoginSuccess(true)
+                    //setUser(user)
+                    props.setLoginSuccess(true)
                     history.push("/profile");
                 }
                 else{
                     setErrorMessage("Invalid user or password");
                 }
             })
-            .catch(err => alert('Login Error'));
+            //.catch(err => alert('Login Error'));
     }
 
     if(loginSuccess){
