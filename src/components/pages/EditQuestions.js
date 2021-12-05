@@ -47,13 +47,11 @@ function EditQuestions(props) {
         if(chk) {
             for (let i = 0; i < added.length; i++) {
                 let tmp = questionList.filter((item) => item._id === added[i])[0]
-                console.log(tmp)
                 createFormAPIMethod(tmp)
                     .then((res) => console.dir(res))
                     .catch((err) => console.log(err))
             }
             for (let i = 0; i < deleted.length; i++) {
-                console.log(deleted)
                 deleteFormByIdAPIMethod(deleted[i])
                     .then((res) => console.dir(res))
                     .catch((err) => console.dir(err))
