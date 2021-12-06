@@ -29,6 +29,7 @@ function LogDay(props) {
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
+        console.log(questionList,edited)
         for(let i = 0; i < edited.length;i++){
             console.log(questionList.filter((item)=>item._id === edited[i])[0])
             updateFormAPIMethod(questionList.filter((item)=>item._id === edited[i])[0])
@@ -37,6 +38,7 @@ function LogDay(props) {
                 })
         }
         setEdited([])
+        //console.log(questionList)
         props.setQuestions(questionList)
     }
     const handleChange=(event)=>{
@@ -78,7 +80,8 @@ function LogDay(props) {
     const handleFindValue = (data)=>{
         for(let i = 0; i < data.length;i++){
             if(data[i].date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY')){
-                return data[i].res
+               // console.log(data[i])
+                return data[i].response
             }
         }
         return ''
@@ -125,12 +128,12 @@ function LogDay(props) {
                                         </div>)
                                 case 'text':
                                     return(
-                                        <input name = {item.text} type={item.type} className = 'edit-text' defaultValue ={item.answer ? handleFindValue(item.answer):''} disabled={props.read}/>
+                                        <input name = {item.text} type={item.type} className = 'edit-text' value ={item.answer ? handleFindValue(item.answer):''} disabled={props.read}/>
                                     )
 
                                 default:
                                     return(
-                                        <input name = {item.text} type={item.type} className = 'edit-text' style={{width:150+'px'}} defaultValue ={item.answer ?  handleFindValue(item.answer):''} disabled={props.read}/>)
+                                        <input name = {item.text} type={item.type} className = 'edit-text' style={{width:150+'px'}} value ={item.answer ?  handleFindValue(item.answer):''} disabled={props.read}/>)
                             }
                         })()}
                     </div>

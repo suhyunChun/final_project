@@ -4,7 +4,7 @@ const defaultHeaders = {
     },
 }
 export const getFormAPIMethod = () => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/form`, {
+    return fetch(`/api/form`, {
         ...defaultHeaders,
     }).then(checkStatus)
         .then(parseJSON);
@@ -12,14 +12,14 @@ export const getFormAPIMethod = () => {
 }
 
 export const getFormByIdAPIMethod = (id) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/form/${id}`, {
+    return fetch(`/api/form/${id}`, {
         ...defaultHeaders,
     }).then(checkStatus)
         .then(parseJSON);
 }
 
 export const updateFormAPIMethod = (form) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/form/${form._id}`, {
+    return fetch(`/api/form/${form._id}`, {
         ...defaultHeaders,
         method: 'PUT', // The method defaults to GET
         body: JSON.stringify(form),
@@ -27,7 +27,7 @@ export const updateFormAPIMethod = (form) => {
 }
 
 export const deleteFormByIdAPIMethod = (id) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/form/${id}`, {
+    return fetch(`/api/form/${id}`, {
         ...defaultHeaders,
         method: 'DELETE',
     }).then(checkStatus)
@@ -35,13 +35,12 @@ export const deleteFormByIdAPIMethod = (id) => {
 }
 
 export const createFormAPIMethod = (form) => {
-    return fetch(`https://cse316-final-project.herokuapp.com/api/form/add`, {
+    return fetch(`/api/form/add`, {
         ...defaultHeaders,
         method: 'POST',
         body: JSON.stringify(form),
     }).then(checkStatus)
         .then(parseJSON)
-    .catch((err)=>console.dir(err))
 }
 
 function checkStatus(response) {

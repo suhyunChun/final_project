@@ -44,11 +44,11 @@ function DataGraph(props) {
             for (let i = 0; i < data.answer.length; i++) {
                 if (data.answer === undefined) {
                     continue;
-                } else if (Object.values(data.multiple)[data.answer[i].res].toLowerCase() === a) {
+                } else if (Object.values(data.multiple)[data.answer[i].response].toLowerCase() === a) {
                     f += 1
-                } else if (Object.values(data.multiple)[data.answer[i].res].toLowerCase() === b) {
+                } else if (Object.values(data.multiple)[data.answer[i].response].toLowerCase() === b) {
                     s += 1
-                } else if (Object.values(data.multiple)[data.answer[i].res].toLowerCase() === c) {
+                } else if (Object.values(data.multiple)[data.answer[i].response].toLowerCase() === c) {
                     t += 1
                 }
             }

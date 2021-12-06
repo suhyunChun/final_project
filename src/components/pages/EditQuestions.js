@@ -47,6 +47,7 @@ function EditQuestions(props) {
         if(chk) {
             for (let i = 0; i < added.length; i++) {
                 let tmp = questionList.filter((item) => item._id === added[i])[0]
+                //console.log(tmp)
                 createFormAPIMethod(tmp)
                     .then((res) =>{
                         console.dir(res)

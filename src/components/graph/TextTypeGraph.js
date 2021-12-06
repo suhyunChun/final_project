@@ -7,7 +7,7 @@ function TextTypeGraph(props) {
             <div>
                 {props.textData.map((item)=>(
                     (item.length !== 0?
-                            (<p key = {item.date}>{item.date.format('MM/DD/YYYY')} : {item.res}</p>)
+                            (<p key = {item.date}>{item.date.format('MM/DD/YYYY')} : {item.response}</p>)
                             : ' ')
 
                 ))}
