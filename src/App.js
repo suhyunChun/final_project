@@ -31,6 +31,15 @@ function App() {
                 setQuestions(res)
             })
     },[user])
+
+    useEffect(() => {
+        if(user != null){
+            // console.log(user)
+            setLoginSuccess(true)
+        }else{
+            setLoginSuccess(false)
+        }
+    }, [user])
     const handleOpen=(e)=>{
         e.preventDefault()
         setRegisterForm(true)
