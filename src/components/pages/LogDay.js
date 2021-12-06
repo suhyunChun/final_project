@@ -61,7 +61,9 @@ function LogDay(props) {
 
         let datesIdx = -1;
         for(let i = 0; i < tmpQuestion[idx].answer.length; i++){
-            if(tmpQuestion[idx].answer[i].date.format('MM/DD/YYYY') === newAns.date.format('MM/DD/YYYY')){
+            console.log(moment(tmpQuestion[idx].answer[i].date).format('MM/DD/YYYY'))
+            if(moment(tmpQuestion[idx].answer[i].date).format('MM/DD/YYYY')=== newAns.date.format('MM/DD/YYYY')){
+
                 datesIdx = i;
             }
         }
@@ -79,8 +81,8 @@ function LogDay(props) {
 
     const handleFindValue = (data)=>{
         for(let i = 0; i < data.length;i++){
-            if(data[i].date.format('MM/DD/YYYY') === props.shownDate.format('MM/DD/YYYY')){
-               // console.log(data[i])
+            if(moment(data[i].date).format('MM/DD/YYYY')=== props.shownDate.format('MM/DD/YYYY')){
+                //console.log(data[i])
                 return data[i].response
             }
         }
@@ -133,7 +135,7 @@ function LogDay(props) {
 
                                 default:
                                     return(
-                                        <input name = {item.text} type={item.type} className = 'edit-text' style={{width:150+'px'}} value ={item.answer ?  handleFindValue(item.answer):''} disabled={props.read}/>)
+                                        <input name = {item.text} type={item.type} className = 'edit-text' style={{width:150+'px'}} defaultValue ={item.answer ?  handleFindValue(item.answer):''} disabled={props.read}/>)
                             }
                         })()}
                     </div>

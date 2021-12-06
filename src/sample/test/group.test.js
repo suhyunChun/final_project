@@ -1,5 +1,10 @@
 const group = require('./groupByKey');
 
-test('T', () => {
-    expect(group([{date: 1, type : 2, text : 3},[{date:1, type:2, text:4}]], 'date')).toBe({1:[{date: 1, type : 2, text : 3},{date:1, type:2, text:4}]});
+
+test('3', () => {
+    expect(group([{date: '11/20/2021', response : 3},{date:'11/21/2021', response:4}], '11/21/2021')).toBe(4);
+});
+
+test('undefined', () => {
+    expect(group([{date: '11/20/2021', response : 3},[{date:'11/21/2021', response:4}]], '11/22/2021')).toBe('');
 });

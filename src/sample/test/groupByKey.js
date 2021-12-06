@@ -1,9 +1,10 @@
-function groupByKey(array, key) {
-    return array
-        .reduce((hash, obj) => {
-            if(obj[key] === undefined) return hash;
-            return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
-        }, {})
+function groupByKey(data, date) {
+    for(let i = 0; i < data.length;i++){
+        if(data[i].date === date){
+            return data[i].response
+        }
+    }
+    return ''
 }
 module.exports= groupByKey
 

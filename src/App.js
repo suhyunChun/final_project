@@ -24,6 +24,13 @@ function App() {
     const [pass,setPass] = useState('')
     const history = useHistory();
 
+    useEffect(()=>{
+        getFormAPIMethod()
+            .then((res)=>{
+                console.log("useEffect FORM ", res)
+                setQuestions(res)
+            })
+    },[user])
     const handleOpen=(e)=>{
         e.preventDefault()
         setRegisterForm(true)
@@ -47,13 +54,7 @@ function App() {
             })
         .catch(err => alert('Login Error'));
     }
-   useEffect(()=>{
-        getFormAPIMethod()
-            .then((res)=>{
-                console.log(res)
-                setQuestions(res)
-            })
-    },[])
+
     /*  useEffect(()=>{
          getCurrentUser()
              .then((res)=>{
@@ -71,7 +72,7 @@ function App() {
             .then((obj)=>setUser(obj))
     }
 
-    console.log(loginSuccess)
+    //console.log(loginSuccess)
 
     if(!loginSuccess) {
         return(

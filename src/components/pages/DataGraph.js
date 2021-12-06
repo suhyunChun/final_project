@@ -38,21 +38,28 @@ function DataGraph(props) {
         let b = '';
         let c = '';
         if(data.multiple) {
+
             a = Object.values(data.multiple)[0].toLowerCase()
             b = Object.values(data.multiple)[1].toLowerCase()
             c = Object.values(data.multiple)[2].toLowerCase()
             for (let i = 0; i < data.answer.length; i++) {
-                if (data.answer === undefined) {
+                console.log(Object.values(data.multiple),data.answer[i])
+                if (data.answer === undefined && data.answer[i].response === undefined) {
+                    console.log("NOE")
                     continue;
-                } else if (Object.values(data.multiple)[data.answer[i].response].toLowerCase() === a) {
+                } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === a) {
+                    console.log(a)
                     f += 1
-                } else if (Object.values(data.multiple)[data.answer[i].response].toLowerCase() === b) {
+                } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === b) {
+                    console.log(b)
                     s += 1
-                } else if (Object.values(data.multiple)[data.answer[i].response].toLowerCase() === c) {
+                } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === c) {
+                    console.log(c)
                     t += 1
                 }
             }
         }
+        console.log({t:a,v:f},{t:b, v:s},{t:c, v:t})
         return [{t:a,v:f},{t:b, v:s},{t:c, v:t}]
     }
 

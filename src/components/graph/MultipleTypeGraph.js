@@ -3,6 +3,7 @@ import {Bar, BarChart,  ResponsiveContainer, Tooltip, XAxis, YAxis} from "rechar
 
 function MultipleTypeGraph(props) {
 
+    console.log(props.radioData)
     return(
         <React.Fragment>
             <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
