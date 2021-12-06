@@ -61,7 +61,7 @@ function LogDay(props) {
 
         let datesIdx = -1;
         for(let i = 0; i < tmpQuestion[idx].answer.length; i++){
-            console.log(moment(tmpQuestion[idx].answer[i].date).format('MM/DD/YYYY'))
+            //console.log(moment(tmpQuestion[idx].answer[i].date).format('MM/DD/YYYY'))
             if(moment(tmpQuestion[idx].answer[i].date).format('MM/DD/YYYY')=== newAns.date.format('MM/DD/YYYY')){
 
                 datesIdx = i;
@@ -130,7 +130,7 @@ function LogDay(props) {
                                         </div>)
                                 case 'text':
                                     return(
-                                        <input name = {item.text} type={item.type} className = 'edit-text' value ={item.answer ? handleFindValue(item.answer):''} disabled={props.read}/>
+                                        <input name = {item.text} type={item.type} className = 'edit-text' defaultValue ={item.answer ? handleFindValue(item.answer):''} disabled={props.read}/>
                                     )
 
                                 default:

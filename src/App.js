@@ -27,7 +27,7 @@ function App() {
     useEffect(()=>{
         getFormAPIMethod()
             .then((res)=>{
-                console.log("useEffect FORM ", res)
+               // console.log("useEffect FORM ", res)
                 setQuestions(res)
             })
     },[user])

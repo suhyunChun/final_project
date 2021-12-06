@@ -13,7 +13,7 @@ import moment from "moment";
 
 
 function NumTypeGraph(props) {
-    console.log(props.numData)
+    //console.log(props.numData)
 
 
     return(
