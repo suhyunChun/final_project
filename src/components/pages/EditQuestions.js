@@ -110,14 +110,11 @@ function EditQuestions(props) {
     const handleDeletion=(id)=>{
         let updatedQ = [...questionList]
         updatedQ = updatedQ.filter((item)=> item._id !== id)
-        if(!added.includes(id) && !edited.includes(id)) {
+        if(!added.includes(id)) {
             setDeleted(deleted.concat([id]))
         }else{
             if(added.includes(id)) {
                 setAdded(added.filter((o) => o !== id))
-            }
-            if(edited.includes(id)){
-                setEdited(edited.filter((o)=>o!==id))
             }
         }
         setQuestionList(updatedQ)
