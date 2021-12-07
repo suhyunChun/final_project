@@ -28,7 +28,7 @@ function App() {
             })
     },[user])
 
-    useEffect(() => {
+   /* useEffect(() => {
         if(user !== null && Object.entries(user).length !== 0){
             setLoginSuccess(true)
         }else{
@@ -36,14 +36,12 @@ function App() {
             setLoginSuccess(false)
         }
     }, [user])
-
+*/
     useEffect(() => {
-        if(getCurrentUser()
-        .then((obj)=> obj !== null && obj !== {})){
-            getCurrentUser()
-        .then((obj)=> setUser(obj))
-        }
-    }, [])
+        console.log("useeffect")
+        getCurrentUser()
+            .then((obj)=>setUser(obj))
+    },[loginSuccess])
 
     const handleOpen=(e)=>{
         e.preventDefault()
@@ -59,10 +57,10 @@ function App() {
             .then(response => response.json())
             .then(res => {
                 if(res._id != null){
-                    setLoginSuccess(true)
+                    localStorage.setItem('loginSuccess',JSON.parse('true'));
                     setUser(res)
                 }else{
-                    setLoginSuccess(false)
+                    localStorage.setItem('loginSuccess',JSON.parse('false'));
                 }
             })
         .catch(err => alert('Login Error'));
@@ -79,9 +77,14 @@ function App() {
             .then((obj)=>setUser(obj))
     }
 
-    console.log("LOGIN SUCCESS?",loginSuccess)
+    const handleLocalValue =(obj)=>{
+        localStorage.setItem('loginSuccess', obj)
+        setUser({})
+        console.log(JSON.parse(localStorage.getItem('loginSuccess')))
+    }
 
-    if(!loginSuccess) {
+ //   console.log(JSON.parse(localStorage.getItem('loginSuccess')))
+    if(!JSON.parse(localStorage.getItem('loginSuccess'))) {
         return(
                <React.Fragment>
                    <div id="login">
@@ -111,10 +114,11 @@ function App() {
                        </form>
                    </div>
                    <CreateNewAccount registerForm={registerForm} handleClose={handleClose}
-                                     setLoginSuccess={setLoginSuccess}/>`
+                                     handleLocalValue={handleLocalValue}
+                                     />`
                </React.Fragment>
                );
-    }else {
+    }else{
         return (
             <div className="App">
                 <header className="App-header">
@@ -168,7 +172,7 @@ function App() {
                                component={() => <ViewData questions={questions} setQuestions={handleQ}
                                                           shownDate={shownDate} setShownDate={setShownDate}
                                                           currDate={currDate}/>}/>
-                        <Route exact path='/profile' component={() => <ProfileForm setLoginSuccess={setLoginSuccess}user={user} setUser={setUser}/>}/>
+                        <Route exact path='/profile' component={() => <ProfileForm handleLocalValue={handleLocalValue} user={user} setUser={setUser}/>}/>
                     </Switch>
                 </BrowserRouter>
 

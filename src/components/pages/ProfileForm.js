@@ -43,7 +43,7 @@ function ProfileForm(props){
         logOutUsersAPIMethod(user)
             .then((res)=>{
                 setUser({})
-                props.setLoginSuccess(false)
+                props.handleLocalValue('false')
             })
     }
 
