@@ -8,14 +8,10 @@ function EditQuestions(props) {
     const [deleted, setDeleted] = useState([])
     const [edited, setEdited] = useState([])
 
-    useEffect(() => {
-       console.log(questionList)
-    }, [questionList])
-
     const onChangeInput = (event) => {
         let updatedQ = [...questionList]
         let tmp={}
-        const selectedId = event.target.id
+        const selectedId = event.target.name
         for (let i = 0; i < updatedQ.length; i++){
             if(updatedQ[i]._id === selectedId){
                 tmp = {...updatedQ[i]}
@@ -51,20 +47,20 @@ function EditQuestions(props) {
         if(chk) {
             for (let i = 0; i < added.length; i++) {
                 let tmp = questionList.filter((item) => item._id === added[i])[0]
-                //console.log(tmp)
                 createFormAPIMethod(tmp)
                     .then((res) =>{
-                        console.dir(res)
-                        props.setQuestions(props.questions.concat([res]))
-                        // setQuestionList([...questionList, res])
+                        let tmpIdx = questionList.indexOf(tmp)
+                        questionList[tmpIdx]._id = res._id
+                        props.setQuestions(questionList)
                     })
                     .catch((err) => console.log(err))
             }
             for (let i = 0; i < deleted.length; i++) {
+                console.log(deleted)
                 deleteFormByIdAPIMethod(deleted[i])
                     .then((res) => {
-                        console.dir(res)
-                        props.setQuestions(props.questions.filter((item)=>item._id !== deleted[i]))
+                        setQuestionList(props.questions.filter((item)=>item._id !== deleted[i]))
+                        props.setQuestions(questionList)
                     })
                     .catch((err) => console.dir(err))
             }
@@ -80,7 +76,6 @@ function EditQuestions(props) {
             setDeleted([])
             setAdded([])
             setEdited([])
-           // props.setQuestions(questionList)
         }else{
             alert('Error ValidationError: text: `text` is required')
         }
@@ -93,63 +88,62 @@ function EditQuestions(props) {
         setQuestionList(updatedQ)
     }
 
-    const handleDeletion=(e)=>{
+    const handleDeletion=(id)=>{
         let updatedQ = [...questionList]
-        updatedQ = updatedQ.filter((item)=> item._id !== e.target.id)
-        if(!added.includes(e.target.id)) {
-            console.log(added,e.target.id)
-            setDeleted(deleted.concat([e.target.id]))
+        updatedQ = updatedQ.filter((item)=> item._id !== id)
+        if(!added.includes(id)) {
+            setDeleted(deleted.concat([id]))
         }else{
-            setAdded(added.filter((o)=>o !== e.target.id))
+            setAdded(added.filter((o)=>o !== id))
         }
         setQuestionList(updatedQ)
     }
 
+    console.log(questionList)
     return(
         <React.Fragment>
-                <div id="edit">
-                    <div className = 'edit-title'>
-                        <h2> Edit Questions</h2>
-                        <span className="material-icons" onClick={handleAddition}>add_circle_outline</span>
-                    </div>
-                    {questionList.map(item => (
-                        <div className='edit-question' id = {item._id} key={item._id}>
-                            <label htmlFor = 'edit-text'/>
-                            <input className = 'edit-text' id = {item._id} value ={item.text} onChange={onChangeInput}/>
-
-                            <div className = 'edit-type'>
-                                <select className = 'edit-type' id = {item._id} name = 'edit-type' value = {item.type} onChange={onChangeInput}>
-                                    <option value = 'number'>number</option>
-                                    <option value = 'boolean'>boolean</option>
-                                    <option value = 'text'>text</option>
-                                    <option value = 'radio'>multiple choice</option>
-                                </select>
-                                <span id = {item._id} className="material-icons" onClick = {handleDeletion} >delete_outline</span>
-                            </div>
-                            {item.type === 'radio'?
-                                <div className ='mult-opt'>
-                                    <div className = 'opt'>
-                                        <input name = 'mult-opt' type = 'radio' id ='first-opt' value = 'first' disabled/>
-                                        <input id = {item._id} value = {item.multiple? item.multiple.first : ''} className = 'first' onChange={onChangeInput}/>
-                                    </div>
-                                    <div className = 'opt'>
-                                        <input name = 'mult-opt' type = 'radio' id = 'second-opt' value = 'second' disabled/>
-                                        <input id = {item._id} value = {item.multiple? item.multiple.second : ''} className = 'second' onChange={onChangeInput}/>
-                                    </div>
-                                    <div className = 'opt'>
-                                        <input name = 'mult-opt' type = 'radio' id = 'third-opt' value = 'third' disabled/>
-                                        <input id = {item._id} value = {item.multiple? item.multiple.third : ''}className = 'third' onChange={onChangeInput}/>
-                                    </div>
-                                </div>
-                            : ''}
-                        </div>
-                        ))}
-                    <div className='save-div'>
-                        <button onClick={handleSubmit} className='save'> Save </button>
-                    </div>
+            <div id="edit">
+                <div className = 'edit-title'>
+                    <h2> Edit Questions</h2>
+                    <span className="material-icons" onClick={handleAddition}>add_circle_outline</span>
                 </div>
+                {questionList.map(item => (
+                    <div className='edit-question' id = {item._id} key={item._id}>
+                        <button onClick ={()=>console.log(item)}>testing</button>
+                        <label htmlFor = 'edit-text'/>
+                        <input className = 'edit-text' name = {item._id} value ={item.text} onChange={onChangeInput}/>
+                        <div className = 'edit-type'>
+                            <select className = 'edit-type' name = {item._id} value = {item.type} onChange={onChangeInput}>
+                                <option value = 'number'>number</option>
+                                <option value = 'boolean'>boolean</option>
+                                <option value = 'text'>text</option>
+                                <option value = 'radio'>multiple choice</option>
+                            </select>
+                            <span  className="material-icons" onClick = {()=>handleDeletion(item._id)} >delete_outline</span>
+                        </div>
+                        {item.type === 'radio'?
+                            <div className ='mult-opt'>
+                                <div className = 'opt'>
+                                    <input name = 'mult-opt' type = 'radio' id ='first-opt' value = 'first' disabled/>
+                                    <input name = {item._id} value = {item.multiple? item.multiple.first : ''} className = 'first' onChange={onChangeInput}/>
+                                </div>
+                                <div className = 'opt'>
+                                    <input name = 'mult-opt' type = 'radio' id = 'second-opt' value = 'second' disabled/>
+                                    <input name = {item._id} value = {item.multiple? item.multiple.second : ''} className = 'second' onChange={onChangeInput}/>
+                                </div>
+                                <div className = 'opt'>
+                                    <input name = 'mult-opt' type = 'radio' id = 'third-opt' value = 'third' disabled/>
+                                    <input name = {item._id} value = {item.multiple? item.multiple.third : ''} className = 'third' onChange={onChangeInput}/>
+                                </div>
+                            </div>
+                            : ''}
+                    </div>
+                ))}
+                <div className='save-div'>
+                    <button onClick={handleSubmit} className='save'> Save </button>
+                </div>
+            </div>
         </React.Fragment>
     );
 }
 export default EditQuestions
-
