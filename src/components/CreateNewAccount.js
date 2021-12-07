@@ -16,23 +16,26 @@ function CreatNewAccount(props){
     const [user,setUser] = useState({profileUrl:'defaultProfile.png'})
 
     const handleSave=(e)=>{
-        if(validatePassword(user.password) && validateEmail(user.email)) {
+        console.log(user)
+        if(validatePassword(user.password) && validateEmail(user.email) && user.name) {
             createUserAPIMethod(user)
                 .then((res) =>
                     e.preventDefault())
                 .catch(() =>
                         alert('email duplicated'),
                         props.handleClose(),
-                        props.setLoginSuccess(false),
+                        props.handleLocalValue('false'),
                         e.preventDefault()
                 )
         }else{
             if(!validateEmail((user.email))){
                 alert("Invalid email")
-                props.setLoginSuccess(false)
-            }else{
+                props.handleLocalValue('false')
+            }else if(!validatePassword((user.password))){
                 alert("invalid password")
-                props.setLoginSuccess(false)
+                props.handleLocalValue('false')
+            }else{
+                alert('Name is required')
             }
         }
     }

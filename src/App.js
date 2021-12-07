@@ -18,6 +18,7 @@ function App() {
     const [selected, setSelected] = useState('')
     const [loginSuccess, setLoginSuccess] = useState(false)
     const [registerForm, setRegisterForm] = useState(false)
+    const [name, setName] = useState('')
     const [email,setEmail] = useState('')
     const [pass,setPass] = useState('')
 
@@ -38,7 +39,7 @@ function App() {
     }, [user])
 */
     useEffect(() => {
-        console.log("useeffect")
+       // console.log("useeffect")
         getCurrentUser()
             .then((obj)=>setUser(obj))
     },[loginSuccess])
@@ -53,6 +54,7 @@ function App() {
     const handleLogin=(e)=>{
         e.preventDefault()
         console.log(email,pass)
+
         logInUsersAPIMethod({email:email, password:pass})
             .then(response => response.json())
             .then(res => {
@@ -83,7 +85,6 @@ function App() {
         console.log(JSON.parse(localStorage.getItem('loginSuccess')))
     }
 
- //   console.log(JSON.parse(localStorage.getItem('loginSuccess')))
     if(!JSON.parse(localStorage.getItem('loginSuccess'))) {
         return(
                <React.Fragment>
@@ -107,13 +108,13 @@ function App() {
                                <button className='btn_login' onClick={handleLogin}>
                                    Log in
                                </button>
-                               <button className='btn_createAccount' onClick={handleOpen}>
+                               <button className='btn_createAccount' onClick={handleOpen} handleLocalValue={handleLocalValue}>
                                    Create New Account
                                </button>
                            </div>
                        </form>
                    </div>
-                   <CreateNewAccount registerForm={registerForm} handleClose={handleClose}
+                   <CreateNewAccount setName = {setName} registerForm={registerForm} handleClose={handleClose}
                                      handleLocalValue={handleLocalValue}
                                      />`
                </React.Fragment>

@@ -76,8 +76,8 @@ function ProfileForm(props){
                     <div className ='profile-title'>
                         <h2>Edit Profile</h2>
                     </div>
-                        <div className = 'profile-photo'>
-                            <h3>Profile photo</h3>
+                    <div className = 'profile-photo'>
+                        <h3>Profile photo</h3>
                             <div className="photo">
                                 <img
                                     className='profile_picture'

@@ -60,7 +60,7 @@ function DataGraph(props) {
                 }
             }
         }
-        console.log({t:a,v:f},{t:b, v:s},{t:c, v:t})
+        //console.log({t:a,v:f},{t:b, v:s},{t:c, v:t})
         return [{t:a,v:f},{t:b, v:s},{t:c, v:t}]
     }
 

@@ -13,9 +13,6 @@ import moment from "moment";
 
 
 function NumTypeGraph(props) {
-    //console.log(props.numData)
-
-
     return(
         <React.Fragment>
             <ResponsiveContainer width={'100%'} height={'100%'} aspect={3}>
@@ -26,7 +23,7 @@ function NumTypeGraph(props) {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis  label={{ value: 'Dates', marginTop:10+'px', textAnchor : 'middle', position: 'insideBottom', offset: 0 }} dataKey={(v)=>moment(v.date).format('MM/DD/YYYY')}>
                         </XAxis>
-                        <YAxis dataKey={(v)=>parseInt(v.response)} label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain={[0,'dataMax']}/>
+                        <YAxis dataKey={(v)=>parseInt(v.response)} label={{ value: 'Value', angle: -90, position: 'insideLeft' }} domain={['dataMin','dataMax']}/>
                         <Line type="monotone" dataKey="response" stroke="#f76b8a" strokeWidth={1.6} activeDot={{ r: 8 }}/>
                     </LineChart>
             </ResponsiveContainer>
