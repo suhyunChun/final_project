@@ -9,10 +9,7 @@ import {
 
 function ProfileForm(props){
     const [user, setUser] = useState({...props.user})
-
     let formData;
-    console.log(user)
-
     const onChangeInput = (event) => {
         const target = event.target;
         const value = target.value;

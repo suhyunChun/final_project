@@ -27,13 +27,16 @@ function App() {
                 setQuestions(res)
             })
     },[user])
+
     useEffect(() => {
-        if(user === {} || user === null){
-            setLoginSuccess(false)
-        }else{
+        if(user !== null && Object.entries(user).length !== 0){
             setLoginSuccess(true)
+        }else{
+            console.log(user)
+            setLoginSuccess(false)
         }
     }, [user])
+
     useEffect(() => {
         if(getCurrentUser()
         .then((obj)=> obj !== null && obj !== {})){
@@ -41,6 +44,7 @@ function App() {
         .then((obj)=> setUser(obj))
         }
     }, [])
+
     const handleOpen=(e)=>{
         e.preventDefault()
         setRegisterForm(true)
@@ -63,12 +67,6 @@ function App() {
             })
         .catch(err => alert('Login Error'));
     }
-
-    /*  useEffect(()=>{
-         getCurrentUser()
-             .then((res)=>{
-                 setUser(res)})
-     },[])*/
     const handleQ=(q)=>{
         console.log('Change Q to', q)
         setQuestions(q)
@@ -81,7 +79,7 @@ function App() {
             .then((obj)=>setUser(obj))
     }
 
-    //console.log(loginSuccess)
+    console.log("LOGIN SUCCESS?",loginSuccess)
 
     if(!loginSuccess) {
         return(
