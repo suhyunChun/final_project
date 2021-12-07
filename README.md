@@ -21,7 +21,10 @@ If password does not match, it shows 'login error' message which means user type
 ##Deployment (Netlify)
 `https://`
 
+##Deployment (Heroku)
+`https://cse316-final-project.herokuapp.com`
+
 
 ##Sample User
-###email:
-###password: 
+###email: `test@gmail.com`
+###password: `Password1`
