@@ -51,7 +51,7 @@ function EditQuestions(props) {
                     .then((res) =>{
                         let tmpIdx = questionList.indexOf(tmp)
                         questionList[tmpIdx]._id = res._id
-                        props.setQuestions(questionList)
+                        //props.setQuestions(questionList)
                     })
                     .catch((err) => console.log(err))
             }
@@ -60,7 +60,7 @@ function EditQuestions(props) {
                 deleteFormByIdAPIMethod(deleted[i])
                     .then((res) => {
                         setQuestionList(props.questions.filter((item)=>item._id !== deleted[i]))
-                        props.setQuestions(questionList)
+                        //props.setQuestions(questionList)
                     })
                     .catch((err) => console.dir(err))
             }
@@ -69,13 +69,14 @@ function EditQuestions(props) {
                 updateFormAPIMethod(tmp)
                     .then((res) => {
                         console.dir(res)
-                        props.setQuestions(questionList)
+                        //props.setQuestions(questionList)
                     })
                     .catch((err) => console.dir(err))
             }
             setDeleted([])
             setAdded([])
             setEdited([])
+            props.setQuestions(questionList)
         }else{
             alert('Error ValidationError: text: `text` is required')
         }
