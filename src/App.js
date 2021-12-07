@@ -34,12 +34,19 @@ function App() {
 
     useEffect(() => {
         if(user != null){
-            // console.log(user)
+            console.log(user)
             setLoginSuccess(true)
         }else{
             setLoginSuccess(false)
         }
     }, [user])
+    useEffect(() => {
+        if(getCurrentUser()
+        .then((obj)=> obj != null)){
+            getCurrentUser()
+        .then((obj)=> setUser(obj))
+        }
+    }, [])
     const handleOpen=(e)=>{
         e.preventDefault()
         setRegisterForm(true)

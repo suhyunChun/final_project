@@ -8,6 +8,10 @@ function EditQuestions(props) {
     const [deleted, setDeleted] = useState([])
     const [edited, setEdited] = useState([])
 
+    useEffect(() => {
+       console.log(questionList)
+    }, [questionList])
+
     const onChangeInput = (event) => {
         let updatedQ = [...questionList]
         let tmp={}
@@ -52,6 +56,7 @@ function EditQuestions(props) {
                     .then((res) =>{
                         console.dir(res)
                         props.setQuestions(props.questions.concat([res]))
+                        // setQuestionList([...questionList, res])
                     })
                     .catch((err) => console.log(err))
             }
