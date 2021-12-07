@@ -172,7 +172,7 @@ function App() {
                                                         currDate={currDate} read={false}/>}/>
                         <Route exact path='/edit'
                                component={() => <EditQuestions questions={questions} setQuestions={handleQ}
-                                                               shownDate={shownDate}/>}/>
+                                                               shownDate={shownDate} user={user}/>}/>
                         <Route exact path='/data'
                                component={() => <ViewData questions={questions} setQuestions={handleQ}
                                                           shownDate={shownDate} setShownDate={setShownDate}
