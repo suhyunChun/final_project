@@ -1,10 +1,9 @@
 import React, {useState} from "react";
-import { useHistory} from "react-router-dom";
 import {createUserAPIMethod} from "../API/userApi";
 
 
 function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
 
@@ -24,13 +23,16 @@ function CreatNewAccount(props){
                 .catch(() =>
                         alert('email duplicated'),
                         props.handleClose(),
+                        props.setLoginSuccess(false),
                         e.preventDefault()
                 )
         }else{
             if(!validateEmail((user.email))){
                 alert("Invalid email")
+                props.setLoginSuccess(false)
             }else{
                 alert("invalid password")
+                props.setLoginSuccess(false)
             }
         }
     }

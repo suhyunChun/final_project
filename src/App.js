@@ -1,15 +1,13 @@
 import './App.css';
-import Page from "./components/Page";
-import {BrowserRouter, Switch, Route, Link, useHistory} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import React, {useEffect, useState} from 'react'
 import LogDay from "./components/pages/LogDay";
 import EditQuestions from "./components/pages/EditQuestions";
 import ViewData from "./components/pages/ViewData";
 import ProfileForm from "./components/pages/ProfileForm";
 import moment from 'moment'
-import {getCurrentUser, getUserAPIMethod, logInUsersAPIMethod} from "./API/userApi";
+import {getCurrentUser,logInUsersAPIMethod} from "./API/userApi";
 import {getFormAPIMethod} from "./API/formApi";
-import Login from '../src/components/Login'
 import CreateNewAccount from "./components/CreateNewAccount";
 
 function App() {
@@ -22,27 +20,23 @@ function App() {
     const [registerForm, setRegisterForm] = useState(false)
     const [email,setEmail] = useState('')
     const [pass,setPass] = useState('')
-    const history = useHistory();
 
     useEffect(()=>{
         getFormAPIMethod()
             .then((res)=>{
-               // console.log("useEffect FORM ", res)
                 setQuestions(res)
             })
     },[user])
-
     useEffect(() => {
-        if(user != null){
-            console.log(user)
-            setLoginSuccess(true)
-        }else{
+        if(user === {} || user === null){
             setLoginSuccess(false)
+        }else{
+            setLoginSuccess(true)
         }
     }, [user])
     useEffect(() => {
         if(getCurrentUser()
-        .then((obj)=> obj != null)){
+        .then((obj)=> obj !== null && obj !== {})){
             getCurrentUser()
         .then((obj)=> setUser(obj))
         }
@@ -54,9 +48,6 @@ function App() {
     const handleClose=()=>{
         setRegisterForm(false)
     }
-    const handleErrorMsg=(str)=>{
-
-    }
     const handleLogin=(e)=>{
         e.preventDefault()
         console.log(email,pass)
@@ -66,6 +57,8 @@ function App() {
                 if(res._id != null){
                     setLoginSuccess(true)
                     setUser(res)
+                }else{
+                    setLoginSuccess(false)
                 }
             })
         .catch(err => alert('Login Error'));
@@ -120,7 +113,7 @@ function App() {
                        </form>
                    </div>
                    <CreateNewAccount registerForm={registerForm} handleClose={handleClose}
-                                     handleErrorMsg={handleErrorMsg}/>`
+                                     setLoginSuccess={setLoginSuccess}/>`
                </React.Fragment>
                );
     }else {
@@ -180,6 +173,7 @@ function App() {
                         <Route exact path='/profile' component={() => <ProfileForm setLoginSuccess={setLoginSuccess}user={user} setUser={setUser}/>}/>
                     </Switch>
                 </BrowserRouter>
+
             </div>
 
         );

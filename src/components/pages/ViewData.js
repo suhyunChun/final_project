@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import LogDay from "./LogDay";
 import DataGraph from './DataGraph'
-import {getCurrentUser} from "../../API/userApi";
-import {getFormAPIMethod} from "../../API/formApi";
+
 
 function ViewData(props) {
     const [clicked, setClicked] = useState(true)
-    const [questions,setQuestion] = useState([])
 
     const handleClicked = (e)=>{
         setClicked(e)

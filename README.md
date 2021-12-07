@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# Day Logger App - Frontend 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##**Unit Testing**
+
+`./sample/test/CheckInclude -> checking certain value included or not`
+
+`./sample//test/GroupByKey -> find value of certain key in object array `
+
 
 ## Available Scripts
 

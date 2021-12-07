@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
-import {createFormAPIMethod, deleteFormByIdAPIMethod, getFormAPIMethod, updateFormAPIMethod} from "../../API/formApi";
+import {createFormAPIMethod, deleteFormByIdAPIMethod, updateFormAPIMethod} from "../../API/formApi";
 
 function EditQuestions(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
@@ -39,12 +39,17 @@ function EditQuestions(props) {
     const handleSubmit=(e)=>{
         e.preventDefault()
         let chk = true;
+        let chkQ = true;
         for(let i = 0; i < questionList.length;i++){
-            if(questionList[i].text === ''){
+            let chkArray = questionList.filter((item)=> item.text === questionList[i].text)
+            if(questionList[i].text === '' || chkArray.length !==1){
                 chk = false
             }
+            if( chkArray.length !==1){
+                chkQ = false
+            }
         }
-        if(chk) {
+        if(chk && chkQ) {
             for (let i = 0; i < added.length; i++) {
                 let tmp = questionList.filter((item) => item._id === added[i])[0]
                 createFormAPIMethod(tmp)
@@ -56,7 +61,7 @@ function EditQuestions(props) {
                     .catch((err) => console.log(err))
             }
             for (let i = 0; i < deleted.length; i++) {
-                console.log(deleted)
+               // console.log(deleted)
                 deleteFormByIdAPIMethod(deleted[i])
                     .then((res) => {
                         setQuestionList(props.questions.filter((item)=>item._id !== deleted[i]))
@@ -65,10 +70,12 @@ function EditQuestions(props) {
                     .catch((err) => console.dir(err))
             }
             for (let i = 0; i < edited.length; i++) {
+                //console.log(questionList)
                 let tmp = questionList.filter((item) => item._id === edited[i])[0]
+                //console.log(questionList.filter((item) => item._id === edited[i]),edited[i])
                 updateFormAPIMethod(tmp)
                     .then((res) => {
-                        console.dir(res)
+                        //console.dir(res)
                         //props.setQuestions(questionList)
                     })
                     .catch((err) => console.dir(err))
@@ -77,8 +84,12 @@ function EditQuestions(props) {
             setAdded([])
             setEdited([])
             props.setQuestions(questionList)
-        }else{
-            alert('Error ValidationError: text: `text` is required')
+        }else {
+            if(!chkQ){
+                alert('Not allow having 2 same questions')
+            } else if(!chk) {
+                alert('Error ValidationError: text: `text` is required')
+            }
         }
     }
     const handleAddition=()=>{
@@ -110,7 +121,6 @@ function EditQuestions(props) {
                 </div>
                 {questionList.map(item => (
                     <div className='edit-question' id = {item._id} key={item._id}>
-                        <button onClick ={()=>console.log(item)}>testing</button>
                         <label htmlFor = 'edit-text'/>
                         <input className = 'edit-text' name = {item._id} value ={item.text} onChange={onChangeInput}/>
                         <div className = 'edit-type'>

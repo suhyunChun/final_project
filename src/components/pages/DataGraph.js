@@ -49,13 +49,13 @@ function DataGraph(props) {
                     // console.log("NOE")
                     continue;
                 } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === a) {
-                    console.log(a)
+                   // console.log(a)
                     f += 1
                 } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === b) {
-                    console.log(b)
+                    //console.log(b)
                     s += 1
                 } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === c) {
-                    console.log(c)
+                    //console.log(c)
                     t += 1
                 }
             }

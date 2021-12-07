@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {useHistory} from 'react-router-dom'
+import React, { useState} from "react";
+
 import {
-    getCurrentUser,
     logOutUsersAPIMethod,
     updateUserAPIMethod,
     uploadImageToCloudinaryAPIMethod
@@ -10,12 +9,9 @@ import {
 
 function ProfileForm(props){
     const [user, setUser] = useState({...props.user})
-    const history = useHistory()
+
     let formData;
-  /*  useEffect(()=>{
-        getCurrentUser()
-            .then((obj)=>{setUser(obj)})
-    },[])*/
+    console.log(user)
 
     const onChangeInput = (event) => {
         const target = event.target;

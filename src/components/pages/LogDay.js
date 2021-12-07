@@ -1,9 +1,8 @@
-import React,{useState,useEffect} from "react";
+import React,{useState} from "react";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import moment from 'moment'
-import {getCurrentUser} from "../../API/userApi";
-import {getFormAPIMethod, updateFormAPIMethod} from "../../API/formApi";
+import { updateFormAPIMethod} from "../../API/formApi";
 
 function LogDay(props) {
     const [questionList, setQuestionList] = useState([...props.questions])
@@ -29,9 +28,9 @@ function LogDay(props) {
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        console.log(questionList,edited)
+        //console.log(questionList,edited)
         for(let i = 0; i < edited.length;i++){
-            console.log(questionList.filter((item)=>item._id === edited[i])[0])
+           // console.log(questionList.filter((item)=>item._id === edited[i])[0])
             updateFormAPIMethod(questionList.filter((item)=>item._id === edited[i])[0])
                 .then((res)=>{
                     console.dir(res)
