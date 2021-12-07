@@ -1,149 +1,101 @@
-import React, {useEffect, useState} from "react";
-import { v4 as uuidv4 } from 'uuid';
-import {createFormAPIMethod, deleteFormByIdAPIMethod, getFormAPIMethod, updateFormAPIMethod} from "../../API/formApi";
+import React from "react";
 
-function EditQuestions(props) {
-    const [questionList, setQuestionList] = useState([...props.questions])
-    const [added, setAdded] = useState([])
-    const [deleted, setDeleted] = useState([])
-    const [edited, setEdited] = useState([])
+import TextTypeGraph from '../graph/TextTypeGraph'
+import NumTypeGraph from "../graph/NumTypeGraph";
+import BoolTypeGraph from "../graph/BoolTypeGraph";
+import MultipleTypeGraph from "../graph/MultipleTypeGraph";
+import moment from "moment";
 
-    const onChangeInput = (event) => {
-        let updatedQ = [...questionList]
-        let tmp={}
-        const selectedId = event.target.name
-        for (let i = 0; i < updatedQ.length; i++){
-            if(updatedQ[i]._id === selectedId){
-                tmp = {...updatedQ[i]}
-                if(event.target === null || event.target === undefined){
-                    continue;
-                }else if(event.target.className === 'edit-text'){
-                    tmp.text = event.target.value
-                }else if(event.target.className === 'edit-type'){
-                    if(event.target.value === 'radio'){
-                        tmp.multiple={first:'', second:'', third:''}
-                    }
-                    tmp.type = event.target.value
-                }else{
-                    const name = event.target.className
-                    tmp.multiple= {...tmp.multiple,[name] : event.target.value}
+function DataGraph(props) {
+    const data =[...props.questions]
+
+    const formatData=(data)=>{
+        for(let i = 0; i < data.length;i++){
+            let tmp = (data[i].answer).sort((a,b)=>moment(a.date)-moment(b.date))
+            data[i].answer = [...tmp]
+        }
+        return data
+    }
+    const formatBoolean=(data)=>{
+        let tNum = 0;
+        let fNum = 0;
+        if(data !== undefined) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].response === 'true') {
+                    tNum += 1;
+                } else if (data[i].response === 'false') {
+                    fNum += 1;
                 }
-                updatedQ[i] = tmp
             }
         }
-        if(!edited.includes(selectedId) && !added.includes(selectedId)){
-            setEdited(edited.concat([selectedId]))
-        }
-        setQuestionList(updatedQ)
-    }
-    const handleSubmit=(e)=>{
-        e.preventDefault()
-        let chk = true;
-        for(let i = 0; i < questionList.length;i++){
-            if(questionList[i].text === ''){
-                chk = false
-            }
-        }
-        if(chk) {
-            for (let i = 0; i < added.length; i++) {
-                let tmp = questionList.filter((item) => item._id === added[i])[0]
-                createFormAPIMethod(tmp)
-                    .then((res) =>{
-                        let tmpIdx = questionList.indexOf(tmp)
-                        questionList[tmpIdx]._id = res._id
-                        props.setQuestions(questionList)
-                    })
-                    .catch((err) => console.log(err))
-            }
-            for (let i = 0; i < deleted.length; i++) {
-                console.log(deleted)
-                deleteFormByIdAPIMethod(deleted[i])
-                    .then((res) => {
-                        setQuestionList(props.questions.filter((item)=>item._id !== deleted[i]))
-                        props.setQuestions(questionList)
-                    })
-                    .catch((err) => console.dir(err))
-            }
-            for (let i = 0; i < edited.length; i++) {
-                let tmp = questionList.filter((item) => item._id === edited[i])[0]
-                updateFormAPIMethod(tmp)
-                    .then((res) => {
-                        console.dir(res)
-                        props.setQuestions(questionList)
-                    })
-                    .catch((err) => console.dir(err))
-            }
-            setDeleted([])
-            setAdded([])
-            setEdited([])
-        }else{
-            alert('Error ValidationError: text: `text` is required')
-        }
-    }
-    const handleAddition=()=>{
-        let updatedQ = [...questionList]
-        const newId = uuidv4();
-        updatedQ = updatedQ.concat({_id: newId, text:'', type:'number',answer:[]})
-        setAdded(added.concat([newId]))
-        setQuestionList(updatedQ)
+        return [{t : 'true', value:tNum},{t: 'false', value:fNum}]
     }
 
-    const handleDeletion=(id)=>{
-        let updatedQ = [...questionList]
-        updatedQ = updatedQ.filter((item)=> item._id !== id)
-        if(!added.includes(id)) {
-            setDeleted(deleted.concat([id]))
-        }else{
-            setAdded(added.filter((o)=>o !== id))
+    const formatMultiple = (data)=>{
+        let f  = 0;
+        let s = 0;
+        let t = 0;
+        let a = '';
+        let b = '';
+        let c = '';
+        if(data.multiple) {
+
+            a = Object.values(data.multiple)[0].toLowerCase()
+            b = Object.values(data.multiple)[1].toLowerCase()
+            c = Object.values(data.multiple)[2].toLowerCase()
+            for (let i = 0; i < data.answer.length; i++) {
+                // console.log(Object.values(data.multiple),data.answer[i])
+                if (data.answer === undefined && data.answer[i].response === undefined) {
+                    // console.log("NOE")
+                    continue;
+                } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === a) {
+                    console.log(a)
+                    f += 1
+                } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === b) {
+                    console.log(b)
+                    s += 1
+                } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === c) {
+                    console.log(c)
+                    t += 1
+                }
+            }
         }
-        setQuestionList(updatedQ)
+        console.log({t:a,v:f},{t:b, v:s},{t:c, v:t})
+        return [{t:a,v:f},{t:b, v:s},{t:c, v:t}]
     }
 
-    console.log(questionList)
     return(
         <React.Fragment>
-            <div id="edit">
-                <div className = 'edit-title'>
-                    <h2> Edit Questions</h2>
-                    <span className="material-icons" onClick={handleAddition}>add_circle_outline</span>
+            {formatData(data).map((item)=>(
+                <div key = {item._id} className = 'graph'>
+                    <h3 style={{color:'#075a7a'}}>{item.text}</h3>
+                    {(()=>{
+                        switch(item.type){
+                            case 'text':
+                                return(
+                                    <TextTypeGraph data={data} textData={item.answer}/>
+                                )
+                            case 'number':
+                                return(
+                                    <NumTypeGraph data={data} numData={item.answer}/>
+                                )
+                            case 'boolean':
+                                return(
+                                    <BoolTypeGraph data={data} boolData={formatBoolean(item.answer)}/>
+                                )
+                            case 'radio':
+                                return(
+                                    <MultipleTypeGraph data={data} radioData={formatMultiple(item)}/>
+                                )
+                            default:
+                                return(<div>nothing</div>)
+                        }
+                    })()}
+
                 </div>
-                {questionList.map(item => (
-                    <div className='edit-question' id = {item._id} key={item._id}>
-                        <button onClick ={()=>console.log(item)}>testing</button>
-                        <label htmlFor = 'edit-text'/>
-                        <input className = 'edit-text' name = {item._id} value ={item.text} onChange={onChangeInput}/>
-                        <div className = 'edit-type'>
-                            <select className = 'edit-type' name = {item._id} value = {item.type} onChange={onChangeInput}>
-                                <option value = 'number'>number</option>
-                                <option value = 'boolean'>boolean</option>
-                                <option value = 'text'>text</option>
-                                <option value = 'radio'>multiple choice</option>
-                            </select>
-                            <span  className="material-icons" onClick = {()=>handleDeletion(item._id)} >delete_outline</span>
-                        </div>
-                        {item.type === 'radio'?
-                            <div className ='mult-opt'>
-                                <div className = 'opt'>
-                                    <input name = 'mult-opt' type = 'radio' id ='first-opt' value = 'first' disabled/>
-                                    <input name = {item._id} value = {item.multiple? item.multiple.first : ''} className = 'first' onChange={onChangeInput}/>
-                                </div>
-                                <div className = 'opt'>
-                                    <input name = 'mult-opt' type = 'radio' id = 'second-opt' value = 'second' disabled/>
-                                    <input name = {item._id} value = {item.multiple? item.multiple.second : ''} className = 'second' onChange={onChangeInput}/>
-                                </div>
-                                <div className = 'opt'>
-                                    <input name = 'mult-opt' type = 'radio' id = 'third-opt' value = 'third' disabled/>
-                                    <input name = {item._id} value = {item.multiple? item.multiple.third : ''} className = 'third' onChange={onChangeInput}/>
-                                </div>
-                            </div>
-                            : ''}
-                    </div>
-                ))}
-                <div className='save-div'>
-                    <button onClick={handleSubmit} className='save'> Save </button>
-                </div>
-            </div>
+            ))}
         </React.Fragment>
     );
 }
-export default EditQuestions
+
+export default DataGraph
