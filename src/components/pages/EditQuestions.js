@@ -8,14 +8,14 @@ function EditQuestions(props) {
     const [deleted, setDeleted] = useState([])
     const [edited, setEdited] = useState([])
 
-    const onChangeInput = (event) => {
+    const onChangeInput = (event,id) => {
         let updatedQ = [...questionList]
         let tmp={}
-        const selectedId = event.target.name
+        const selectedId = id
         for (let i = 0; i < updatedQ.length; i++){
             if(updatedQ[i]._id === selectedId){
                 tmp = {...updatedQ[i]}
-                if(event.target === null || event.target === undefined){
+                if(id=== null || id === undefined){
                     continue;
                 }else if(event.target.className === 'edit-text'){
                     tmp.text = event.target.value
@@ -31,12 +31,13 @@ function EditQuestions(props) {
                 updatedQ[i] = tmp
             }
         }
-        if(!edited.includes(selectedId) && !added.includes(selectedId)){
+        if(!edited.includes(selectedId) && selectedId.length <25){
             setEdited(edited.concat([selectedId]))
         }
         setQuestionList(updatedQ)
     }
     const handleSubmit=(e)=>{
+        console.log(added,deleted,edited)
         e.preventDefault()
         let chk = true;
         let chkQ = true;
@@ -52,33 +53,40 @@ function EditQuestions(props) {
         if(chk && chkQ) {
             for (let i = 0; i < added.length; i++) {
                 let tmp = questionList.filter((item) => item._id === added[i])[0]
-                createFormAPIMethod(tmp)
-                    .then((res) =>{
-                        let tmpIdx = questionList.indexOf(tmp)
-                        questionList[tmpIdx]._id = res._id
-                        //props.setQuestions(questionList)
-                    })
-                    .catch((err) => console.log(err))
+                if(tmp !== undefined) {
+                    createFormAPIMethod(tmp)
+                        .then((res) => {
+                            let tmpIdx = questionList.indexOf(tmp)
+                            questionList[tmpIdx]._id = res._id
+                            //props.setQuestions(questionList)
+                        })
+                        .catch((err) => console.log(err))
+                }
             }
             for (let i = 0; i < deleted.length; i++) {
                // console.log(deleted)
-                deleteFormByIdAPIMethod(deleted[i])
-                    .then((res) => {
-                        setQuestionList(props.questions.filter((item)=>item._id !== deleted[i]))
-                        //props.setQuestions(questionList)
-                    })
-                    .catch((err) => console.dir(err))
+                let tmp = questionList.filter((item) => item._id === deleted[i])[0]
+                if(tmp !== undefined) {
+                    deleteFormByIdAPIMethod(deleted[i])
+                        .then((res) => {
+                            setQuestionList(props.questions.filter((item) => item._id !== deleted[i]))
+                            //props.setQuestions(questionList)
+                        })
+                        .catch((err) => console.dir(err))
+                }
             }
             for (let i = 0; i < edited.length; i++) {
-                //console.log(questionList)
                 let tmp = questionList.filter((item) => item._id === edited[i])[0]
-                //console.log(questionList.filter((item) => item._id === edited[i]),edited[i])
-                updateFormAPIMethod(tmp)
-                    .then((res) => {
-                        //console.dir(res)
-                        //props.setQuestions(questionList)
-                    })
-                    .catch((err) => console.dir(err))
+                //console.log(tmp)
+                if(tmp !== undefined) {
+                    //console.log("EDIT", questionList, edited)
+                    updateFormAPIMethod(tmp)
+                        .then((res) => {
+                            //console.dir(res)
+                            //props.setQuestions(questionList)
+                        })
+                        .catch((err) => console.dir(err))
+                }
             }
             setDeleted([])
             setAdded([])
@@ -103,15 +111,19 @@ function EditQuestions(props) {
     const handleDeletion=(id)=>{
         let updatedQ = [...questionList]
         updatedQ = updatedQ.filter((item)=> item._id !== id)
-        if(!added.includes(id)) {
+        if(!added.includes(id) || !edited.includes(id)) {
             setDeleted(deleted.concat([id]))
         }else{
-            setAdded(added.filter((o)=>o !== id))
+            if(added.includes(id)) {
+                setAdded(added.filter((o) => o !== id))
+            }
+            if(edited.includes(id)){
+                setEdited(edited.filter((o)=>o!==id))
+            }
         }
         setQuestionList(updatedQ)
     }
 
-    console.log(questionList)
     return(
         <React.Fragment>
             <div id="edit">
@@ -122,7 +134,7 @@ function EditQuestions(props) {
                 {questionList.map(item => (
                     <div className='edit-question' id = {item._id} key={item._id}>
                         <label htmlFor = 'edit-text'/>
-                        <input className = 'edit-text' name = {item._id} value ={item.text} onChange={onChangeInput}/>
+                        <input className = 'edit-text' name = {item._id} value ={item.text} onChange={(event)=>onChangeInput(event,item._id)}/>
                         <div className = 'edit-type'>
                             <select className = 'edit-type' name = {item._id} value = {item.type} onChange={onChangeInput}>
                                 <option value = 'number'>number</option>
