@@ -8,9 +8,9 @@ function EditQuestions(props) {
     const [deleted, setDeleted] = useState([])
     const [edited, setEdited] = useState([])
 
-    useEffect(() => {
-       console.log(questionList)
-    }, [questionList])
+
+        
+
 
     const onChangeInput = (event) => {
         let updatedQ = [...questionList]
@@ -41,7 +41,7 @@ function EditQuestions(props) {
         setQuestionList(updatedQ)
     }
     const handleSubmit=(e)=>{
-        e.preventDefault()
+        // e.preventDefault()
         let chk = true;
         for(let i = 0; i < questionList.length;i++){
             if(questionList[i].text === ''){
@@ -54,10 +54,17 @@ function EditQuestions(props) {
                 //console.log(tmp)
                 createFormAPIMethod(tmp)
                     .then((res) =>{
-                        console.dir(res)
+                        // console.dir(res)
+                        // console.log(...props.questions)
                         props.setQuestions(props.questions.concat([res]))
                         // setQuestionList([...questionList, res])
-                    })
+                        // console.log(questionList)
+                        // console.log(added)
+                    }).then(getFormAPIMethod()
+                    .then((res)=>{
+                       // console.log("useEffect FORM ", res)
+                        props.setQuestions(res)
+                    }))
                     .catch((err) => console.log(err))
             }
             for (let i = 0; i < deleted.length; i++) {
@@ -65,7 +72,11 @@ function EditQuestions(props) {
                     .then((res) => {
                         console.dir(res)
                         props.setQuestions(props.questions.filter((item)=>item._id !== deleted[i]))
-                    })
+                    }).then(getFormAPIMethod()
+                    .then((res)=>{
+                       // console.log("useEffect FORM ", res)
+                        props.setQuestions(res)
+                    }))
                     .catch((err) => console.dir(err))
             }
             for (let i = 0; i < edited.length; i++) {
@@ -80,7 +91,8 @@ function EditQuestions(props) {
             setDeleted([])
             setAdded([])
             setEdited([])
-           // props.setQuestions(questionList)
+        //    props.setQuestions(questionList)
+        
         }else{
             alert('Error ValidationError: text: `text` is required')
         }
@@ -91,6 +103,7 @@ function EditQuestions(props) {
         updatedQ = updatedQ.concat({_id: newId, text:'', type:'number',answer:[]})
         setAdded(added.concat([newId]))
         setQuestionList(updatedQ)
+       
     }
 
     const handleDeletion=(e)=>{
