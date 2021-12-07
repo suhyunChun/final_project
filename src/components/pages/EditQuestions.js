@@ -11,11 +11,11 @@ function EditQuestions(props) {
     const onChangeInput = (event,id) => {
         let updatedQ = [...questionList]
         let tmp={}
-        const selectedId = id
+        const selectedId = event.target.name
         for (let i = 0; i < updatedQ.length; i++){
             if(updatedQ[i]._id === selectedId){
                 tmp = {...updatedQ[i]}
-                if(id=== null || id === undefined){
+                if(event.target === null || event.target === undefined){
                     continue;
                 }else if(event.target.className === 'edit-text'){
                     tmp.text = event.target.value
@@ -31,7 +31,7 @@ function EditQuestions(props) {
                 updatedQ[i] = tmp
             }
         }
-        if(!edited.includes(selectedId) && selectedId.length <25){
+        if(!edited.includes(selectedId) && !added.includes(selectedId)){
             setEdited(edited.concat([selectedId]))
         }
         setQuestionList(updatedQ)
