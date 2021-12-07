@@ -65,15 +65,14 @@ function EditQuestions(props) {
             }
             for (let i = 0; i < deleted.length; i++) {
                // console.log(deleted)
-                let tmp = questionList.filter((item) => item._id === deleted[i])[0]
-                if(tmp !== undefined) {
+
                     deleteFormByIdAPIMethod(deleted[i])
                         .then((res) => {
                             setQuestionList(props.questions.filter((item) => item._id !== deleted[i]))
                             //props.setQuestions(questionList)
                         })
                         .catch((err) => console.dir(err))
-                }
+
             }
             for (let i = 0; i < edited.length; i++) {
                 let tmp = questionList.filter((item) => item._id === edited[i])[0]
@@ -111,7 +110,7 @@ function EditQuestions(props) {
     const handleDeletion=(id)=>{
         let updatedQ = [...questionList]
         updatedQ = updatedQ.filter((item)=> item._id !== id)
-        if(!added.includes(id) || !edited.includes(id)) {
+        if(!added.includes(id) && !edited.includes(id)) {
             setDeleted(deleted.concat([id]))
         }else{
             if(added.includes(id)) {
