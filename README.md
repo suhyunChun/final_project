@@ -19,7 +19,7 @@ If there is no issue in their email && password format, they are successfully ma
 If password does not match, it shows 'login error' message which means user type invalid email/password
 
 ##Deployment (Netlify)
-`https://festive-jones-db734b.netlify.app/profile`
+`https://festive-jones-db734b.netlify.app/`
 
 ##Deployment (Heroku)
 `https://cse316-final-project.herokuapp.com`
