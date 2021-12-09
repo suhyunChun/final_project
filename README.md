@@ -8,24 +8,28 @@
 
 run `yarn test` on terminal.
 
+## Setting 
+
+run `npm install`before run project
+
 ## When create new account (signup)
 
 User can make their own account by clicking create new account.
 If there is no issue in their email && password format, they are successfully make their account and back to login page.
 
 
-##Login 
+## Login 
 
 If password does not match, it shows 'login error' message which means user type invalid email/password
 
-##Deployment (Netlify)
+## Deployment (Netlify)
 `https://festive-jones-db734b.netlify.app/`
 
-##Deployment (Heroku)
+## Deployment (Heroku)
 `https://cse316-final-project.herokuapp.com`
  
  
 
-##Sample User
-###email: `test@gmail.com`
-###password: `Password1`
+## Sample User
+#### email: `test@gmail.com`
+#### password: `Password1`
