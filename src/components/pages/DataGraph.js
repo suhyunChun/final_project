@@ -39,14 +39,12 @@ function DataGraph(props) {
         let b = '';
         let c = '';
         if(data.multiple) {
-
             a = Object.values(data.multiple)[0].toLowerCase()
             b = Object.values(data.multiple)[1].toLowerCase()
             c = Object.values(data.multiple)[2].toLowerCase()
             for (let i = 0; i < data.answer.length; i++) {
-                // console.log(Object.values(data.multiple),data.answer[i])
-                if (data.answer === undefined && data.answer[i].response === undefined) {
-                    // console.log("NOE")
+                console.log(Object.values(data.multiple),data.answer[i].response)
+                if (data.answer === undefined || data.answer[i].response === undefined) {
                     continue;
                 } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === a) {
                    // console.log(a)
