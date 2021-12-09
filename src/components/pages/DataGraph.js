@@ -45,7 +45,7 @@ function DataGraph(props) {
             c = Object.values(data.multiple)[2].toLowerCase()
             for (let i = 0; i < data.answer.length; i++) {
                 // console.log(Object.values(data.multiple),data.answer[i])
-                if (data.answer === undefined && data.answer[i].response === undefined) {
+                if (data.answer === undefined || data.answer[i].response === undefined) {
                     // console.log("NOE")
                     continue;
                 } else if (Object.values(data.multiple)[parseInt(data.answer[i].response)].toLowerCase() === a) {
