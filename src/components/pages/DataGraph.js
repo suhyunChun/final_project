@@ -38,6 +38,7 @@ function DataGraph(props) {
         let a = '';
         let b = '';
         let c = '';
+
         if(data.multiple) {
             a = Object.values(data.multiple)[0].toLowerCase()
             b = Object.values(data.multiple)[1].toLowerCase()
